@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.Localization/README_en.md) | [Deutsch](../de/Ducky.Localization/README_de.md) | [Français](../fr/Ducky.Localization/README_fr.md) | [Español](../es-ES/Ducky.Localization/README_es.md) | [日本語](../ja/Ducky.Localization/README_ja.md) | [한국어](../ko/Ducky.Localization/README_ko.md) | [Português](../pt-PT/Ducky.Localization/README_pt.md) | [Русский](../ru/Ducky.Localization/README_ru.md) | [繁體中文](../zh-TW/Ducky.Localization/README_zh.md) |
+\| [Китайский упрощенный] (README.md) | [Английский] (../en/Ducky.Localization/README_en.md) | [Дойч] (../de/Ducky.Localization/README_de.md) | [Франсе] (../fr/Ducky.Localization/README_fr.md) | [Эспаньол] (../es-ES/Ducky.Localization/README_es.md) | [Японский] (../ja/Ducky.Localization/README_ja.md) | [한국어] (../ko/Ducky.Localization/README_ko.md) | [Португес] (../pt-PT/Ducky.Localization/README_pt.md) | [Русский] (../ru/Ducky.Localization/README_ru.md) | [Традиционный китайский] (../zh-TW/Ducky.Localization/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
