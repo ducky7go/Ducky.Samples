@@ -24,7 +24,7 @@
 👉 **[查看环境准备文档](docs/Prequirement.md)**
 
 主要要求：
-- .NET SDK 10.xmarkdown
+- .NET SDK 10.x
 - 全局工具：`dotnet-script`、`dotnet-ilrepack`
 - 支持的操作系统：Windows / Linux / macOS
 
