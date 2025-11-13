@@ -2,4 +2,5 @@ files:
   - source: '*.md'
     ignore:
       - assets/**/*.md
+      - AGENTS.md
     translation: '%original_path%/%file_name%_%two_letters_code%.md'
