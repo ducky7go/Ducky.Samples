@@ -1,67 +1,67 @@
-# Ducky.EntranceMod 示例 Mod
+# Ducky.EntranceMod 샘플 모드
 
-简要说明
+간략한 설명
 
-本示例展示如何使用多层架构模式开发 Mod，将共享代码分离到独立的库项目中，实现代码复用和模块化设计。适合大型 Mod 或需要在多个 Mod 之间共享代码的场景。
+이 예제는 코드 재사용 및 모듈식 설계를 위해 공유 코드를 별도의 라이브러리 프로젝트로 분리하는 다중 계층 아키텍처 패턴을 사용하여 모드를 개발하는 방법을 보여줍니다.대규모 모드나 여러 모드 간에 코드를 공유해야 하는 시나리오에 적합합니다.
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+시작하기 전에 사전 프로덕션 환경 요구 사항이 준비되었는지 확인합니다. [환경 준비](../docs/Prequirement.md)
 
-## 1. 项目简介
+## 1. 프로젝트 소개
 
-本示例由两个项目组成：
+이 예제는 두 항목으로 구성됩니다：
 
-- **主 Mod 项目** [`Ducky.EntranceMod/`](Ducky.EntranceMod/) - Mod 入口，包含资源文件
-- **公共库项目** [`Ducky.EntranceMod.Common/`](Ducky.EntranceMod.Common/) - 共享代码库
+- **메인 모드 프로젝트** ['Ducky.EntranceMod/'](Ducky.EntranceMod/) - 리소스 파일이 포함된 모드 입구
+- **공공도서관 프로젝트** ['Ducky.EntranceMod.Common/'](Ducky.EntranceMod.Common/) - 공유 코드베이스
 
-这种架构模式适用于：
+이 아키텍처 패턴은 다음과 같이 적용됩니다.：
 
-- 大型 Mod 需要分层管理
-- 多个 Mod 共享通用逻辑
-- 团队协作开发
-- 需要独立测试业务逻辑
+- 대규모 모드에는 계층적 관리가 필요합니다.
+- 여러 모드가 공통 로직을 공유합니다.
+- 팀으로서의 공동 개발
+- 비즈니스 로직은 독립적으로 테스트해야 합니다.
 
-## 2. 项目结构
+## 2. 프로젝트 구조
 
 ```
-Ducky.EntranceMod/                    # 主 Mod 项目
-├── Ducky.EntranceMod.csproj         # 项目配置
-├── ModBehaviour.cs                   # Mod 入口类
+Ducky.EntranceMod/ # 메인 모드 프로젝트
+├── Ducky.EntranceMod.csproj # 프로젝트 구성
+├── ModBehaviour.cs # 모드 입학 클래스
 ├── README.md
-└── assets/                           # 资源文件目录
+└── assets/ # 리소스 파일 디렉토리
     ├── info.ini
     ├── description.md
     ├── lkeys.json
     ├── keys.hash.txt
-    └── Locales/
+    └── 로케일/
         ├── zh.csv
         └── en.csv
 
-Ducky.EntranceMod.Common/             # 公共库项目
-├── Ducky.EntranceMod.Common.csproj  # 库项目配置
-├── LK.cs                             # 共享本地化键
-└── MyModBase.cs                      # 共享基类
+Ducky.EntranceMod.Common/ # 공공도서관 프로젝트
+├── Ducky.EntranceMod.Common.csproj # 라이브러리 프로젝트 구성
+├── LK.cs # 현지화 키 공유
+└── MyModBase.cs # 공유 베이스 클래스
 ```
 
-## 3. 主 Mod 项目配置
+## 3. 메인 모드 프로젝트 구성
 
-[`Ducky.EntranceMod/Ducky.EntranceMod.csproj`](Ducky.EntranceMod/Ducky.EntranceMod.csproj:1) 的关键配置：
+['Ducky.EntranceMod/Ducky.EntranceMod.csproj'] (Ducky.EntranceMod/Ducky.EntranceMod.csproj:1) 키 구성：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>넷스탠다드2.1</TargetFramework>
+    <Nullable>사용</Nullable>
+    <LangVersion>미리 보기</LangVersion>
+    <ImplicitUsings>참</ImplicitUsings>
     <ModName>Ducky.EntranceMod</ModName>
     <!-- 关键：排除 SDK 库，避免重复打包 -->
-    <ExcludeSdkLib>true</ExcludeSdkLib>
+    <ExcludeSdkLib>참</ExcludeSdkLib>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>모두</PrivateAssets>
+      <IncludeAssets>런타임; 체격; 원주민; content파일; 분석기; 빌드전이적</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
@@ -72,208 +72,208 @@ Ducky.EntranceMod.Common/             # 公共库项目
 </Project>
 ```
 
-**核心配置说明：**
+**핵심 구성 설명：**
 
-- `<ExcludeSdkLib>true</ExcludeSdkLib>` - 避免将 SDK 库重复打包到输出目录
+- \`<ExcludeSdkLib>참</ExcludeSdkLib>- SDK 라이브러리를 출력 디렉터리에 중복 패키징하지 않도록 합니다.
 
-## 4. 公共库项目配置
+## 4. 공용 라이브러리 프로젝트 구성
 
-[`Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj`](Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj:1) 的关键配置：
+['Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj'] (Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj:1) 키 구성：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>넷스탠다드2.1</TargetFramework>
+    <Nullable>사용</Nullable>
+    <LangVersion>미리 보기</LangVersion>
+    <ImplicitUsings>참</ImplicitUsings>
     <!-- 关键：标记为 Mod 库 -->
-    <IsModLib>true</IsModLib>
+    <IsModLib>참</IsModLib>
     <!-- 关键：指向主 Mod 项目的 assets 目录 -->
     <AssetsDir>$(SolutionDir)Ducky.EntranceMod/assets</AssetsDir>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>모두</PrivateAssets>
+      <IncludeAssets>런타임; 체격; 원주민; content파일; 분석기; 빌드전이적</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 </Project>
 ```
 
-**核心配置说明：**
+**핵심 구성 설명：**
 
-- `<IsModLib>true</IsModLib>` - 标记此项目为 Mod 库，SDK 会特殊处理
-- `<AssetsDir>` - 指向主项目的 assets 目录，使本地化键能正确生成
+- \`<IsModLib>참</IsModLib>' - 이 항목을 모드 라이브러리로 표시하면 SDK가 특별히 처리합니다.
+- \`<AssetsDir>' - 현지화 키가 올바르게 생성되도록 기본 프로젝트의 자산 디렉터리를 가리킵니다.
 
-## 5. 共享代码示例
+## 5. 코드 예제 공유
 
-### 共享本地化键
+### 현지화 키 공유
 
-[`Ducky.EntranceMod.Common/LK.cs`](Ducky.EntranceMod.Common/LK.cs:1):
+['Ducky.EntranceMod.Common/LK.cs'] (Ducky.EntranceMod.Common/LK.cs:1):
 
 ```csharp
-namespace Ducky.EntranceMod.Common;
+네임스페이스 Ducky.EntranceMod.Common;
 
-public static class LK
+public 정적 클래스 LK
 {
     public static class UI
     {
-        public const string NiceWelcomeMessage = "ducky_entrancemod.common.ui.nicewelcomemessage";
+        공개 const 문자열 NiceWelcomeMessage = "ducky_entrancemod.common.ui.nicewelcomemessage";
     }
 }
 ```
 
-### 共享基类
+### 공유 기본 클래스
 
-[`Ducky.EntranceMod.Common/MyModBase.cs`](Ducky.EntranceMod.Common/MyModBase.cs:1):
+['Ducky.EntranceMod.Common/MyModBase.cs'] (Ducky.EntranceMod.Common/MyModBase.cs:1):
 
 ```csharp
-using Ducky.Sdk.ModBehaviours;
+Ducky.Sdk.ModBehaviours 사용;
 
-namespace Ducky.EntranceMod.Common;
+네임스페이스 Ducky.EntranceMod.Common;
 
-public abstract class MyModBase : ModBehaviourBase
+공개 추상 클래스 MyModBase : ModBehaviourBase
 {
-    // 可以在这里添加所有 Mod 共享的通用方法
-    protected virtual void LogModInfo(string message)
+    모든 모드 공유에 대한 보편적인 방법은 여기에 추가할 수 있습니다.
+    보호된 가상 무효 LogModInfo(문자열 메시지)
     {
-        Log.Info($"[{GetType().Name}] {message}");
+        Log.Info($"[{GetType(). 이름}] {message}");
     }
 }
 ```
 
-### 主 Mod 使用共享代码
+### 메인 모드는 공유 코드를 사용합니다.
 
-[`Ducky.EntranceMod/ModBehaviour.cs`](Ducky.EntranceMod/ModBehaviour.cs:1):
+['Ducky.EntranceMod/ModBehaviour.cs'] (Ducky.EntranceMod/ModBehaviour.cs:1):
 
 ```csharp
-using Ducky.Sdk.Logging;
-using Ducky.EntranceMod.Common;
+Ducky.Sdk.Logging 사용;
+Ducky.EntranceMod.Common 사용;
 
-namespace Ducky.EntranceMod;
+네임스페이스 Ducky.EntranceMod;
 
-// 继承共享基类
-public class ModBehaviour : MyModBase
+상속 공유 기본 클래스
+공개 클래스 ModBehaviour : MyModBase
 {
-    protected override void ModEnabled()
+    protected 재정의 void ModEnabled()
     {
-        Log.Info("Mod Enabled");
-        // 使用共享的本地化键
-        var message = LK.UI.NiceWelcomeMessage;
-        LogModInfo($"Welcome message key: {message}");
+        Log.Info("모드 활성화됨");
+        공유 현지화 키 사용
+        var message = LK. UI. NiceWelcomeMessage입니다.
+        LogModInfo($"환영 메시지 키: {message}");
     }
 
-    protected override void ModDisabled()
+    protected 재정의 void ModDisabled()
     {
-        Log.Info("Mod Disabled");
+        Log.Info("모드 비활성화됨");
     }
 }
 ```
 
-## 6. 多层架构的优势
+## 6. 다층 아키텍처의 장점
 
-### ✅ 代码复用
+### ✅ 코드 재사용
 
-- 多个 Mod 可以共享 `Ducky.EntranceMod.Common` 库
-- 避免代码重复，提高维护性
+- 여러 모드가 'Ducky.EntranceMod.Common' 라이브러리를 공유할 수 있습니다.
+- 코드 중복 방지 및 유지 관리성 향상
 
-### ✅ 模块化设计
+### ✅ 모듈식 설계
 
-- 业务逻辑与 Mod 入口分离
-- 易于单元测试
-- 清晰的依赖关系
+- 비즈니스 로직은 모드 수신에서 분리됩니다.
+- 쉬운 단위 테스트
+- 종속성 지우기
 
-### ✅ 团队协作
+### ✅ 팀 협업
 
-- 不同开发者可以独立开发不同层
-- 减少代码冲突
-- 便于代码审查
+- 다른 개발자는 서로 다른 계층을 독립적으로 개발할 수 있습니다
+- 코드 충돌 감소
+- 간편한 코드 검토
 
-### ✅ 本地化共享
+### ✅ 현지화된 공유
 
-- 公共库可以定义共享的本地化键
-- 所有使用该库的 Mod 自动获得翻译支持
+- 공용 라이브러리는 공유 지역화 키를 정의할 수 있습니다.
+- 라이브러리를 사용하는 모든 모드는 자동으로 번역을 지원합니다.
 
-## 7. 构建流程
+## 7. 프로세스 구축
 
-SDK 会自动处理多项目依赖：
+SDK는 다중 프로젝트 종속성을 자동으로 처리합니다.：
 
 ```bash
-# 构建整个解决方案（推荐）
+# 전체 솔루션 구축(권장)
 dotnet build Docky.Sdk.Sample.slnx
 
-# 或单独构建主项目（会自动构建依赖的库项目）
-dotnet build Ducky.EntranceMod/
+# 또는 기본 프로젝트를 별도로 빌드합니다(종속 라이브러리 프로젝트를 자동으로 빌드함).
+dotnet 빌드 Ducky.EntranceMod/
 ```
 
-**构建产物：**
+제품 구축：\*\*
 
-- 主 Mod 程序集 + 公共库程序集会一起打包
-- 资源文件从主项目的 `assets/` 目录获取
-- SDK 库不会重复包含（因为设置了 `<ExcludeSdkLib>true</ExcludeSdkLib>`）
+- 메인 모드 어셈블리 + 공개 라이브러리 어셈블리가 함께 패키지됩니다.
+- 리소스 파일은 기본 프로젝트의 'assets/' 디렉토리에서 가져옵니다.
+- SDK 라이브러리는 반복적으로 포함되지 않습니다(<ExcludeSdkLib>참</ExcludeSdkLib>\`）
 
-## 8. 启用 Mod
+## 8. 모드 활성화
 
-构建成功后，Mod 会自动部署到游戏目录：
+일단 구축되면 모드는 자동으로 게임 카탈로그에 배포됩니다：
 
 ```
 <游戏目录>/Duckov_Data/StreamingAssets/Mods/Ducky.EntranceMod/
 ├── Ducky.EntranceMod.dll
 ├── Ducky.EntranceMod.Common.dll
-└── assets/
+└── 자산/
     ├── info.ini
     ├── lkeys.json
-    └── Locales/
+    └── 로케일/</游戏目录>
 ```
 
-在游戏的 Mod 管理界面启用该 Mod 即可。
+게임의 모드 관리 인터페이스에서 모드를 활성화하세요.
 
-## 9. 扩展建议
+## 9. 확장 권장 사항
 
-### 创建更多公共库
+### 더 많은 공용 라이브러리 만들기
 
-对于复杂项目，可以创建多个公共库：
+복잡한 프로젝트의 경우 여러 공용 라이브러리를 만들 수 있습니다：
 
 ```
-Ducky.EntranceMod/              # 主 Mod
-Ducky.EntranceMod.Common/       # 通用代码
-Ducky.EntranceMod.Gameplay/     # 游戏玩法逻辑
-Ducky.EntranceMod.UI/           # UI 相关
+Ducky.EntranceMod/ # 마스터 모드
+Ducky.EntranceMod.Common/ # 범용 코드
+Ducky.EntranceMod.Gameplay/ # 게임플레이 로직
+Ducky.EntranceMod.UI/ # UI 관련
 ```
 
-## 10. 常见问题
+## 10. 자주 묻는 질문
 
-### Q: 为什么要设置 `<ExcludeSdkLib>true</ExcludeSdkLib>`？
+### Q: '을 설정하는 이유<ExcludeSdkLib>참</ExcludeSdkLib>\`？
 
-A: 避免将 Ducky.Sdk 的库文件重复打包到 Mod 输出目录。SDK 库已经存在于游戏中，不需要再次包含。
+A: Ducky.Sdk의 라이브러리 파일을 모드 출력 디렉토리에 중복 패키징하지 마십시오.SDK 라이브러리는 이미 게임에 존재하므로 다시 포함할 필요가 없습니다.
 
-### Q: `<AssetsDir>` 必须设置吗？
+### Q: \`<AssetsDir>설정해야 합니까?
 
-A: 对于公共库项目，如果包含本地化键（LK.cs），则必须设置 `<AssetsDir>` 指向主项目的 assets 目录，这样 SDK 才能正确生成本地化元数据。
+A: 공용 도서관 프로젝트의 경우 현지화 키(LK.cs)를 포함하는 경우 '<AssetsDir>SDK가 지역화된 메타데이터를 제대로 생성할 수 있도록 기본 프로젝트의 자산 디렉터리를 가리킵니다.
 
-### Q: 可以有多个主 Mod 项目共享同一个公共库吗？
+### Q: 여러 메인 모드 프로젝트가 동일한 공개 라이브러리를 공유할 수 있나요?
 
-A: 可以！这正是多层架构的优势。多个 Mod 可以引用同一个公共库项目。
+A: 네!이것이 다계층 아키텍처의 장점입니다.여러 모드가 동일한 공개 라이브러리 프로젝트를 참조할 수 있습니다.
 
-### Q: 公共库的本地化键会生成到哪里？
+### Q: 공공 도서관의 현지화 키는 어디에서 생성됩니까?
 
-A: 会生成到 `<AssetsDir>` 指定的目录，即主项目的 `assets/` 目录下的 `lkeys.json` 文件中。
+A: '로 생성됩니다.<AssetsDir>' 지정된 디렉토리, 즉 메인 프로젝트의 'assets/' 디렉토리 아래에 있는 'lkeys.json' 파일입니다.
 
-## 11. 相关资源
+## 11. 관련 자료
 
-- [Ducky.SingleProject](../Ducky.SingleProject/README.md) - 单项目模式参考
-- [Ducky.Localization](../Ducky.Localization/README.md) - 本地化系统详解
-- [环境准备文档](../docs/Prequirement.md)
+- [Ducky.SingleProject] (../Ducky.SingleProject/README.md) - 단일 항목 모드 참조
+- [Ducky.현지화] (../Ducky.Localization/README.md- 현지화 시스템에 대한 자세한 설명
+- [환경 준비 문서] (../docs/Prequirement.md)
 
-## 12. 总结
+## 12. 요약
 
-多层架构模式适合：
+다층 아키텍처 패턴이 적합합니다.：
 
-- ✅ 大型 Mod 项目
-- ✅ 需要代码复用的场景
-- ✅ 团队协作开发
-- ✅ 系列 Mod 开发
+- ✅ 대규모 모드 프로젝트
+- ✅ 코드 재사용이 필요한 시나리오
+- ✅ 팀으로서의 공동 개발
+- ✅ 시리즈 모드 개발
 
-如果你的 Mod 相对简单，建议先使用 [Ducky.SingleProject](../Ducky.SingleProject/README.md) 单项目模式。
+모드가 비교적 간단하다면 [Ducky.SingleProject](../Ducky.SingleProject/README.md) 단일 프로젝트 모델.
