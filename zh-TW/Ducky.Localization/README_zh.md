@@ -1,54 +1,54 @@
 # Ducky.Localization 示例 Mod
 
-简要说明
+簡要說明
 
-本示例展示如何在独立 Mod 中定义与组织本地化键、以及如何将翻译放入 assets 供运行时使用。入口与键定义见 [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) 与 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1)。
+本示例展示如何在獨立Mod中定義與組織當地語系化鍵、以及如何將翻譯放入 assets 供運行時使用。入口與鍵定義見 ['Ducky.Localization/ModBehaviour.cs']（Ducky.Localization/ModBehaviour.cs:1） 與 ['Ducky.Localization/LK.cs']（Ducky.Localization/LK.cs:1)。
 
-开始之前
+開始之前
 
-请先阅读并准备开发环境：[`docs/Prequirement.md`](docs/Prequirement.md:1)。
+請先閱讀並準備開發環境：[`docs/Prequirement.md`](docs/Prequirement.md:1)。
 
-项目结构（要点）
+項目結構（要點）
 
-- [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) — Mod 入口，演示如何引用本地化字符串。
-- [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) — 静态本地化键定义（推荐在代码中维护）。
-- [`Ducky.Localization/assets/`](Ducky.Localization/assets/:1) — 存放翻译 CSV、文件型翻译和描述等资源。
+- [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1） — Mod 入口，演示如何引用本地化字串。
+- [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1） — 靜態本地化鍵定義（推薦在代碼中維護）。
+- [`Ducky.Localization/assets/`](Ducky.Localization/assets/:1） — 存放翻譯 CSV、檔案型翻譯和描述等資源。
 
-本地化键（LK.cs）
+當地語系化鍵（LK.cs）
 
-- 在 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 中使用静态常量组织键（例如：UI 分类）。
-- 可使用 `[TranslateFile("md")]` 标注将长文本作为文件型翻译（会生成 `assets/Locales/{lang}/` 中的文件）。
-- 如需声明支持语言，可使用 `[LanguageSupport("zh","en","zh-hant")]` 特性（若需要）。
+- 在 ['Ducky.Localization/LK.cs']（Ducky.Localization/LK.cs:1） 中使用靜態常量組織鍵（例如：UI 分類）。
+- 可使用 '[TranslateFile（“md”）]' 標註將長文本作為檔型翻譯（會生成 'assets/Locales/{lang}/' 中的檔案）。
+- 如需聲明支持語言，可使用 '[LanguageSupport（“zh”，“en”，“zh-hant”）]' 特性（若需要）。
 
-翻译文件与生成
+翻譯檔與生成
 
-- 翻译 CSV：`assets/Locales/{lang}.csv`，格式为 Key,Value。
-- 文件型翻译：放置在 `assets/Locales/{lang}/`，CSV 中值以文件名引用，例如：`"ducky.singleproject.ui.longdescription.md"`。
-- `assets/lkeys.json` 与 `assets/keys.hash.txt` 会在编译时由 SDK 的 MSBuild 生成，用于运行时定位与打包校验，请勿手动编辑。
+- 翻譯 CSV：\`assets/Locales/{lang}.csv『，格式為 Key，Value。
+- 檔型翻譯：放置在 'assets/Locales/{lang}/'，CSV 中值以檔名引用，例如：`"ducky.singleproject.ui.longdescription.md"`。
+- 'assets/lkeys.json' 與 'assets/keys.hash.txt' 會在編譯時由 SDK 的 MSBuild 生成，用於運行時定位與打包校驗，請勿手動編輯。
 
-推荐工作流
+推薦工作流
 
-- 在代码中新增或修改键（推荐）：编辑 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 并编译，SDK 会更新翻译元数据。
-- 或直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
+- 在代碼中新增或修改鍵（推薦）：編輯 ['Ducky.Localization/LK.cs']（Ducky.Localization/LK.cs:1） 並編譯，SDK 會更新翻譯元數據。
+- 或直接編輯 'assets/Locales/{lang}.csv』 並重新編譯以讓 SDK 整合變更。
 
-使用示例
+使用範例
 
 ```csharp
 using Ducky.Sdk.Localizations;
-var message = L.UI.NiceWelcomeMessage; // 在运行时解析为当前语言的翻译
+var message = L.UI. NiceWelcomeMessage; 在運行時解析為當前語言的翻譯
 ```
 
-构建与运行
+構建與運行
 
 ```bash
 dotnet build Ducky.Localization/
-# 或构建整个解决方案
+# 或構建整個解決方案
 dotnet build Docky.Sdk.Sample.slnx
 ```
 
-备注
+備註
 
-- 确保 `.csproj` 中设置好 `<ModName>` 与常规项目属性（参见其它示例项目）。
-- 长文本建议使用文件型翻译以便在源码仓库中更好维护。
+- 確保 '.csproj' 中設置好 '<ModName>' 與常規專案屬性（參見其它範例專案）。
+- 長文本建議使用檔型翻譯以便在源碼倉庫中更好維護。
 
 完成
