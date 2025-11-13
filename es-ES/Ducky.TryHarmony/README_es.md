@@ -1,52 +1,52 @@
-# Ducky.TryHarmony 示例 Mod
+# Mod de muestra Ducky.TryHarmony
 
-简要说明
+Breve descripción
 
-本示例演示使用 HarmonyLib 在运行时修补游戏代码的 Mod。示例包含一个简单的 Harmony 补丁（保存补丁），其效果是使存档操作始终失败（SaveFilePatch）。入口与补丁注册在 [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1) 中实现。
+En este ejemplo se muestra un mod que usa HarmonyLib para parchear el código del juego en tiempo de ejecución.El ejemplo contiene una revisión simple de Harmony (revisión de guardado) que tiene el efecto de hacer que la operación de guardado falle de forma coherente (SaveFilePatch).Registro de entrada y parche en ['Ducky.TryHarmony/ModBehaviour.cs'](Ducky.TryHarmony/ModBehaviour.cs:1).
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Antes de comenzar, asegúrese de que los requisitos del entorno de preproducción estén preparados: [Preparación del entorno](../docs/Prequirement.md)
 
-1. 项目简介
+1. Introducción al proyecto
 
-本目录（`Ducky.TryHarmony/`）演示 Harmony 补丁模式：通过在 ModEnabled 中调用 Harmony 的 PatchAll 来注册补丁，并在 ModDisabled 中取消补丁。关键实现见：
+Este directorio ('Ducky.TryHarmony/') muestra el modo de parche de Harmony：Registre el parche llamando a PatchAll de Harmony en ModEnabled y cancele el parche en ModDisabled.Nos vemos en realizaciones clave：
 
-- [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1)
-- [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)
-- 项目文件：[`Ducky.TryHarmony/Ducky.TryHarmony.csproj`](Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
+- ['Ducky.TryHarmony/ModBehaviour.cs'] (Ducky.TryHarmony/ModBehaviour.cs:1)
+- ['Ducky.TryHarmony/SaveFilePatch.cs'] (Ducky.TryHarmony/SaveFilePatch.cs:1)
+- Documentos del proyecto：['Ducky.TryHarmony/Ducky.TryHarmony.csproj'] (Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
 
-2. 在 csproj 中启用 Harmony
+2. Habilitar Harmony en csproj
 
-要使用 Harmony 补丁，请在 `Ducky.TryHarmony.csproj` 中启用 IncludeHarmony 属性。例如：
+Para usar el parche de Harmony, habilite la propiedad IncludeHarmony en 'Ducky.TryHarmony.csproj'.Por ejemplo：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>estándar de red2.1</TargetFramework>
+    <Nullable>habilitar</Nullable>
+    <LangVersion>Vista previa</LangVersion>
+    <ImplicitUsings>verdadero</ImplicitUsings>
     <ModName>Ducky.TryHarmony</ModName>
-    <IncludeHarmony>true</IncludeHarmony>
+    <IncludeHarmony>verdadero</IncludeHarmony>
   </PropertyGroup>
 </Project>
 ```
 
-3. SaveFilePatch 的行为说明
+3. Parche de SaveFileFilePatch
 
-`SaveFilePatch` 的主要功能是让存档（保存游戏）操作始终失败，便于演示补丁生效及错误处理流程。该补丁示例会拦截保存相关方法并返回失败（详见 [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)）。
+La función principal de 'SaveFilePatch' es hacer que la operación de guardado falle constantemente, lo que facilita la demostración del efecto del parche y el proceso de manejo de errores.Este ejemplo de parche intercepta el método relacionado con el guardado y devuelve un error (consulte ['Ducky.TryHarmony/SaveFilePatch.cs'](Ducky.TryHarmony/SaveFilePatch.cs:1)）。
 
-4. 运行与测试
+4. Funcionamiento y pruebas
 
-- 构建项目：
+- Construir el proyecto：
 
 ```bash
 dotnet build Ducky.TryHarmony/
 ```
 
-- 启用 Mod（将构建产物部署到游戏 Mod 目录并在游戏内启用）
-- 在游戏内尝试保存存档，预期结果是“存档失败”，表明补丁生效。
+- Habilitar mods (implementar compilaciones en el catálogo de mods del juego y habilitarlas en el juego)
+- Intentar guardar un guardado en el juego da como resultado un "guardado fallido", lo que indica que el parche está en vigor.
 
-5. 常见注意事项
+5. Consideraciones comunes
 
-- 确认 `IncludeHarmony` 已设置为 `true`，否则 Harmony 相关代码无法正常工作。
-- 调试补丁时可在 `ModBehaviour` 中添加日志（使用 `Ducky.Sdk.Logging.Log`）以验证 `PatchAll()`/`UnpatchAll()` 是否被调用。
+- Confirme que 'IncludeHarmony' está establecido en 'true', de lo contrario, el código relacionado con Harmony no funcionará.
+- Al depurar un parche, puede agregar un registro (mediante Ducky.Sdk.Logging.Log) a 'ModBehaviour' para verificar que se llama a 'PatchAll()'/'UnpatchAll()'.
