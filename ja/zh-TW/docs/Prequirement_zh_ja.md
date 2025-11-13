@@ -1,0 +1,72 @@
+<!-- LANG_HEADER_START -->
+
+\| [中国語(簡体字)](../../docs/Prequirement.md) | [日本語](../../en/docs/Prequirement_en.md) | [ドイツ語](../../de/docs/Prequirement_de.md) | [フランセ](../../fr/docs/Prequirement_fr.md) | [スペイン語](../../es-ES/docs/Prequirement_es.md) | [日本語](../../ja/docs/Prequirement_ja.md) | [한국어](../../ko/docs/Prequirement_ko.md) | [ポルトガル語](../../pt-PT/docs/Prequirement_pt.md) | [Русский](../../ru/docs/Prequirement_ru.md) | [繁体字中国語](Prequirement_zh.md) |
+
+<!-- LANG_HEADER_END -->
+
+# 開発環境の準備(.NET / Ducky.Sdkプロジェクト)
+
+このドキュメントでは、このリポジトリの .NET 開発環境をセットアップするために必要な最小要件と推奨構成について説明します。
+
+## 概要
+
+- ターゲット .NET SDK：.NET 10(SDK 10.x)
+- 必要なグローバルツール：
+  - C# ドキュメントを動的に実行するために使用：'dotnet-script'
+  - プログラムの収集やパッケージ化に使用：'dotnet-ilrepack'
+
+## システム要件
+
+- サポートされているオペレーティングシステム：Linux / macOS / Windows (.NET SDKをインストールするには、配布パッケージ管理または公式インストールスクリプトを使用してください)
+- 推奨されるディスク容量とメモリ：少なくとも 2 GB の空きディスクと 4 GB のメモリ
+
+## .NET SDK 10 をインストールする
+
+公式のインストール方法またはパッケージ マネージャーを使用して .NET 10 SDK をインストールする (例)：
+
+```bash
+# Linux (Microsoft スクリプトを使用)
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --チャンネル10.0
+```
+
+```bash
+# macOS (自作の例)
+brew install --cask dotnet-sdk # 次に、brew info を介して利用可能なバージョンを確認するか、dotnet-install スクリプトを使用します
+```
+
+```bash
+# Windows (PowerShell)
+iwr https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
+.\dotnet-install.ps1 -チャネル 10.0
+```
+
+インストール後、SDKのパスをPATHに追加するか、ターミナルでフルパスで実行します。インストールを確認する：
+
+```bash
+dotnet --info
+```
+
+出力には、10.0.x など、"10." で始まる SDK バージョンを含める必要があります。
+
+## グローバルツール(必須)
+
+- C# スクリプトを動的に実行する (REPL/文書化されたビルド/ウィジェット)
+
+```bash
+dotnet tool install -g dotnet-script
+```
+
+- プログラムのコレクションとパッケージ (単一のアセンブリの生成またはサードパーティの依存関係のマージに使用)
+
+```bash
+dotnet tool install -g dotnet-ilrepack
+```
+
+インストールが完了したら、ツールが利用可能であることを確認します：
+
+```bash
+dotnet-script --version
+ilrepack /?
+```
