@@ -1,19 +1,19 @@
-# Ducky.SingleProject 示例 Mod
+# Ducky.SingleProject sample mod
 
-简要说明
+Brief description
 
-本示例展示如何使用 Ducky.Sdk 创建单工程 Mod，包含项目初始化、SDK 引入、Mod 生命周期与打包流程。
+This example shows how to use Ducky.Sdk to create a single-project mod, including project initialization, SDK introduction, mod lifecycle, and packaging process.
 
-开始之前，请确保前置环境要求已经准备完毕: [环境准备](../docs/Prequirement.md)
+Before you begin, make sure that the pre-environment requirements are ready: [Environment Preparation](../docs/Prequirement.md)
 
-1. 项目简介
+1. Project Introduction
 
-本目录（`Ducky.SingleProject/`）演示单工程 Mod 模式：所有代码与资源放在同一项目内，入口类继承 `ModBehaviourBase`，相关实现请参见 [`Ducky.SingleProject/ModBehaviour.cs`](Ducky.SingleProject/ModBehaviour.cs:1)。
+This directory ('Ducky.SingleProject/') demonstrates the SingleProject Mod mode：All code and resources are placed in the same project, and the entry class inherits the 'ModBehaviourBase', see ['Ducky.SingleProject/ModBehaviour.cs'](Ducky.SingleProject/ModBehaviour.cs:1)。
 
-2. 初始化项目
+2. Initialize the project
 
-- 从模版或仓库开始：克隆样例仓库并打开 `Ducky.SingleProject/`。
-- 必要的项目设置（建议在 `.csproj` 中保证）：
+- Start with a template or repository：Clone the sample repository and open 'Ducky.SingleProject/'.
+- Necessary project setup (recommended to be guaranteed in '.csproj')：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -33,11 +33,11 @@
 </Project>
 ```
 
-示例：请确保 ModName 与程序集/项目名保持一致。
+example：Make sure the ModName matches the assembly/project name.
 
-1. 安装并配置 Ducky.Sdk
+1. Install and configure Ducky.Sdk
 
-推荐通过 NuGet 安装 Ducky.Sdk。可以使用 CLI 快速添加（示例 — 请替换为所需版本）：
+Installing Ducky.Sdk via NuGet is recommended.You can use the CLI to add quickly (example - please replace with the desired version)：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -52,11 +52,11 @@ dotnet add package Ducky.Sdk
 </ItemGroup>
 ```
 
-4. 编写第一个 ModBehaviour
+4. Write the first ModBehaviour
 
-- 入口类需继承 `ModBehaviourBase`，并实现生命周期方法 `ModEnabled()` 与 `ModDisabled()`。
+- The ingress class inherits the ModBehaviourBase and implements the lifecycle methods ModEnabled() and ModDisabled().
 
-示例代码：
+Sample code：
 
 ```csharp
 using Ducky.Sdk;
@@ -68,7 +68,7 @@ public class ModBehaviour : ModBehaviourBase
 {
     protected override void ModEnabled()
     {
-        // 初始化时记录信息
+        Record information at initialization
         Log.Info("Ducky.SingleProject Mod Enabled");
     }
 
@@ -79,18 +79,18 @@ public class ModBehaviour : ModBehaviourBase
 }
 ```
 
-5. 运行与打包
+5. Run and package
 
-常用构建命令：
+Common build commands：
 
 ```bash
-# 构建整个解决方案（.slnx）
+# Build the whole solution (.slnx)
 dotnet build Docky.Sdk.Sample.slnx
 
-# 仅构建单个示例项目
+# Build only a single sample project
 dotnet build Ducky.SingleProject/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Enable Mod (Run the Game)
 
-构建会自动将 mod 部署到游戏目录后，启动游戏即可在 Mod 管理界面或游戏内启用该 Mod。启用之后就可以在游戏日志中看到 Mod 的启用信息。
+Build automatically deploys mods to the game catalog, and launches the game to enable the mod in the mod management interface or in-game.Once enabled, you can see the mod's activation information in the game log.
