@@ -6,8 +6,17 @@
     <Project Path="Ducky.EntranceMod.Common\Ducky.EntranceMod.Common.csproj" />
     <Project Path="Ducky.EntranceMod\Ducky.EntranceMod.csproj" />
   </Folder>
+  <Folder Name="/PackageFromNuget/">
+    <Project Path="Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj" />
+  </Folder>
   <Folder Name="/SingleProjectMod/">
     <Project Path="Ducky.SingleProject\Ducky.SingleProject.csproj" />
+  </Folder>
+  <Folder Name="/BuffRegistration/">
+    <Project Path="Ducky.BuffRegistration/Ducky.BuffRegistration.csproj" />
+  </Folder>
+  <Folder Name="/InstantKill/">
+    <Project Path="Ducky.InstantKill/Ducky.InstantKill.csproj" />
   </Folder>
   <Folder Name="/LocalizationMod/">
     <Project Path="Ducky.Localization\Ducky.Localization.csproj" />

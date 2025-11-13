@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
     <ImplicitUsings>true</ImplicitUsings>
-    <ModName>Ducky.Localization</ModName>
+    <ModName>Ducky.BuffRegistration</ModName>
   </PropertyGroup>
 
   <ItemGroup>

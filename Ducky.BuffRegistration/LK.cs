@@ -1,6 +1,6 @@
 using Ducky.Sdk.Attributes;
 
-namespace Ducky.TryHarmony;
+namespace Ducky.BuffRegistration;
 
 [LanguageSupport("zh", "en", "zh-hant")]
 public static class LK

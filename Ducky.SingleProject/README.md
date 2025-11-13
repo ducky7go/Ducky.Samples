@@ -4,6 +4,8 @@
 
 本示例展示如何使用 Ducky.Sdk 创建单工程 Mod，包含项目初始化、SDK 引入、Mod 生命周期与打包流程。
 
+开始之前，请确保前置环境要求已经准备完毕: [环境准备](../docs/Prequirement.md)
+
 1. 项目简介
 
 本目录（`Ducky.SingleProject/`）演示单工程 Mod 模式：所有代码与资源放在同一项目内，入口类继承 `ModBehaviourBase`，相关实现请参见 [`Ducky.SingleProject/ModBehaviour.cs`](Ducky.SingleProject/ModBehaviour.cs:1)。
@@ -90,4 +92,5 @@ dotnet build Ducky.SingleProject/
 ```
 
 6. 启用 Mod（运行游戏）
-构建并将 mod 部署到游戏目录后，启动游戏即可在 Mod 管理界面或游戏内启用该 Mod。启用之后就可以在游戏日志中看到 Mod 的启用信息。
+   
+构建会自动将 mod 部署到游戏目录后，启动游戏即可在 Mod 管理界面或游戏内启用该 Mod。启用之后就可以在游戏日志中看到 Mod 的启用信息。
