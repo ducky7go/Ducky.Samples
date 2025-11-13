@@ -9,9 +9,13 @@
 # 此脚本会自动搜索仓库中的文档文件（README.md、docs/*.md 等），
 # 识别不同语言版本，并在每个文件顶部插入/更新语言切换导航块。
 #
+# 新的文件结构（同目录）：
+# - 原文件：README.md（默认简体中文）
+# - 翻译文件：README_en.md、README_de.md 等（同目录下）
+#
 # 特性：
-# - 自动识别根目录（默认简体中文）和语言子目录（en/、de/、es-ES/ 等）
-# - 支持语言目录内的任意深度子目录
+# - 自动识别同目录下的语言变体文件（_en、_de 等后缀）
+# - 支持任意深度的子目录结构
 # - 排除所有 AGENTS 文件（AGENTS.md、AGENTS_en.md 等）
 # - 使用唯一标记包裹导航块，支持更新已存在的导航
 # - 链接文字使用目标语言的本地名称
@@ -20,32 +24,32 @@
 
 set -euo pipefail
 
-# 语言映射表：目录名 -> 本地语言名称
+# 语言代码到显示名称的映射
 declare -A LANG_NAMES=(
-    ["root"]="简体中文"
+    ["zh"]="简体中文"
     ["en"]="English"
     ["de"]="Deutsch"
     ["fr"]="Français"
-    ["es-ES"]="Español"
+    ["es"]="Español"
     ["ja"]="日本語"
     ["ko"]="한국어"
-    ["pt-PT"]="Português"
+    ["pt"]="Português"
     ["ru"]="Русский"
-    ["zh-TW"]="繁體中文"
+    ["zh-hant"]="繁體中文"
 )
 
-# 语言后缀映射：目录名 -> 文件名后缀（基于实际文件结构）
+# 语言代码到文件后缀的映射
 declare -A LANG_SUFFIXES=(
-    ["root"]=""
+    ["zh"]=""           # 简体中文为原文，无后缀
     ["en"]="_en"
     ["de"]="_de"
     ["fr"]="_fr"
-    ["es-ES"]="_es"
+    ["es"]="_es"
     ["ja"]="_ja"
     ["ko"]="_ko"
-    ["pt-PT"]="_pt"
+    ["pt"]="_pt"
     ["ru"]="_ru"
-    ["zh-TW"]="_zh"
+    ["zh-hant"]="_zh"   # 繁体中文
 )
 
 # 标记常量
@@ -79,50 +83,32 @@ should_exclude_file() {
 }
 
 # 获取文件的 canonical key（用于聚合同一文档的不同语言版本）
-# 对于语言目录中的文件：去掉语言目录前缀和文件名语言后缀
-# 对于根目录文件：保持原路径
+# 移除文件名中的语言后缀，得到基础文件名
 get_canonical_key() {
     local filepath="$1"
     local rel_path="${filepath#$REPO_ROOT/}"
     
-    # 检查是否在语言目录中
-    local lang_dir=""
+    # 获取文件名和目录
+    local filename=$(basename "$rel_path")
+    local dirpath=$(dirname "$rel_path")
+    local basename="${filename%.*}"
+    local ext="${filename##*.}"
+    
+    # 尝试移除所有可能的语言后缀
+    local canonical_basename="$basename"
     for lang in "${!LANG_SUFFIXES[@]}"; do
-        if [[ "$lang" == "root" ]]; then
-            continue
-        fi
-        
-        if [[ "$rel_path" =~ ^${lang}/ ]]; then
-            lang_dir="$lang"
+        local suffix="${LANG_SUFFIXES[$lang]}"
+        if [[ -n "$suffix" ]] && [[ "$basename" == *"$suffix" ]]; then
+            canonical_basename="${basename%$suffix}"
             break
         fi
     done
     
-    if [[ -n "$lang_dir" ]]; then
-        # 移除语言目录前缀
-        local subpath="${rel_path#${lang_dir}/}"
-        
-        # 获取文件名和目录
-        local filename=$(basename "$subpath")
-        local dirpath=$(dirname "$subpath")
-        local basename="${filename%.*}"
-        local ext="${filename##*.}"
-        
-        # 尝试移除语言后缀
-        local suffix="${LANG_SUFFIXES[$lang_dir]}"
-        if [[ -n "$suffix" ]] && [[ "$basename" == *"$suffix" ]]; then
-            basename="${basename%$suffix}"
-        fi
-        
-        # 构建 canonical key
-        if [[ "$dirpath" == "." ]]; then
-            echo "${basename}.${ext}"
-        else
-            echo "${dirpath}/${basename}.${ext}"
-        fi
+    # 构建 canonical key
+    if [[ "$dirpath" == "." ]]; then
+        echo "${canonical_basename}.${ext}"
     else
-        # 根目录文件，直接使用相对路径
-        echo "$rel_path"
+        echo "${dirpath}/${canonical_basename}.${ext}"
     fi
 }
 
@@ -168,7 +154,7 @@ generate_lang_header() {
     local -a version_entries=("$@")
     
     # 按特定顺序排列语言链接（简体中文优先）
-    local -a ordered_langs=("root" "en" "de" "fr" "es-ES" "ja" "ko" "pt-PT" "ru" "zh-TW")
+    local -a ordered_langs=("zh" "en" "de" "fr" "es" "ja" "ko" "pt" "ru" "zh-hant")
     local -a links=()
     
     # 构建语言链接列表（按顺序）
@@ -255,48 +241,37 @@ echo ""
 # 第一步：递归扫描所有 .md 文件并分组
 echo "扫描所有 .md 文件..."
 
-# 扫描根目录的 .md 文件
+# 扫描所有 .md 文件
 while IFS= read -r -d '' filepath; do
     if should_exclude_file "$filepath"; then
         SKIPPED_FILES+=("${filepath#$REPO_ROOT/}:排除 AGENTS 文件")
         continue
     fi
     
+    # 获取文件的 canonical key
     canonical_key=$(get_canonical_key "$filepath")
     
+    # 确定文件的语言代码
+    filename=$(basename "$filepath")
+    basename="${filename%.*}"
+    lang_code="zh"  # 默认为简体中文（无后缀）
+    
+    # 检查文件名是否有语言后缀
+    for lang in "${!LANG_SUFFIXES[@]}"; do
+        suffix="${LANG_SUFFIXES[$lang]}"
+        if [[ -n "$suffix" ]] && [[ "$basename" == *"$suffix" ]]; then
+            lang_code="$lang"
+            break
+        fi
+    done
+    
+    # 将文件添加到对应的文档组
     if [[ -z "${DOCUMENT_GROUPS[$canonical_key]:-}" ]]; then
-        DOCUMENT_GROUPS[$canonical_key]="root:$filepath"
+        DOCUMENT_GROUPS[$canonical_key]="${lang_code}:${filepath}"
     else
-        DOCUMENT_GROUPS[$canonical_key]="${DOCUMENT_GROUPS[$canonical_key]}|root:$filepath"
+        DOCUMENT_GROUPS[$canonical_key]="${DOCUMENT_GROUPS[$canonical_key]}|${lang_code}:${filepath}"
     fi
-done < <(find "$REPO_ROOT" -maxdepth 10 -name "*.md" -type f -print0 | grep -zv "^${REPO_ROOT}/\(en\|de\|fr\|es-ES\|ja\|ko\|pt-PT\|ru\|zh-TW\)/")
-
-# 扫描各语言目录中的 .md 文件
-for lang_dir in "${!LANG_SUFFIXES[@]}"; do
-    if [[ "$lang_dir" == "root" ]]; then
-        continue
-    fi
-    
-    lang_path="${REPO_ROOT}/${lang_dir}"
-    if [[ ! -d "$lang_path" ]]; then
-        continue
-    fi
-    
-    while IFS= read -r -d '' filepath; do
-        if should_exclude_file "$filepath"; then
-            SKIPPED_FILES+=("${filepath#$REPO_ROOT/}:排除 AGENTS 文件")
-            continue
-        fi
-        
-        canonical_key=$(get_canonical_key "$filepath")
-        
-        if [[ -z "${DOCUMENT_GROUPS[$canonical_key]:-}" ]]; then
-            DOCUMENT_GROUPS[$canonical_key]="${lang_dir}:${filepath}"
-        else
-            DOCUMENT_GROUPS[$canonical_key]="${DOCUMENT_GROUPS[$canonical_key]}|${lang_dir}:${filepath}"
-        fi
-    done < <(find "$lang_path" -name "*.md" -type f -print0)
-done
+done < <(find "$REPO_ROOT" -name "*.md" -type f -print0)
 
 echo "找到 ${#DOCUMENT_GROUPS[@]} 组文档"
 echo ""

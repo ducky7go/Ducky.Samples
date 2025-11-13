@@ -1,3 +1,6 @@
 files:
-  - source: README.md
-    translation: '%original_path%/%file_name%_%two_letters_code%.md'
+  - source: README.md  # 源文件路径（如果在根目录，直接写文件名即可）
+    translation: "%original_path%/%file_name%_%two_letters_code%.md"
+    # %original_path% 表示源文件所在的文件夹（与源文件同目录）
+    # %file_name% 表示源文件的文件名（不含扩展名）
+    # %two_letters_code% 表示两位数语言代码（如 en、zh、fr 等）
