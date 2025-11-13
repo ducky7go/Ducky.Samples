@@ -1,299 +1,299 @@
-# Ducky SDK 示例项目集合
+# Коллекция примеров проектов Ducky SDK
 
-[![Build](https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
-[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
-[![NuGet](https://img.shields.io/nuget/v/Ducky.Sdk?logo=nuget&label=Ducky.Sdk)](https://www.nuget.org/packages/Ducky.Sdk)
-[![License](https://img.shields.io/github/license/newbe36524/Samples?label=License)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#)
-[![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-[![Target](https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
-[![Issues](https://img.shields.io/github/issues/newbe36524/Samples)](https://github.com/newbe36524/Samples/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/newbe36524/Samples)](https://github.com/newbe36524/Samples/pulls)
-[![Last Commit](https://img.shields.io/github/last-commit/newbe36524/Samples)](https://github.com/newbe36524/Samples/commits)
+[! [Строительство] (https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
+[! [.NET] (https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[! [НуГет] (https://img.shields.io/nuget/v/Ducky.Sdk?logo=nuget&label=Ducky.Sdk)](https://www.nuget.org/packages/Ducky.Sdk)
+[! [Лицензия] (https://img.shields.io/github/license/newbe36524/Samples?label=License)](LICENSE)
+[! [Платформа] (https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#)
+[! [Язык] (https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[! [Цель] (https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
+[! [Проблемы] (https://img.shields.io/github/issues/newbe36524/Samples)](https://github.com/newbe36524/Samples/issues)
+[! [Запросы на вытягивание] (https://img.shields.io/github/issues-pr/newbe36524/Samples)](https://github.com/newbe36524/Samples/pulls)
+[! [Последний коммит] (https://img.shields.io/github/last-commit/newbe36524/Samples)](https://github.com/newbe36524/Samples/commits)
 
-本仓库包含多个用于演示 "Escape from Duckov" Mod 开发的示例项目，使用 [Ducky.Sdk](https://www.nuget.org/packages/Ducky.Sdk) 框架。
+Этот репозиторий содержит несколько примеров проектов для демонстрации разработки мода "Escape from Duckov" с использованием [Ducky.Sdk](https://www.nuget.org/packages/Ducky.Sdk) рамы.
 
-## 📋 前置准备
+## 📋 Готовый
 
-开始之前，请确保您的开发环境已准备就绪：
+Прежде чем начать, убедитесь, что ваша среда разработки готова：
 
-👉 **[查看环境准备文档](docs/Prequirement.md)**
+👉 [Просмотреть документацию по подготовке среды](docs/Prequirement.md)\*\*
 
-主要要求：
+Основные требования:：
 
-- .NET SDK 10.x
-- 全局工具：`dotnet-script`、`dotnet-ilrepack`
-- 支持的操作系统：Windows / Linux / macOS
+- Пакет SDK для .NET 10.x
+- Глобальный инструмент：'dotnet-script'、'dotnet-ilrepack'
+- Поддерживаемые операционные системы：Windows / Linux / macOS
 
-## 🎯 快速开始
+## 🎯 Быстрое начало работы
 
 ```bash
-# 克隆仓库
+# Клонирование репозитория
 git clone <repository-url>
-cd Samples
+Примеры cd
 
-# 构建所有示例
+# Собрать все примеры
 dotnet build Docky.Sdk.Sample.slnx
 
-# 或构建单个示例
+# или построить один пример
 dotnet build Ducky.SingleProject/
 ```
 
-## 📚 示例项目导览
+## 📚 Пример тура по проекту
 
-本仓库按从易到难的顺序组织示例，建议按以下顺序学习：
+Этот репозиторий упорядочивает примеры в порядке от простого к сложному, и рекомендуется изучать его в следующем порядке：
 
-### 1️⃣ 入门级 - 基础概念
+### 1️⃣ Начальный уровень - основные понятия
 
-#### [Ducky.SingleProject](Ducky.SingleProject/) - 最简单的 Mod
+#### [Ducky.SingleProject] (Ducky.SingleProject/- Самый простой мод
 
-**难度：⭐**
+**трудность：⭐**
 
-最基础的单项目 Mod 示例，适合完全新手。
+Самый простой пример мода с одним предметом, подходящий для полных новичков.
 
-- ✅ 单项目结构
-- ✅ Mod 生命周期（`ModEnabled` / `ModDisabled`）
-- ✅ 基础日志记录
-- ✅ 项目配置与构建
+- ✅ Одноэлементная структура
+- ✅ Жизненный цикл мода ('ModEnabled' / 'ModDisabled')
+- ✅ Базовое ведение журнала
+- ✅ Конфигурация и строительство проекта
 
-**学习要点：**
+Ключевые моменты для изучения：\*\*
 
-- 如何创建一个最小可运行的 Mod
-- [`ModBehaviour`](Ducky.SingleProject/ModBehaviour.cs) 入口类的实现
-- `.csproj` 文件的基本配置
+- Как создать минимально работоспособный мод
+- ['ModBehaviour'] (Ducky.SingleProject/ModBehaviour.cs) класс входящего трафика
+- Базовая конфигурация файла '.csproj'
 
-**适合人群：** 刚接触 Ducky SDK 的开发者
+\*\* Подходит для людей：\*\* Разработчики, не знакомые с Ducky SDK
 
-👉 [查看详细教程](Ducky.SingleProject/README.md)
-
----
-
-#### [Ducky.InstantKill](Ducky.InstantKill/) - 游戏事件处理
-
-**难度：⭐⭐**
-
-演示如何订阅游戏事件并实现简单的游戏逻辑修改。
-
-- ✅ 游戏事件订阅（`Health.OnHurt`）
-- ✅ 事件处理器实现
-- ✅ 生命周期内的资源管理
-
-**学习要点：**
-
-- 如何监听游戏内事件
-- 如何安全地订阅和取消订阅事件
-- [`DamageInfo`](Ducky.InstantKill/ModBehaviour.cs) 等游戏 API 的使用
-
-**适合人群：** 了解基础 Mod 结构，想要实现游戏逻辑的开发者
-
-👉 [查看详细教程](Ducky.InstantKill/README.md)
+👉 [Посмотреть подробное руководство](Ducky.SingleProject/README.md)
 
 ---
 
-### 2️⃣ 进阶级 - 核心功能
+#### [Утка.Мгновенное убийство] (Ducky.InstantKill/- Обработка игровых событий
 
-#### [Ducky.Localization](Ducky.Localization/) - 多语言本地化
+**трудность：⭐⭐**
 
-**难度：⭐⭐⭐**
+Демонстрирует, как подписываться на события игры и реализовывать простые модификации игровой логики.
 
-完整的本地化系统示例，包含多语言支持与文件型翻译。
+- ✅ Подписка на игровые события («Health.OnHurt»)
+- ✅ Реализация обработчика событий
+- ✅ Управление ресурсами на протяжении всего жизненного цикла
 
-- ✅ 本地化键定义（[`LK.cs`](Ducky.Localization/LK.cs)）
-- ✅ CSV 翻译文件
-- ✅ 文件型翻译（Markdown）
-- ✅ 多语言支持（简中、英文）
+Ключевые моменты для изучения：\*\*
 
-**学习要点：**
+- Как слушать внутриигровые события
+- Как безопасно подписаться на события и отписаться от них
+- ['DamageInfo'] (Ducky.InstantKill/ModBehaviour.cs) и другие игровые API
 
-- 如何组织本地化键
-- `[LanguageSupport]` 和 `[TranslateFile]` 特性的使用
-- SDK 自动生成的 `lkeys.json` 和 `keys.hash.txt`
-- 运行时访问翻译字符串
+\*\* Подходит для людей：\*\* Разработчики, которые понимают базовую структуру мода и хотят реализовать логику игры
 
-**适合人群：** 需要开发多语言 Mod 的开发者
-
-👉 [查看详细教程](Ducky.Localization/README.md)
+👉 [Посмотреть подробное руководство](Ducky.InstantKill/README.md)
 
 ---
 
-#### [Ducky.BuffRegistration](Ducky.BuffRegistration/) - 自定义游戏实体
+### 2️⃣ Продвинутый уровень - Основные функции
 
-\*\*难度：⭐⭐⭐
+#### [Ducky.Локализация] (Ducky.Localization/- Мультиязычная локализация
 
-演示如何注册自定义 Buff（状态效果）并与游戏系统集成。
+**трудность：⭐⭐⭐**
 
-- ✅ 使用 `Contract.Buffs.RegisterBuff` 注册 Buff
-- ✅ 场景事件处理（`SceneLoader.onAfterSceneInitialize`）
-- ✅ Buff 实例创建与添加
-- ✅ 本地化 Buff 名称和描述
+Полный пример системы локализации с многоязычной поддержкой и переводом на основе файлов.
 
-**学习要点：**
+- ✅ Локализованное определение ключа(['LK.cs'](Ducky.Localization/LK.cs)）
+- ✅ Файл перевода CSV
+- ✅ Перевод документов (Markdown)
+- ✅ Многоязычная поддержка (упрощенный китайский и английский)
 
-- 如何扩展游戏的核心系统
-- Contract API 的使用模式
-- 场景生命周期管理
-- 游戏实体的配置与注册
+Ключевые моменты для изучения：\*\*
 
-**适合人群：** 想要添加自定义游戏内容的开发者
+- Как организовать ключи локализации
+- Использование функций '[LanguageSupport]' и '[TranslateFile]'
+- SDK автоматически генерирует 'lkeys.json' и 'keys.hash.txt'
+- Доступ к строкам перевода во время выполнения
 
-👉 [查看详细教程](Ducky.BuffRegistration/README.md)
+\*\* Подходит для людей：\*\* Разработчики, которым необходимо разрабатывать многоязычные моды
 
----
-
-#### [Ducky.PackageFromNuget](Ducky.PackageFromNuget/) - 第三方依赖管理
-
-**难度：⭐⭐⭐**
-
-演示如何在 Mod 中使用 NuGet 包（以 YamlDotNet 为例）。
-
-- ✅ 引入第三方 NuGet 包
-- ✅ 读取和解析资源文件
-- ✅ 依赖打包与部署
-
-**学习要点：**
-
-- 如何在 Mod 中使用外部库
-- 资源文件的访问路径
-- SDK 的依赖处理机制
-
-**适合人群：** 需要使用第三方库扩展功能的开发者
+👉 [Посмотреть подробное руководство](Ducky.Localization/README.md)
 
 ---
 
-### 3️⃣ 高级级 - 复杂模式
+#### [Ducky.BuffРегистрация] (Ducky.BuffRegistration/) - Пользовательские игровые сущности
 
-#### [Ducky.EntranceMod](Ducky.EntranceMod/) + [Ducky.EntranceMod.Common](Ducky.EntranceMod.Common/) - 多层架构
+\*\*трудность：⭐⭐⭐
 
-**难度：⭐⭐⭐⭐**
+Демонстрирует, как регистрировать пользовательские баффы и интегрировать их с вашей игровой системой.
 
-演示如何将 Mod 拆分为多层架构，实现代码复用。
+- ✅ Используйте 'Contract.Buffs.RegisterBuff' для регистрации баффа
+- ✅ Обработка событий сцены ('SceneLoader.onAfterSceneInitialize')
+- ✅ Создание и добавление подземелья с баффами
+- ✅ Локализуйте имя и описание баффа
 
-- ✅ 主 Mod 项目与公共库分离
-- ✅ `<ExcludeSdkLib>` 和 `<IsModLib>` 配置
-- ✅ 跨项目共享本地化键
-- ✅ 项目引用管理
+Ключевые моменты для изучения：\*\*
 
-**学习要点：**
+- Как расширить основную систему игры
+- Шаблоны использования Contract API
+- Управление жизненным циклом сценариев
+- Настройка и регистрация игровых сущностей
 
-- 多项目解决方案的组织
-- 如何创建可复用的 Mod 库
-- 资源文件的跨项目共享
-- 适合大型 Mod 的架构设计
+\*\* Подходит для людей：\*\* Разработчики, которые хотят добавить пользовательский игровой контент
 
-**适合人群：** 开发大型或系列 Mod 的团队
-
----
-
-#### [Ducky.TryHarmony](Ducky.TryHarmony/) - 运行时代码注入
-
-**难度：⭐⭐⭐⭐⭐**
-
-使用 HarmonyLib 在运行时修补游戏代码，实现最深层次的游戏修改。
-
-- ✅ Harmony 补丁系统
-- ✅ 方法前缀/后缀/替换
-- ✅ 补丁注册与清理
-- ✅ 游戏内部 API 访问
-
-**学习要点：**
-
-- HarmonyLib 的基本使用
-- 如何编写 Prefix/Postfix 补丁
-- 运行时代码修改的最佳实践
-- 补丁的生命周期管理
-
-**示例：** [`SaveFilePatch`](Ducky.TryHarmony/SaveFilePatch.cs) 演示如何拦截存档操作
-
-**适合人群：** 需要深度修改游戏逻辑的高级开发者
-
-⚠️ **注意：** Harmony 补丁功能强大但需谨慎使用，错误的补丁可能导致游戏崩溃
-
-👉 [查看详细教程](Ducky.TryHarmony/README.md)
+👉 [Посмотреть подробное руководство](Ducky.BuffRegistration/README.md)
 
 ---
 
-## 🏗️ 项目架构
+#### [Ducky.PackageFromNuget] (Ducky.PackageFromNuget/- Управление сторонними зависимостями
 
-所有示例项目遵循以下核心约定：
+**трудность：⭐⭐⭐**
 
-### 项目配置（必需）
+Демонстрирует, как использовать пакеты NuGet в модах (на примере YamlDotNet).
+
+- ✅ Знакомство со сторонними пакетами NuGet
+- ✅ Чтение и анализ файлов ресурсов
+- ✅ Зависимая упаковка и развертывание
+
+Ключевые моменты для изучения：\*\*
+
+- Как использовать внешние библиотеки в модах
+- Путь доступа к файлу ресурсов
+- Механизм обработки зависимостей SDK
+
+\*\* Подходит для людей：\*\* Разработчики, которым необходимо расширить функционал сторонними библиотеками
+
+---
+
+### 3️⃣ Advanced - Сложный режим
+
+#### [Ducky.EntranceMod] (Ducky.EntranceMod/) + [Ducky.EntranceMod.Common](Ducky.EntranceMod.Common/- Многоуровневая архитектура
+
+**трудность：⭐⭐⭐⭐**
+
+Демонстрирует, как разбить моды на многоуровневые архитектуры для повторного использования кода.
+
+- ✅ Основной проект мода отделен от публичной библиотеки
+- ✅ \`<ExcludeSdkLib>' и '<IsModLib>' конфигурация
+- ✅ Совместное использование ключей локализации в разных проектах
+- ✅ Управление справочными материалами по проектам
+
+Ключевые моменты для изучения：\*\*
+
+- Организация многопроектных решений
+- Как создать библиотеку модов для повторного использования
+- Межпроектный общий доступ к файлам ресурсов
+- Проектирование архитектуры для больших модов
+
+\*\* Подходит для людей：\*\* Команды, разрабатывающие большие или серийные моды
+
+---
+
+#### [Даки.ТриХармони] (Ducky.TryHarmony/- Внедрение кода во время выполнения
+
+**трудность：⭐⭐⭐⭐⭐**
+
+Используйте HarmonyLib для исправления игрового кода во время выполнения для самых глубоких модификаций игры.
+
+- ✅ Система патчинга Harmony
+- ✅ метод префикс/суффикс/заменить
+- ✅ Регистрация и очистка патчей
+- ✅ Доступ к внутриигровому API
+
+Ключевые моменты для изучения：\*\*
+
+- Базовое использование HarmonyLib
+- Как писать патчи с префиксами/постфиксами
+- Рекомендации по изменению кода во время выполнения
+- Управление жизненным циклом патчей
+
+**пример：** ['SaveFilePatch'](Ducky.TryHarmony/SaveFilePatch.csДемонстрирует перехват архивных операций
+
+\*\* Подходит для людей：\*\* Продвинутые разработчики, которым необходимо глубоко изменить игровую логику
+
+⚠️ **Заметка.：** Патчи гармонии эффективны, но их следует использовать с осторожностью, так как неправильные патчи могут привести к сбою игры
+
+👉 [Посмотреть подробное руководство](Ducky.TryHarmony/README.md)
+
+---
+
+## 🏗️ Архитектура проекта
+
+Все примеры проектов следуют следующим основным соглашениям：
+
+### Конфигурация проекта (обязательно)
 
 ```xml
 <PropertyGroup>
-  <TargetFramework>netstandard2.1</TargetFramework>
-  <Nullable>enable</Nullable>
-  <LangVersion>preview</LangVersion>
-  <ImplicitUsings>true</ImplicitUsings>
-  <ModName>YourModName</ModName>
+  <TargetFramework>Нетстандарт2.1</TargetFramework>
+  <Nullable>давать возможность</Nullable>
+  <LangVersion>Предварительный просмотр</LangVersion>
+  <ImplicitUsings>истинный</ImplicitUsings>
+  <ModName>ВашИмяМода</ModName>
 </PropertyGroup>
 ```
 
-### Mod 入口点
+### Точка входа в мод
 
 ```csharp
-public class ModBehaviour : ModBehaviourBase
+публичный класс ModBehaviour : ModBehaviourBase
 {
-    protected override void ModEnabled()
+    защищенное переопределение void ModEnabled()
     {
-        // Mod 启用时的初始化逻辑
+        Логика инициализации при включении мода
     }
 
-    protected override void ModDisabled()
+    защищенное переопределение void ModDisabled()
     {
-        // Mod 禁用时的清理逻辑
+        Логика очистки при отключенном моде
     }
 }
 ```
 
-### 资源文件结构
+### Структура файла ресурса
 
 ```
-assets/
-├── info.ini              # Mod 元信息
-├── description.md        # 详细描述（可选）
-├── preview.png           # 预览图（可选）
-├── lkeys.json            # 本地化清单（自动生成）
-├── keys.hash.txt         # 校验哈希（自动生成）
-└── Locales/
-    ├── zh.csv            # 简体中文翻译
-    ├── en.csv            # 英文翻译
-    └── zh/               # 文件型翻译
+авуары/
+├── info.ini # Мета информация о моде
+├── description.md # подробное описание (по желанию)
+├── preview.png # Предварительный просмотр (по желанию)
+├── lkeys.json # Чек-лист по локализации (автоматически сгенерированный)
+├── keys.hash.txt # Валидационный хэш (генерируется автоматически)
+└── Локали/
+    ├── zh.csv # Китайский Упрощенный перевод
+    ├── en.csv # Перевод на английский
+    └── ru/ # Документный перевод
         └── *.md
 ```
 
-## 📖 学习路径建议
+## 📖 Рекомендации по схеме обучения
 
-### 新手路径
+### Путь для начинающих
 
-1. [Ducky.SingleProject](Ducky.SingleProject/) - 理解基础结构
-2. [Ducky.InstantKill](Ducky.InstantKill/) - 学习事件处理
-3. [Ducky.Localization](Ducky.Localization/) - 掌握本地化
-4. [Ducky.BuffRegistration](Ducky.BuffRegistration/) - 扩展游戏内容
+1. [Ducky.SingleProject] (Ducky.SingleProject/- Понимание инфраструктуры
+2. [Утка.Мгновенное убийство] (Ducky.InstantKill/- Научитесь работать с инцидентами
+3. [Ducky.Локализация] (Ducky.Localization/- Мастер-локализация
+4. [Ducky.BuffРегистрация] (Ducky.BuffRegistration/) - Расширяет игровой контент
 
-### 进阶路径
+### Продвинутый путь
 
-1. [Ducky.PackageFromNuget](Ducky.PackageFromNuget/) - 使用第三方库
-2. [Ducky.EntranceMod](Ducky.EntranceMod/) - 多层架构设计
-3. [Ducky.TryHarmony](Ducky.TryHarmony/) - 运行时代码注入
+1. [Ducky.PackageFromNuget] (Ducky.PackageFromNuget/) - Используйте сторонние библиотеки
+2. [Ducky.EntranceMod] (Ducky.EntranceMod/- Проектирование многоуровневой архитектуры
+3. [Даки.ТриХармони] (Ducky.TryHarmony/- Внедрение кода во время выполнения
 
-## 🛠️ 构建与部署
+## 🛠️ Сборка и развертывание
 
-### 构建命令
+### Команды сборки
 
 ```bash
-# 构建所有项目
+# Сборка всех проектов
 dotnet build Docky.Sdk.Sample.slnx
 
-# 构建单个项目
+# Соберите один проект
 dotnet build Ducky.SingleProject/
 
-# 清理构建
+# Очистите сборку
 dotnet clean
 ```
 
-### 自动部署
+### Автоматизированное развертывание
 
-SDK 在构建时会自动将 Mod 部署到游戏目录（需配置 `Local.props` 或在 `.csproj` 中设置 `<SteamFolder>` / `<DuckovFolder>`）：
+SDK автоматически развертывает моды в каталоге игры во время сборки (требуется настройка 'local.props' или установка '.csproj')<SteamFolder>`/`<DuckovFolder>\`）：
 
 ```xml
 <PropertyGroup>
@@ -301,26 +301,26 @@ SDK 在构建时会自动将 Mod 部署到游戏目录（需配置 `Local.props`
 </PropertyGroup>
 ```
 
-## 📝 项目规范
+## 📝 Технические характеристики проекта
 
-- **解决方案格式**：使用新的 `.slnx` XML 格式
-- **代码分析**：SDK 内置分析器会验证项目结构
-- **自动生成**：本地化元数据会在编译时自动生成
+- **Формат решения**：Использование нового формата XML «.slnx»
+- **Анализ кода**：Встроенный анализатор SDK проверяет структуру проекта
+- **Автоматическая генерация**：Локализованные метаданные генерируются автоматически во время компиляции
 
-## 🔗 相关资源
+## 🔗 Ресурсы по теме
 
-- [Ducky.Sdk NuGet 包](https://www.nuget.org/packages/Ducky.Sdk)
-- [游戏 Steam 页面](https://store.steampowered.com/app/XXXXX)（替换为实际链接）
-- [开发者文档](docs/)
+- [Пакет NuGet Ducky.Sdk] (https://www.nuget.org/packages/Ducky.Sdk)
+- [Страница игры в Steam] (https://store.steampowered.com/app/XXXXX(заменено на актуальную ссылку)
+- [Документация для разработчиков] (docs/)
 
-## 🤝 贡献指南
+## 🤝 Правила внесения вклада
 
-欢迎提交 Issue 和 Pull Request 来改进示例项目！
+Не стесняйтесь отправлять проблемы и запросы на вытягивание для улучшения примера проекта!
 
-## 📄 许可证
+## 📄 Разрешать.
 
-本项目采用 [LICENSE](LICENSE) 中指定的许可证。
+В этом проекте используется [LICENSE(ЛИЦЕНЗИЯ).
 
 ---
 
-**祝您开发愉快！🎮**
+**Удачного развития!🎮**
