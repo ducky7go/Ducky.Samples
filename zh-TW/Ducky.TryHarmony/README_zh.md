@@ -1,22 +1,22 @@
 # Ducky.TryHarmony 示例 Mod
 
-简要说明
+簡要說明
 
-本示例演示使用 HarmonyLib 在运行时修补游戏代码的 Mod。示例包含一个简单的 Harmony 补丁（保存补丁），其效果是使存档操作始终失败（SaveFilePatch）。入口与补丁注册在 [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1) 中实现。
+本示例演示使用 HarmonyLib 在運行時修補遊戲代碼的 Mod。示例包含一個簡單的 Harmony 補丁（保存補丁），其效果是使存檔操作始終失敗（SaveFilePatch）。入口與補丁註冊在 ['Ducky.TryHarmony/ModBehaviour.cs']（Ducky.TryHarmony/ModBehaviour.cs:1） 中實現。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+開始之前，請確保前置環境要求已準備： [環境準備]（../docs/Prequirement.md)
 
-1. 项目简介
+1. 項目簡介
 
-本目录（`Ducky.TryHarmony/`）演示 Harmony 补丁模式：通过在 ModEnabled 中调用 Harmony 的 PatchAll 来注册补丁，并在 ModDisabled 中取消补丁。关键实现见：
+本目錄（'Ducky.TryHarmony/'）演示 Harmony 補丁模式：通過在 ModEnabled 中調用 Harmony 的 PatchAll 來註冊補丁，並在 ModDisabled 中取消補丁。關鍵實現見：
 
 - [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1)
 - [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)
-- 项目文件：[`Ducky.TryHarmony/Ducky.TryHarmony.csproj`](Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
+- 項目檔：[`Ducky.TryHarmony/Ducky.TryHarmony.csproj`](Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
 
-2. 在 csproj 中启用 Harmony
+2. 在 csproj 中啟用 Harmony
 
-要使用 Harmony 补丁，请在 `Ducky.TryHarmony.csproj` 中启用 IncludeHarmony 属性。例如：
+要使用 Harmony 補丁，請在 'Ducky.TryHarmony.csproj' 中啟用 IncludeHarmony 屬性。例如：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -31,22 +31,22 @@
 </Project>
 ```
 
-3. SaveFilePatch 的行为说明
+3. SaveFilePatch 的行為說明
 
-`SaveFilePatch` 的主要功能是让存档（保存游戏）操作始终失败，便于演示补丁生效及错误处理流程。该补丁示例会拦截保存相关方法并返回失败（详见 [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)）。
+'SaveFilePatch' 的主要功能是讓存檔（保存遊戲）操作始終失敗，便於演示補丁生效及錯誤處理流程。該補丁示例會攔截保存相關方法並返回失敗（詳見 ['Ducky.TryHarmony/SaveFilePatch.cs']（Ducky.TryHarmony/SaveFilePatch.cs:1)）。
 
-4. 运行与测试
+4. 運行與測試
 
-- 构建项目：
+- 構建專案：
 
 ```bash
 dotnet build Ducky.TryHarmony/
 ```
 
-- 启用 Mod（将构建产物部署到游戏 Mod 目录并在游戏内启用）
-- 在游戏内尝试保存存档，预期结果是“存档失败”，表明补丁生效。
+- 開啟 Mod（將建構產物部署到遊戲 Mod 目錄並在遊戲內開啟 ）
+- 在遊戲內嘗試保存存檔，預期結果是「存檔失敗」 ，表明補丁生效。
 
-5. 常见注意事项
+5. 常見注意事項
 
-- 确认 `IncludeHarmony` 已设置为 `true`，否则 Harmony 相关代码无法正常工作。
-- 调试补丁时可在 `ModBehaviour` 中添加日志（使用 `Ducky.Sdk.Logging.Log`）以验证 `PatchAll()`/`UnpatchAll()` 是否被调用。
+- 確認 'IncludeHarmony' 已設置為 'true'，否則 Harmony 相關代碼無法正常工作。
+- 調試補丁時可在 'ModBehaviour' 中添加日誌（使用 'Ducky.Sdk.Logging.Log'）以驗證 'PatchAll（）'/'UnpatchAll（）' 是否被調用。
