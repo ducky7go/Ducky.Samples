@@ -1,64 +1,64 @@
-# 开发环境准备（.NET / Ducky.Sdk 项目）
+# 開発環境の準備(.NET / Ducky.Sdkプロジェクト)
 
-本文档说明为本仓库搭建 .NET 开发环境所需的最小要求与推荐配置。
+このドキュメントでは、このリポジトリの .NET 開発環境をセットアップするために必要な最小要件と推奨構成について説明します。
 
-## 概览
+## 概要
 
-- 目标 .NET SDK：.NET 10（SDK 10.x）
-- 必要全局工具：
-  - 用于动态执行 C# 脚本：`dotnet-script`
-  - 用于程序集合并/打包：`dotnet-ilrepack`
+- ターゲット .NET SDK：.NET 10(SDK 10.x)
+- 必要なグローバルツール：
+  - C# スクリプトを動的に実行するために使用：'dotnet-script'
+  - プログラムの収集やパッケージ化に使用：'dotnet-ilrepack'
 
-## 系统要求
+## システム要件:
 
-- 支持的操作系统：Linux / macOS / Windows（请使用发行版包管理或官方安装脚本安装 .NET SDK）
-- 推荐磁盘空间与内存：至少 2 GB 可用磁盘和 4 GB 内存
+- サポートされているオペレーティングシステム：Linux / macOS / Windows (配布パッケージ管理または公式インストールスクリプトを使用して .NET SDK をインストールしてください)
+- ディスク容量とメモリを推奨します：少なくとも 2 GB の空きディスクと 4 GB のメモリ
 
-## 安装 .NET SDK 10
+## .NET SDK 10 をインストールする
 
-使用官方安装方式或包管理器安装 .NET 10 SDK，示例：
+公式のインストール方法またはパッケージ マネージャーを使用して .NET 10 SDK をインストールする (例)：
 
 ```bash
-# Linux (使用 Microsoft 脚本)
+# Linux (Microsoft スクリプトを使用)
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 chmod +x dotnet-install.sh
-./dotnet-install.sh --channel 10.0
+./dotnet-install.sh --チャンネル10.0
 ```
 
 ```bash
-# macOS (Homebrew 示例)
-brew install --cask dotnet-sdk    # 然后通过 brew info 查看可用版本或使用 dotnet-install 脚本
+# macOS (自作の例)
+brew install --cask dotnet-sdk # 次に、brew info を介して利用可能なバージョンを確認するか、dotnet-install スクリプトを使用します
 ```
 
 ```bash
 # Windows (PowerShell)
 iwr https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
-.\dotnet-install.ps1 -Channel 10.0
+.\dotnet-install.ps1 -チャネル 10.0
 ```
 
-安装后将 SDK 的路径加入 PATH，或在终端使用完整路径运行。验证安装：
+インストール後、SDKのパスをPATHに追加するか、ターミナルでフルパスで実行します。インストールを確認する：
 
 ```bash
 dotnet --info
 ```
 
-输出应包含 SDK 版本以 "10." 开头，例如 10.0.x。
+出力には、「10.0.x」で始まるSDKバージョンが含まれている必要があります。
 
-## 全局工具（必须）
+## グローバルツール(必須)
 
-- 动态执行 C# 脚本（REPL/脚本化构建/小工具）
+- C# スクリプト (REPL/スクリプト ビルド/ウィジェット) を動的に実行する
 
 ```bash
 dotnet tool install -g dotnet-script
 ```
 
-- 程序集合并 / 打包（用于生成单一程序集或合并第三方依赖）
+- プログラム コレクションおよび/またはパッケージ (単一のアセンブリの生成またはサードパーティの依存関係のマージ用)
 
 ```bash
 dotnet tool install -g dotnet-ilrepack
 ```
 
-安装完成后，确认工具可用：
+インストールが完了したら、ツールが利用可能であることを確認します：
 
 ```bash
 dotnet-script --version
