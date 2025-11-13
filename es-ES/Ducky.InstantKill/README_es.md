@@ -1,39 +1,39 @@
-# Ducky.InstantKill 示例 Mod
+# Mod de muestra de Ducky.InstantKill
 
-简要说明
+Breve descripción
 
-本示例实现当主角攻击敌人时立即使其死亡的简单 Mod。启用后，在受伤事件发生时若伤害来源为主角则向目标施加高额伤害从而瞬杀。实现见 [`Ducky.InstantKill/ModBehaviour.cs`](Ducky.InstantKill/ModBehaviour.cs:1).
+Este ejemplo implementa un mod simple que mata al protagonista tan pronto como ataca a un enemigo.Cuando está habilitado, si la fuente de daño es el personaje principal, infligirá un gran daño al objetivo y lo matará instantáneamente.Implementación ver ['Ducky.InstantKill/ModBehaviour.cs'](Ducky.InstantKill/ModBehaviour.cs:1).
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Antes de comenzar, asegúrese de que los requisitos del entorno de preproducción estén preparados: [Preparación del entorno](../docs/Prequirement.md)
 
-1. 项目简介
+1. Introducción al proyecto
 
-本目录 (`Ducky.InstantKill/`) 演示单工程 Mod 模式：所有代码与资源放在同一项目内，入口类继承 `ModBehaviourBase`，相关实现请参见 [`Ducky.InstantKill/ModBehaviour.cs`](Ducky.InstantKill/ModBehaviour.cs:1).
+Este directorio ('Ducky.InstantKill/') demuestra el modo mod de un solo proyecto：Todo el código y los recursos se colocan en el mismo proyecto, y la clase de entrada hereda 'ModBehaviourBase', como se muestra en ['Ducky.InstantKill/ModBehaviour.cs'](Ducky.InstantKill/ModBehaviour.cs:1).
 
-2. 初始化项目
+2. Inicializar el proyecto
 
-- 克隆仓库并打开 `Ducky.InstantKill/`.
-- 推荐在 `.csproj` 中至少包含：
+- Clone el repositorio y abra 'Ducky.InstantKill/'.
+- Se recomienda incluir al menos en '.csproj'：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>estándar de red2.1</TargetFramework>
+    <Nullable>habilitar</Nullable>
+    <LangVersion>Vista previa</LangVersion>
+    <ImplicitUsings>verdadero</ImplicitUsings>
     <!-- ModName 必须项，建议与项目名一致 -->
-    <ModName>Ducky.InstantKill</ModName>
+    <ModName>Ducky.Muerte instantánea</ModName>
     <!-- 通过 Local.props 或此处指定本地游戏路径以便部署 -->
     <!-- <DuckyGamePath>C:\Path\To\Game</DuckyGamePath> -->
   </PropertyGroup>
 </Project>
 ```
 
-3. 安装并配置 Ducky.Sdk
+3. Instalación y configuración de Ducky.Sdk
 
-推荐通过 NuGet 添加 SDK：
+Se recomienda agregar un SDK a través de NuGet：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -42,41 +42,41 @@ dotnet add package Ducky.Sdk
 ```xml
 <ItemGroup>
   <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-    <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>todo</PrivateAssets>
+    <IncludeAssets>Ejecución; construir; nativo; archivos de contenido; Analizadores; buildtransitive</IncludeAssets>
   </PackageReference>
 </ItemGroup>
 ```
 
-4. 编写 ModBehaviour
+4. Escribir ModBehaviour
 
-入口类需继承 `ModBehaviourBase`，并实现生命周期方法 `ModEnabled()` 与 `ModDisabled()`。本示例在 `OnHurt` 事件上注册处理器，当伤害来自主角时对目标施加大额伤害。
+La clase de entrada hereda ModBehaviourBase e implementa los métodos de ciclo de vida ModEnabled() y ModDisabled().En este ejemplo se registra el procesador en el evento "OnHurt" para infligir un gran daño al objetivo cuando el daño proviene del personaje principal.
 
-示例代码：
+Código de ejemplo：
 
 ```csharp
-using Ducky.Sdk;
-using Ducky.Sdk.Logging;
+usando Ducky.Sdk;
+usando Ducky.Sdk.Logging;
 
-namespace Ducky.InstantKill;
+espacio de nombres Ducky.InstantKill;
 
-public class ModBehaviour : ModBehaviourBase
+ModBehaviour de clase pública : ModBehaviourBase
 {
-    protected override void ModEnabled()
+    anulación protegida void ModEnabled()
     {
-        Health.OnHurt += Health_OnHurt;
+        Salud.OnHurt += Health_OnHurt;
     }
 
-    protected override void ModDisabled()
+    anulación protegida void ModDisabled()
     {
-        Health.OnHurt -= Health_OnHurt;
+        Salud.OnHurt -= Health_OnHurt;
     }
 
-    private void Health_OnHurt(Health h, DamageInfo da)
+    privado void Health_OnHurt(Salud h, Información de daños da)
     {
-        if (da.To(h).IsFromMainToEnemy())
+        si (da. Para(h). IsFromMainToEnemy())
         {
-            Log.Debug("Instant Kill Mod: Killing enemy.");
+            Log.Debug("Mod de muerte instantánea: Matar enemigo.");
             h.Hurt(new DamageInfo(h.TryGetCharacter())
             {
                 damageValue = 1000,
@@ -86,18 +86,18 @@ public class ModBehaviour : ModBehaviourBase
 }
 ```
 
-5. 运行与打包
+5. Ejecutar y empaquetar
 
-常用构建命令：
+Comandos de compilación comunes：
 
 ```bash
-# 构建整个解决方案
+# Construir toda la solución
 dotnet build Docky.Sdk.Sample.slnx
 
-# 仅构建本项目
+# Construir solo este proyecto
 dotnet build Ducky.InstantKill/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Habilitar mod (ejecutar el juego)
 
-构建会自动将 mod 部署到游戏目录后，在游戏 Mod 管理界面启用该 mod，启动游戏进入战场场景后即可测试效果：主角攻击敌人时敌人应立即死亡。
+Build implementará automáticamente el mod en el catálogo de juegos, lo habilitará en la interfaz de administración de mods del juego y probará el efecto una vez que se inicie el juego y se inicie el campo de batalla：Cuando el protagonista ataca a un enemigo, el enemigo debería morir instantáneamente.
