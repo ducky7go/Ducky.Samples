@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](../../Ducky.TryHarmony/README.md) | [English](../../en/Ducky.TryHarmony/README_en.md) | [Deutsch](../../de/Ducky.TryHarmony/README_de.md) | [Français](README_fr.md) | [Español](../../es-ES/Ducky.TryHarmony/README_es.md) | [日本語](../../ja/Ducky.TryHarmony/README_ja.md) | [한국어](../../ko/Ducky.TryHarmony/README_ko.md) | [Português](../../pt-PT/Ducky.TryHarmony/README_pt.md) | [Русский](../../ru/Ducky.TryHarmony/README_ru.md) | [繁體中文](../../zh-TW/Ducky.TryHarmony/README_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # Mod d’échantillon Ducky.TryHarmony
 
 Brève description

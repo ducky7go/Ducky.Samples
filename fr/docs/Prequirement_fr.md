@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](../../docs/Prequirement.md) | [English](../../en/docs/Prequirement_en.md) | [Deutsch](../../de/docs/Prequirement_de.md) | [Français](Prequirement_fr.md) | [Español](../../es-ES/docs/Prequirement_es.md) | [日本語](../../ja/docs/Prequirement_ja.md) | [한국어](../../ko/docs/Prequirement_ko.md) | [Português](../../pt-PT/docs/Prequirement_pt.md) | [Русский](../../ru/docs/Prequirement_ru.md) | [繁體中文](../../zh-TW/docs/Prequirement_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # Préparation de l’environnement de développement (projet .NET / Ducky.Sdk)
 
 Ce document décrit la configuration minimale requise et les configurations recommandées requises pour configurer un environnement de développement .NET pour ce référentiel.
