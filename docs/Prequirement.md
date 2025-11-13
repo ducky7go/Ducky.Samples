@@ -1,7 +1,3 @@
-<!-- LANG_HEADER_START -->
-| [简体中文](Prequirement.md) | [English](../en/docs/Prequirement_en.md) | [Deutsch](../de/docs/Prequirement_de.md) | [Français](../fr/docs/Prequirement_fr.md) | [Español](../es-ES/docs/Prequirement_es.md) | [日本語](../ja/docs/Prequirement_ja.md) | [한국어](../ko/docs/Prequirement_ko.md) | [Português](../pt-PT/docs/Prequirement_pt.md) | [Русский](../ru/docs/Prequirement_ru.md) | [繁體中文](../zh-TW/docs/Prequirement_zh.md) | 
-<!-- LANG_HEADER_END -->
-
 # 开发环境准备（.NET / Ducky.Sdk 项目）
 
 本文档说明为本仓库搭建 .NET 开发环境所需的最小要求与推荐配置。
