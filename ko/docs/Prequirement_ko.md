@@ -1,66 +1,66 @@
-# 开发环境准备（.NET / Ducky.Sdk 项目）
+# 개발 환경 준비(.NET / Ducky.Sdk 프로젝트)
 
-本文档说明为本仓库搭建 .NET 开发环境所需的最小要求与推荐配置。
+이 문서에서는 이 리포지토리에 대한 .NET 개발 환경을 설정하는 데 필요한 최소 요구 사항 및 권장 구성에 대해 설명합니다.
 
-## 概览
+## 개요
 
-- 目标 .NET SDK：.NET 10（SDK 10.x）
-- 必要全局工具：
-  - 用于动态执行 C# 脚本：`dotnet-script`
-  - 用于程序集合并/打包：`dotnet-ilrepack`
+- 대상 .NET SDK：.NET 10(SDK 10.x)
+- 필요한 글로벌 도구：
+  - C# 스크립트를 동적으로 실행하는 데 사용됩니다.：'dotnet-script'
+  - 프로그램 컬렉션 및/또는 패키징에 사용됩니다.：'dotnet-ilrepack'
 
-## 系统要求
+## 시스템 요구 사항:
 
-- 支持的操作系统：Linux / macOS / Windows（请使用发行版包管理或官方安装脚本安装 .NET SDK）
-- 推荐磁盘空间与内存：至少 2 GB 可用磁盘和 4 GB 内存
+- 지원되는 운영 체제：Linux / macOS / Windows (배포 패키지 관리 또는 공식 설치 스크립트를 사용하여 .NET SDK를 설치하십시오)
+- 디스크 공간 및 메모리 권장：최소 2GB의 사용 가능한 디스크 및 4GB의 메모리
 
-## 安装 .NET SDK 10
+## .NET SDK 10 설치
 
-使用官方安装方式或包管理器安装 .NET 10 SDK，示例：
+공식 설치 방법 또는 패키지 관리자를 사용하여 .NET 10 SDK 설치 예제：
 
 ```bash
-# Linux (使用 Microsoft 脚本)
+# Linux(Microsoft 스크립트 사용)
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 chmod +x dotnet-install.sh
-./dotnet-install.sh --channel 10.0
+./dotnet-install.sh --채널 10.0
 ```
 
 ```bash
-# macOS (Homebrew 示例)
-brew install --cask dotnet-sdk    # 然后通过 brew info 查看可用版本或使用 dotnet-install 脚本
+# macOS(홈브류 예제)
+brew install --cask dotnet-sdk # 그런 다음 brew info를 통해 사용 가능한 버전을 확인하거나 dotnet-install 스크립트를 사용합니다.
 ```
 
 ```bash
-# Windows (PowerShell)
+# 윈도우(PowerShell)
 iwr https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
-.\dotnet-install.ps1 -Channel 10.0
+.\dotnet-install.ps1 -채널 10.0
 ```
 
-安装后将 SDK 的路径加入 PATH，或在终端使用完整路径运行。验证安装：
+설치 후 SDK의 경로를 PATH에 추가하거나 터미널에서 전체 경로로 실행합니다.설치 확인：
 
 ```bash
-dotnet --info
+dotnet --정보
 ```
 
-输出应包含 SDK 版本以 "10." 开头，例如 10.0.x。
+출력에는 "10.10.x"로 시작하는 SDK 버전이 포함되어야 합니다.
 
-## 全局工具（必须）
+## 글로벌 도구(필수)
 
-- 动态执行 C# 脚本（REPL/脚本化构建/小工具）
+- C# 스크립트를 동적으로 실행(REPL/스크립팅된 빌드/위젯)
 
 ```bash
 dotnet tool install -g dotnet-script
 ```
 
-- 程序集合并 / 打包（用于生成单一程序集或合并第三方依赖）
+- 프로그램 컬렉션 및/패키지(단일 어셈블리를 생성하거나 타사 종속성을 병합하기 위해)
 
 ```bash
-dotnet tool install -g dotnet-ilrepack
+dotnet 도구 설치 -g dotnet-ilrepack
 ```
 
-安装完成后，确认工具可用：
+설치가 완료되면 도구를 사용할 수 있는지 확인하세요：
 
 ```bash
-dotnet-script --version
+dotnet-script --버전
 ilrepack /?
 ```
