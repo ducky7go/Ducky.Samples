@@ -1,54 +1,54 @@
-# Ducky.PackageFromNuget 示例 Mod
+# Ducky.PackageFromNuget サンプル MOD
 
-简要说明
+簡単な説明
 
-本示例展示如何在 Mod 中使用第三方 NuGet 包（以 YamlDotNet 为例），包括依赖管理、资源文件访问和依赖打包部署。
+この例では、依存関係管理、リソース ファイル アクセス、依存関係パッケージのデプロイなど、YamlDotNet を例として使用して、mod でサードパーティの NuGet パッケージを使用する方法を示します。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+開始する前に、実稼働前の環境要件が準備されていることを確認してください: [環境の準備](../docs/Prequirement.md)
 
-## 1. 项目简介
+## 1. プロジェクト紹介
 
-本目录（[`Ducky.PackageFromNuget/`](Ducky.PackageFromNuget/)）演示如何扩展 Mod 的功能：
+このディレクトリ (['Ducky.PackageFromNuget/'](Ducky.PackageFromNuget/)) は、MOD の機能を拡張する方法を示しています：
 
-- ✅ 引入第三方 NuGet 包
-- ✅ 使用外部库解析数据（YAML）
-- ✅ 访问 Mod 资源文件
-- ✅ 自动处理依赖打包
+- ✅ サード パーティの NuGet パッケージの紹介
+- ✅ 外部ライブラリを使用したデータの解析 (YAML)
+- ✅ Mod リソース ファイルにアクセスする
+- ✅ 依存関係のパッケージを自動的に処理する
 
-**示例场景：** 使用 YamlDotNet 库读取并解析 Mod 资源文件夹中的 YAML 配置文件。
+**シナリオ例：** YamlDotNetライブラリを使用して、Mod Resourcesフォルダ内のYAML設定ファイルを読み取って解析します。
 
-## 2. 项目结构
+## 2. プロジェクト構造
 
 ```
 Ducky.PackageFromNuget/
-├── Ducky.PackageFromNuget.csproj    # 项目配置
-├── ModBehaviour.cs                   # Mod 入口类
+├── Ducky.PackageFromNuget.csproj # プロジェクト構成
+├── ModBehaviour.cs #モードエントリークラス
 ├── README.md
-└── assets/
-    ├── info.ini                      # Mod 元信息
-    ├── preview.png                   # 预览图
-    └── nice.yml                      # 示例 YAML 文件
+└── アセット/
+    ├── info.ini #モードメタ情報
+    ├── preview.png #プレビュー画像
+    └── nice.yml # サンプルYAMLファイル
 ```
 
-## 3. 项目配置
+## 3. プロジェクト構成
 
-[`Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj`](Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj:1):
+['Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj'](Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj:1):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>ネットスタンダード2.1</TargetFramework>
+    <Nullable>エネーブル</Nullable>
+    <LangVersion>プレビュー</LangVersion>
+    <ImplicitUsings>真</ImplicitUsings>
     <ModName>Ducky.PackageFromNuget</ModName>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Ducky SDK 引用 -->
     <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>すべての</PrivateAssets>
+      <IncludeAssets>実行中; 建てる; ネイティブ; contentファイル; アナライザー; ビルド推移的</IncludeAssets>
     </PackageReference>
     
     <!-- 第三方 NuGet 包：YamlDotNet -->
@@ -57,148 +57,148 @@ Ducky.PackageFromNuget/
 </Project>
 ```
 
-**关键点：**
+キーポイント：\*\*
 
-- SDK 使用 `PrivateAssets` 避免打包到输出
-- 第三方库（YamlDotNet）会自动打包到 Mod 输出目录
+- SDK は 'PrivateAssets' を使用して、出力へのパッケージ化を回避します
+- サードパーティのライブラリ(YamlDotNet)は、mod出力ディレクトリに自動的にパッケージ化されます
 
-## 4. 添加 NuGet 包
+## 4. NuGet パッケージを追加する
 
-### 方法一：使用 CLI（推荐）
+### 方法1：CLI を使用する (推奨)
 
 ```bash
 cd Ducky.PackageFromNuget
 dotnet add package YamlDotNet
 ```
 
-### 方法二：手动编辑 .csproj
+### 方法2：.csproj を手動で編集する
 
-在 `<ItemGroup>` 中添加：
+で '<ItemGroup>'が追加された。：
 
 ```xml
 <PackageReference Include="YamlDotNet" Version="16.3.0" />
 ```
 
-### 方法三：使用 Visual Studio
+### 方法3：Visual Studio を使用する
 
-1. 右键项目 → 管理 NuGet 程序包
-2. 搜索 "YamlDotNet"
-3. 点击"安装"
+1. プロジェクトを右クリック→NuGet パッケージを管理する
+2. 「YamlDotNet」を検索
+3. 「インストール」をクリックします
 
-## 5) 实现示例
+## 5) 実装例
 
-### 资源文件
+### リソースファイル
 
-[`assets/nice.yml`](Ducky.PackageFromNuget/assets/nice.yml):
+['資産/nice.yml'](Ducky.PackageFromNuget/assets/nice.yml):
 
 ```yaml
-niceHeader:
-  title: "Nice YAML Configuration"
-  description: "This is a demonstration of loading YAML from a mod's assets folder"
+niceHeader です。
+  title: "素敵なYAML構成"
+  description: "これは、MOD の assets フォルダーから YAML をロードするデモンストレーションです"
 ```
 
-### Mod 入口类
+### モードエントリークラス
 
-[`Ducky.PackageFromNuget/ModBehaviour.cs`](Ducky.PackageFromNuget/ModBehaviour.cs:1):
+['Ducky.PackageFromNuget/ModBehaviour.cs'](Ducky.PackageFromNuget/ModBehaviour.cs:1):
 
 ```csharp
-using Ducky.Sdk.Logging;
-using Ducky.Sdk.ModBehaviours;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
+Ducky.Sdk.Loggingを使用します。
+Ducky.Sdk.ModBehaviours を使用する。
+YamlDotNet.Serialization を使用します。
+YamlDotNet.Serialization.NamingConventionsを使用します。
 
-namespace Ducky.PackageFromNuget;
+名前空間 Ducky.PackageFromNuget;
 
-public class ModBehaviour : ModBehaviourBase
+パブリッククラス ModBehaviour : ModBehaviourBase
 {
     protected override void ModEnabled()
     {
-        // 获取 Mod 程序集所在目录
-        var dir = Path.GetDirectoryName(typeof(ModBehaviour).Assembly.Location)!;
-        var ymlPath = Path.Combine(dir, "nice.yml");
+        Mod アセンブリが配置されているディレクトリを取得する
+        var dir = Path.GetDirectoryName(typeof(ModBehaviour) です。 Assembly.Location)!;
+        var ymlPath = Path.Combine(ディレクトリ, "nice.yml");
 
         if (File.Exists(ymlPath))
         {
-            Log.Info("Found nice.yml:");
+            Log.Info("見つかったnice.yml:");
             
-            // 使用 YamlDotNet 反序列化 YAML 文件
-            var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
+            YamlDotNet を使用して YAML ファイルを逆シリアル化する
+            var deserializer = 新しい DeserializerBuilder()
+                . 命名規則(キャメルケース命名規則.インスタンス)
+                . ビルド();
 
             var ymlContent = File.ReadAllText(ymlPath);
-            var niceData = deserializer.Deserialize<NiceData>(ymlContent);
+            var niceData = デシリアライザー。 逆シリアル化<NiceData>(ymlコンテンツ);
             
-            Log.Info($"Title: {niceData.NiceHeader.Title}");
-            Log.Info($"Description: {niceData.NiceHeader.Description}");
+            Log.Info($"タイトル: {niceData.NiceHeader.Title}");
+            Log.Info($"説明: {niceData.NiceHeader.Description}");
         }
-        else
+        然も無くば
         {
-            Log.Warn("nice.yml not found!");
+            Log.Warn("nice.yml見つかりません!");
         }
     }
 
     protected override void ModDisabled()
     {
-        // 清理资源（如果需要）
+        リソースをクリーンアップする (必要な場合)
     }
 }
 
-// 数据模型类
-public class NiceData
+データモデルクラス
+public クラス NiceData
 {
-    public NiceDateHeader NiceHeader { get; set; } = new();
+    public NiceDateHeader NiceHeader { get; セット; } = 新規();
 
-    public class NiceDateHeader
+    パブリック・クラス NiceDateHeader
     {
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Title { get; セット; } = 文字列。 空;
+        public string 説明 { get; セット; } = 文字列。 空;
     }
 }
 ```
 
-## 6. 资源文件访问
+## 6. リソースファイルへのアクセス
 
-### 获取 Mod 目录
+### MODカタログを入手する
 
 ```csharp
-// 方法一：通过程序集位置（推荐）
-var modDir = Path.GetDirectoryName(typeof(ModBehaviour).Assembly.Location)!;
+方法1：組立場所別(推奨)
+var modDir = Path.GetDirectoryName(typeof(ModBehaviour) です。 Assembly.Location)!;
 ```
 
-### 访问资源文件
+### リソースファイルにアクセスする
 
 ```csharp
-// assets/ 目录下的文件会被复制到 Mod 输出目录的根目录
+assets/ ディレクトリは、Mod 出力ディレクトリのルート ディレクトリにコピーされます
 var configPath = Path.Combine(modDir, "nice.yml");
 var content = File.ReadAllText(configPath);
 ```
 
-**SDK 自动处理：**
+**SDK自動：**
 
-- ✅ 复制第三方 NuGet 包的 DLL
-- ✅ 复制资源文件到输出目录
-- ✅ 部署到游戏 Mods 目录
+- ✅ サード パーティの NuGet パッケージの DLL をコピーする
+- ✅ リソース・ファイルを出力ディレクトリーにコピーします
+- ✅ ゲーム mods ディレクトリにデプロイする
 
-## 7. 启用 Mod
+## 7. MOD を有効にする
 
-构建成功后，在游戏的 Mod 管理界面启用该 Mod：
+ビルドが成功したら、ゲームの MOD 管理インターフェイスで MOD を有効にします：
 
-1. 启动游戏
-2. 进入 Mod 管理界面
-3. 找到 "Ducky.PackageFromNuget"
-4. 点击启用
-5. 查看游戏日志，应该能看到解析的 YAML 内容
+1. ゲームを起動する
+2. MOD管理インターフェースに移動
+3. "Ducky.PackageFromNuget" を検索します。
+4. [有効化] をクリックします
+5. ゲームログを確認すると、解析されたYAMLの内容が表示されます
 
-## 8) 最佳实践
+## 8) ベストプラクティス
 
-### ✅ 选择合适的库
+### ✅ 適切なライブラリを選択する
 
-- 优先选择 .NET Standard 2.0/2.1 兼容的库
-- 避免使用平台特定的库
-- 检查库的依赖树是否复杂
+- .NET Standard 2.0/2.1 と互換性のあるライブラリを優先する
+- プラットフォーム固有のライブラリの使用を避ける
+- ライブラリの依存関係ツリーが複雑かどうかを確認する
 
-### ✅ 管理依赖版本
+### ✅ 依存バージョンの管理
 
 ```xml
 <!-- 使用 Directory.Build.props 统一管理版本 -->
@@ -207,24 +207,24 @@ var content = File.ReadAllText(configPath);
 </ItemGroup>
 ```
 
-## 9. 相关示例
+## 9. 関連事例
 
-- [Ducky.SingleProject](../Ducky.SingleProject/README.md) - 基础项目结构
-- [Ducky.EntranceMod](../Ducky.EntranceMod/README.md) - 多层架构（如需共享第三方库）
-- [环境准备文档](../docs/Prequirement.md)
+- [ダッキー・シングルプロジェクト](../Ducky.SingleProject/README.md) - 基本的なプロジェクト構造
+- [ダッキー・エントランス・モッド](../Ducky.EntranceMod/README.md- 多層アーキテクチャ (サードパーティのライブラリを共有する必要がある場合)
+- [環境準備ドキュメント](../docs/Prequirement.md)
 
-## 10. 总结
+## 10. プロット
 
-使用第三方 NuGet 包可以：
+サード パーティの NuGet パッケージを使用すると、：
 
-- ✅ 快速扩展 Mod 功能
-- ✅ 避免重复造轮子
-- ✅ 使用成熟稳定的解决方案
-- ✅ 利用社区资源
+- ✅ MOD機能をすばやく拡張
+- ✅ 車輪の再発明を避ける
+- ✅ 実績のある安定したソリューションを使用する
+- ✅ コミュニティリソースの活用
 
-**注意事项：**
+**筆記：**
 
-- ⚠️ 确保库与 .NET Standard 2.1 兼容
-- ⚠️ 注意依赖大小和性能影响
-- ⚠️ 处理好版本冲突问题
-- ⚠️ 遵守第三方库的许可证
+- ⚠️ ライブラリが .NET Standard 2.1 と互換性があることを確認する
+- ⚠️ 依存関係のサイズとパフォーマンスへの影響に注意する
+- ⚠️ バージョンの競合を適切に処理する
+- ⚠️ サードパーティライブラリのライセンスに準拠する
