@@ -1,54 +1,54 @@
-# Ducky.Localization 示例 Mod
+# Ducky.Пример мода на локализацию
 
-简要说明
+Краткое описание
 
-本示例展示如何在独立 Mod 中定义与组织本地化键、以及如何将翻译放入 assets 供运行时使用。入口与键定义见 [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) 与 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1)。
+В этом примере показано, как определить и упорядочить ключи локализации в автономном моде и как поместить переводы в ресурсы для использования во время выполнения.Определения входов и ключей отображаются в ['Ducky.Localization/ModBehaviour.cs'](Ducky.Localization/ModBehaviour.cs:1) с ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1)。
 
-开始之前
+Прежде чем начать
 
-请先阅读并准备开发环境：[`docs/Prequirement.md`](docs/Prequirement.md:1)。
+Пожалуйста, сначала прочтите и подготовьте свою среду разработки：['docs/Prequirement.md'] (docs/Prequirement.md:1)。
 
-项目结构（要点）
+Структура проекта (ключевые моменты)
 
-- [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) — Mod 入口，演示如何引用本地化字符串。
-- [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) — 静态本地化键定义（推荐在代码中维护）。
-- [`Ducky.Localization/assets/`](Ducky.Localization/assets/:1) — 存放翻译 CSV、文件型翻译和描述等资源。
+- ['Ducky.Локализация/ModBehaviour.cs'] (Ducky.Localization/ModBehaviour.cs:1) — Запись мода, которая демонстрирует, как ссылаться на локализованные строки.
+- ['Ducky.Локализация/LK.cs'] (Ducky.Localization/LK.cs:1) — Статические локализованные определения ключей (рекомендуется поддерживать в коде).
+- ['Ducky.Локализация/активы/'] (Ducky.Localization/assets/:1) — содержит ресурсы, такие как перевод CSV, переводы на основе документов и описания.
 
-本地化键（LK.cs）
+Ключ локализации (LK.cs)
 
-- 在 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 中使用静态常量组织键（例如：UI 分类）。
-- 可使用 `[TranslateFile("md")]` 标注将长文本作为文件型翻译（会生成 `assets/Locales/{lang}/` 中的文件）。
-- 如需声明支持语言，可使用 `[LanguageSupport("zh","en","zh-hant")]` 特性（若需要）。
+- В ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1) с использованием статических ключей организации констант (например,：классификация пользовательского интерфейса).
+- Длинный текст может быть переведен в файл с помощью аннотации '[TranslateFile("md)]]' (которая генерирует 'assets/Locales/{lang}/' в файле).
+- Чтобы объявить поддерживаемый язык, используйте атрибут [LanguageSupport("en","en","zh-hant")]' (при желании).
 
-翻译文件与生成
+Переводите файлы и генерируйте
 
-- 翻译 CSV：`assets/Locales/{lang}.csv`，格式为 Key,Value。
-- 文件型翻译：放置在 `assets/Locales/{lang}/`，CSV 中值以文件名引用，例如：`"ducky.singleproject.ui.longdescription.md"`。
-- `assets/lkeys.json` 与 `assets/keys.hash.txt` 会在编译时由 SDK 的 MSBuild 生成，用于运行时定位与打包校验，请勿手动编辑。
+- Перевести CSV：'активы/Локали/{lang}.csv', в формате Ключ, Значение.
+- Документный перевод：Размещено в разделе «активы/локали/{lang}/', медиана CSV ссылается по имени файла, например：'"ducky.singleproject.ui.longdescription.md"。
+- 'assets/lkeys.json' и 'assets/keys.hash.txt' будут сгенерированы MSBuild SDK во время компиляции для проверки позиционирования и упаковки во время выполнения, поэтому, пожалуйста, не редактируйте их вручную.
 
-推荐工作流
+Рекомендуемые рабочие процессы
 
-- 在代码中新增或修改键（推荐）：编辑 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 并编译，SDK 会更新翻译元数据。
-- 或直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
+- Добавление или изменение ключей в коде (рекомендуется)：Редактировать ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1) и скомпилирует, а SDK обновит метаданные перевода.
+- Или редактируйте «активы/локали/напрямую»{lang}.csv» и перекомпилировать, чтобы позволить SDK интегрировать изменения.
 
-使用示例
+Примеры использования
 
 ```csharp
-using Ducky.Sdk.Localizations;
-var message = L.UI.NiceWelcomeMessage; // 在运行时解析为当前语言的翻译
+использование Ducky.Sdk.Localizations;
+var message = L.UI. NiceWelcomeMessage; Преобразуется в перевод текущего языка во время выполнения
 ```
 
-构建与运行
+Сборка и запуск
 
 ```bash
 dotnet build Ducky.Localization/
-# 或构建整个解决方案
+# или собрать решение целиком
 dotnet build Docky.Sdk.Sample.slnx
 ```
 
-备注
+замечание
 
-- 确保 `.csproj` 中设置好 `<ModName>` 与常规项目属性（参见其它示例项目）。
-- 长文本建议使用文件型翻译以便在源码仓库中更好维护。
+- Убедитесь, что для параметра '.csproj' установлено значение '<ModName>' с общим атрибутом project (см. другие примеры проектов).
+- Для длинных текстов рекомендуется использовать перевод на основе файлов для лучшего сопровождения в репозиториях исходного кода.
 
-完成
+заканчивать
