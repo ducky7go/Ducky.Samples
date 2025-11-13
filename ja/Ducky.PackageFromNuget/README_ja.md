@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.PackageFromNuget/README_en.md) | [Deutsch](../de/Ducky.PackageFromNuget/README_de.md) | [Français](../fr/Ducky.PackageFromNuget/README_fr.md) | [Español](../es-ES/Ducky.PackageFromNuget/README_es.md) | [日本語](../ja/Ducky.PackageFromNuget/README_ja.md) | [한국어](../ko/Ducky.PackageFromNuget/README_ko.md) | [Português](../pt-PT/Ducky.PackageFromNuget/README_pt.md) | [Русский](../ru/Ducky.PackageFromNuget/README_ru.md) | [繁體中文](../zh-TW/Ducky.PackageFromNuget/README_zh.md) |
+\| [中国語(簡体字)](README.md) | [日本語](../en/Ducky.PackageFromNuget/README_en.md) | [ドイツ語](../de/Ducky.PackageFromNuget/README_de.md) | [フランセ](../fr/Ducky.PackageFromNuget/README_fr.md) | [スペイン語](../es-ES/Ducky.PackageFromNuget/README_es.md) | [日本語](../ja/Ducky.PackageFromNuget/README_ja.md) | [한국어](../ko/Ducky.PackageFromNuget/README_ko.md) | [ポルトガル語](../pt-PT/Ducky.PackageFromNuget/README_pt.md) | [Русский](../ru/Ducky.PackageFromNuget/README_ru.md) | [繁体字中国語](../zh-TW/Ducky.PackageFromNuget/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
