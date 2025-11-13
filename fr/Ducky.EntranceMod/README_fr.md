@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.EntranceMod/README_en.md) | [Deutsch](../de/Ducky.EntranceMod/README_de.md) | [Français](../fr/Ducky.EntranceMod/README_fr.md) | [Español](../es-ES/Ducky.EntranceMod/README_es.md) | [日本語](../ja/Ducky.EntranceMod/README_ja.md) | [한국어](../ko/Ducky.EntranceMod/README_ko.md) | [Português](../pt-PT/Ducky.EntranceMod/README_pt.md) | [Русский](../ru/Ducky.EntranceMod/README_ru.md) | [繁體中文](../zh-TW/Ducky.EntranceMod/README_zh.md) |
+\| [Chinois simplifié] (README.md) | [Traduction] (../en/Ducky.EntranceMod/README_en.md) | [Deutsch] (../de/Ducky.EntranceMod/README_de.md) | [English] (../fr/Ducky.EntranceMod/README_fr.md) | [Español] (../es-ES/Ducky.EntranceMod/README_es.md) | [Japonais] (../ja/Ducky.EntranceMod/README_ja.md) | [한국어] (../ko/Ducky.EntranceMod/README_ko.md) | [Português] (../pt-PT/Ducky.EntranceMod/README_pt.md) | [Русский] (../ru/Ducky.EntranceMod/README_ru.md) | [Chinois traditionnel] (../zh-TW/Ducky.EntranceMod/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
