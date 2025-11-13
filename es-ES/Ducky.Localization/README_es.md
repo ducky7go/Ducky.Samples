@@ -1,54 +1,54 @@
-# Ducky.Localization 示例 Mod
+# Mod de muestra de Ducky.Localization
 
-简要说明
+Breve descripción
 
-本示例展示如何在独立 Mod 中定义与组织本地化键、以及如何将翻译放入 assets 供运行时使用。入口与键定义见 [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) 与 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1)。
+En este ejemplo se muestra cómo definir y organizar claves de localización en un mod independiente y cómo convertir las traducciones en recursos para su uso en tiempo de ejecución.Las definiciones de entrada y clave se muestran en ['Ducky.Localization/ModBehaviour.cs'](Ducky.Localization/ModBehaviour.cs:1) con ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1)。
 
-开始之前
+Antes de empezar
 
-请先阅读并准备开发环境：[`docs/Prequirement.md`](docs/Prequirement.md:1)。
+Lea y prepare primero su entorno de desarrollo：['docs/Prequirement.md'] (docs/Prequirement.md:1)。
 
-项目结构（要点）
+Estructura del proyecto (puntos clave)
 
-- [`Ducky.Localization/ModBehaviour.cs`](Ducky.Localization/ModBehaviour.cs:1) — Mod 入口，演示如何引用本地化字符串。
-- [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) — 静态本地化键定义（推荐在代码中维护）。
-- [`Ducky.Localization/assets/`](Ducky.Localization/assets/:1) — 存放翻译 CSV、文件型翻译和描述等资源。
+- ['Ducky.Localization/ModBehaviour.cs'] (Ducky.Localization/ModBehaviour.cs:1) — Entrada de mod que muestra cómo hacer referencia a cadenas localizadas.
+- ['Ducky.Localization/LK.cs'] (Ducky.Localization/LK.cs:1) — Definiciones de clave localizadas estáticas (se recomienda mantenerlas en el código).
+- ['Ducky.Localization/assets/'] (Ducky.Localization/assets/:1): contiene recursos como CSV de traducción, traducciones basadas en documentos y descripciones.
 
-本地化键（LK.cs）
+Clave de localización (LK.cs)
 
-- 在 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 中使用静态常量组织键（例如：UI 分类）。
-- 可使用 `[TranslateFile("md")]` 标注将长文本作为文件型翻译（会生成 `assets/Locales/{lang}/` 中的文件）。
-- 如需声明支持语言，可使用 `[LanguageSupport("zh","en","zh-hant")]` 特性（若需要）。
+- En ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1) utilizando claves de organización de constantes estáticas (p. ej.：Clasificación de IU).
+- El texto largo se puede traducir como un archivo usando la anotación '[TranslateFile("md)]]' (que genera 'assets/Localiz/{lang}/' en el archivo).
+- Para declarar un idioma admitido, use el atributo [LanguageSupport("en","en","zh-hant")]' (si lo desea).
 
-翻译文件与生成
+Traducir archivos y generar
 
-- 翻译 CSV：`assets/Locales/{lang}.csv`，格式为 Key,Value。
-- 文件型翻译：放置在 `assets/Locales/{lang}/`，CSV 中值以文件名引用，例如：`"ducky.singleproject.ui.longdescription.md"`。
-- `assets/lkeys.json` 与 `assets/keys.hash.txt` 会在编译时由 SDK 的 MSBuild 生成，用于运行时定位与打包校验，请勿手动编辑。
+- Traducir CSV：'assets/Localiz/{lang}.csv', en el formato Clave, Valor.
+- Traducción basada en documentos：Colocado en 'assets/localities/{lang}/', se hace referencia a la mediana de CSV por el nombre del archivo, por ejemplo：'"ducky.singleproject.ui.longdescription.md"'。
+- MSBuild del SDK generará 'assets/lkeys.json' y "assets/keys.hash.txt" en tiempo de compilación para el posicionamiento en tiempo de ejecución y las comprobaciones de empaquetado, por lo que no los edite manualmente.
 
-推荐工作流
+Flujos de trabajo recomendados
 
-- 在代码中新增或修改键（推荐）：编辑 [`Ducky.Localization/LK.cs`](Ducky.Localization/LK.cs:1) 并编译，SDK 会更新翻译元数据。
-- 或直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
+- Agregar o modificar claves en el código (recomendado)：Editar ['Ducky.Localization/LK.cs'](Ducky.Localization/LK.cs:1) y compilar, y el SDK actualiza los metadatos de traducción.
+- O edite "assets/localiz/ directamente"{lang}.csv' y vuelva a compilar para permitir que el SDK integre los cambios.
 
-使用示例
+Ejemplos de uso
 
 ```csharp
-using Ducky.Sdk.Localizations;
-var message = L.UI.NiceWelcomeMessage; // 在运行时解析为当前语言的翻译
+usando Ducky.Sdk.Localizations;
+var mensaje = L.UI. Buen mensaje de bienvenida; Se resuelve en una traducción del idioma actual en tiempo de ejecución
 ```
 
-构建与运行
+Compilación y ejecución
 
 ```bash
 dotnet build Ducky.Localization/
-# 或构建整个解决方案
+# o construir la solución completa
 dotnet build Docky.Sdk.Sample.slnx
 ```
 
-备注
+comentario
 
-- 确保 `.csproj` 中设置好 `<ModName>` 与常规项目属性（参见其它示例项目）。
-- 长文本建议使用文件型翻译以便在源码仓库中更好维护。
+- Asegúrese de que '.csproj' esté configurado en '<ModName>' con el atributo general del proyecto (ver otros proyectos de ejemplo).
+- Se recomienda utilizar la traducción basada en archivos para un mejor mantenimiento en los repositorios de código fuente.
 
-完成
+terminar
