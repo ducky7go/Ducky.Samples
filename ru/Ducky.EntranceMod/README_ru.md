@@ -1,67 +1,67 @@
-# Ducky.EntranceMod 示例 Mod
+# Ducky.EntranceMod образец мода
 
-简要说明
+Краткое описание
 
-本示例展示如何使用多层架构模式开发 Mod，将共享代码分离到独立的库项目中，实现代码复用和模块化设计。适合大型 Mod 或需要在多个 Mod 之间共享代码的场景。
+В этом примере показано, как разрабатывать моды с использованием шаблона многоуровневой архитектуры для разделения общего кода на отдельные проекты библиотек для повторного использования кода и модульного проектирования.Подходит для больших модов или сценариев, в которых код должен быть общим для нескольких модов.
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Прежде чем начать, убедитесь, что требования к предварительной среде подготовлены: [Подготовка среды](../docs/Prequirement.md)
 
-## 1. 项目简介
+## 1. Введение в проект
 
-本示例由两个项目组成：
+Этот пример состоит из двух элементов：
 
-- **主 Mod 项目** [`Ducky.EntranceMod/`](Ducky.EntranceMod/) - Mod 入口，包含资源文件
-- **公共库项目** [`Ducky.EntranceMod.Common/`](Ducky.EntranceMod.Common/) - 共享代码库
+- **Основной проект мода** ['Ducky.EntranceMod/'](Ducky.EntranceMod/) - Вход в мод, содержащий файлы ресурсов
+- **Проект Публичной Библиотеки** ['Ducky.EntranceMod.Common/'](Ducky.EntranceMod.Common/) - Общая кодовая база
 
-这种架构模式适用于：
+Применяется этот архитектурный шаблон：
 
-- 大型 Mod 需要分层管理
-- 多个 Mod 共享通用逻辑
-- 团队协作开发
-- 需要独立测试业务逻辑
+- Большие моды требуют иерархического управления
+- Несколько модов имеют общую логику
+- Совместная разработка в команде
+- Бизнес-логику нужно тестировать самостоятельно
 
-## 2. 项目结构
+## 2. Структура проекта
 
 ```
-Ducky.EntranceMod/                    # 主 Mod 项目
-├── Ducky.EntranceMod.csproj         # 项目配置
-├── ModBehaviour.cs                   # Mod 入口类
+Ducky.EntranceMod/ # Основной мод проект
+├── Ducky.EntranceMod.csproj # Настройка проекта
+├── ModBehaviour.cs # Класс входа в мод
 ├── README.md
-└── assets/                           # 资源文件目录
-    ├── info.ini
+└── assets/ # Каталог файлов ресурсов
+    «info.ini
     ├── description.md
-    ├── lkeys.json
-    ├── keys.hash.txt
-    └── Locales/
-        ├── zh.csv
+    «lkeys.json
+    «keys.hash.txt
+    └── Локали/
+        «zh.csv
         └── en.csv
 
-Ducky.EntranceMod.Common/             # 公共库项目
-├── Ducky.EntranceMod.Common.csproj  # 库项目配置
-├── LK.cs                             # 共享本地化键
-└── MyModBase.cs                      # 共享基类
+Ducky.EntranceMod.Common/ # Проект публичной библиотеки
+├── Ducky.EntranceMod.Common.csproj # Настройка проекта библиотеки
+├── LK.cs # Поделиться ключом локализации
+└── MyModBase.cs # Общий базовый класс
 ```
 
-## 3. 主 Mod 项目配置
+## 3. Основная конфигурация проекта мода
 
-[`Ducky.EntranceMod/Ducky.EntranceMod.csproj`](Ducky.EntranceMod/Ducky.EntranceMod.csproj:1) 的关键配置：
+['Ducky.EntranceMod/Ducky.EntranceMod.csproj'] (Ducky.EntranceMod/Ducky.EntranceMod.csproj:1)：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>Нетстандарт2.1</TargetFramework>
+    <Nullable>давать возможность</Nullable>
+    <LangVersion>Предварительный просмотр</LangVersion>
+    <ImplicitUsings>истинный</ImplicitUsings>
     <ModName>Ducky.EntranceMod</ModName>
     <!-- 关键：排除 SDK 库，避免重复打包 -->
-    <ExcludeSdkLib>true</ExcludeSdkLib>
+    <ExcludeSdkLib>истинный</ExcludeSdkLib>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>все</PrivateAssets>
+      <IncludeAssets>Среды выполнения; строить; родной; файлы содержимого; Анализаторы; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
@@ -72,208 +72,208 @@ Ducky.EntranceMod.Common/             # 公共库项目
 </Project>
 ```
 
-**核心配置说明：**
+**Описание конфигурации ядра：**
 
-- `<ExcludeSdkLib>true</ExcludeSdkLib>` - 避免将 SDK 库重复打包到输出目录
+- \`<ExcludeSdkLib>истинный</ExcludeSdkLib>- Избегайте дублирования упаковки библиотек SDK в директорию вывода
 
-## 4. 公共库项目配置
+## 4. Конфигурация проекта публичной библиотеки
 
-[`Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj`](Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj:1) 的关键配置：
+['Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj'] (Ducky.EntranceMod.Common/Ducky.EntranceMod.Common.csproj:1)：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>Нетстандарт2.1</TargetFramework>
+    <Nullable>давать возможность</Nullable>
+    <LangVersion>Предварительный просмотр</LangVersion>
+    <ImplicitUsings>истинный</ImplicitUsings>
     <!-- 关键：标记为 Mod 库 -->
-    <IsModLib>true</IsModLib>
+    <IsModLib>истинный</IsModLib>
     <!-- 关键：指向主 Mod 项目的 assets 目录 -->
-    <AssetsDir>$(SolutionDir)Ducky.EntranceMod/assets</AssetsDir>
+    <AssetsDir>$(SolutionDir)Ducky.EntranceMod/активы</AssetsDir>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>все</PrivateAssets>
+      <IncludeAssets>Среды выполнения; строить; родной; файлы содержимого; Анализаторы; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 </Project>
 ```
 
-**核心配置说明：**
+**Описание конфигурации ядра：**
 
-- `<IsModLib>true</IsModLib>` - 标记此项目为 Mod 库，SDK 会特殊处理
-- `<AssetsDir>` - 指向主项目的 assets 目录，使本地化键能正确生成
+- \`<IsModLib>истинный</IsModLib>' - Отметьте этот элемент как библиотеку модов, SDK будет обрабатывать его специально
+- \`<AssetsDir>' - Указывает на каталог активов основного проекта, чтобы ключ локализации был сгенерирован корректно
 
-## 5. 共享代码示例
+## 5. Поделитесь примерами кода
 
-### 共享本地化键
+### Общий доступ к ключам локализации
 
-[`Ducky.EntranceMod.Common/LK.cs`](Ducky.EntranceMod.Common/LK.cs:1):
+['Ducky.EntranceMod.Common/LK.cs'] (Ducky.EntranceMod.Common/LK.cs:1):
 
 ```csharp
-namespace Ducky.EntranceMod.Common;
+пространство имен Ducky.EntranceMod.Common;
 
-public static class LK
+публичный статический класс LK
 {
-    public static class UI
+    Пользовательский интерфейс открытого статического класса
     {
         public const string NiceWelcomeMessage = "ducky_entrancemod.common.ui.nicewelcomemessage";
     }
 }
 ```
 
-### 共享基类
+### Общие базовые классы
 
-[`Ducky.EntranceMod.Common/MyModBase.cs`](Ducky.EntranceMod.Common/MyModBase.cs:1):
+['Ducky.EntranceMod.Common/MyModBase.cs'] (Ducky.EntranceMod.Common/MyModBase.cs:1):
 
 ```csharp
-using Ducky.Sdk.ModBehaviours;
+использование Ducky.Sdk.ModBehaviours;
 
-namespace Ducky.EntranceMod.Common;
+пространство имен Ducky.EntranceMod.Common;
 
-public abstract class MyModBase : ModBehaviourBase
+публичный абстрактный класс MyModBase : ModBehaviourBase
 {
-    // 可以在这里添加所有 Mod 共享的通用方法
-    protected virtual void LogModInfo(string message)
+    Универсальный метод для обмена всеми модами доступен для добавления здесь
+    защищенная виртуальная пустота LogModInfo(строковое сообщение)
     {
-        Log.Info($"[{GetType().Name}] {message}");
+        Log.Info($"[{GetType(). Имя}] {message}");
     }
 }
 ```
 
-### 主 Mod 使用共享代码
+### Основной мод использует общий код
 
-[`Ducky.EntranceMod/ModBehaviour.cs`](Ducky.EntranceMod/ModBehaviour.cs:1):
+['Ducky.EntranceMod/ModBehaviour.cs'] (Ducky.EntranceMod/ModBehaviour.cs:1):
 
 ```csharp
-using Ducky.Sdk.Logging;
-using Ducky.EntranceMod.Common;
+использование Ducky.Sdk.Logging;
+использование Ducky.EntranceMod.Common;
 
-namespace Ducky.EntranceMod;
+пространство имен Ducky.EntranceMod;
 
-// 继承共享基类
-public class ModBehaviour : MyModBase
+Наследование общего базового класса
+публичный класс ModBehaviour : MyModBase
 {
-    protected override void ModEnabled()
+    защищенное переопределение void ModEnabled()
     {
-        Log.Info("Mod Enabled");
-        // 使用共享的本地化键
-        var message = LK.UI.NiceWelcomeMessage;
-        LogModInfo($"Welcome message key: {message}");
+        Log.Info("Мод включен");
+        Использование общего ключа локализации
+        var message = LK. Пользовательского интерфейса. NiceWelcomeMessage;
+        LogModInfo($"Ключ приветственного сообщения: {message}");
     }
 
-    protected override void ModDisabled()
+    защищенное переопределение void ModDisabled()
     {
-        Log.Info("Mod Disabled");
+        Log.Info("Мод отключен");
     }
 }
 ```
 
-## 6. 多层架构的优势
+## 6. Преимущества многослойной архитектуры
 
-### ✅ 代码复用
+### ✅ Повторное использование кода
 
-- 多个 Mod 可以共享 `Ducky.EntranceMod.Common` 库
-- 避免代码重复，提高维护性
+- Несколько модов могут совместно использовать библиотеку 'Ducky.EntranceMod.Common'
+- Избегайте дублирования кода и повышайте удобство сопровождения
 
-### ✅ 模块化设计
+### ✅ Модульная конструкция
 
-- 业务逻辑与 Mod 入口分离
-- 易于单元测试
-- 清晰的依赖关系
+- Бизнес-логика отделена от входящего модуля
+- Простое модульное тестирование
+- Понятные зависимости
 
-### ✅ 团队协作
+### ✅ Совместная работа в команде
 
-- 不同开发者可以独立开发不同层
-- 减少代码冲突
-- 便于代码审查
+- Разные разработчики могут разрабатывать разные слои независимо друг от друга
+- Уменьшение количества конфликтов кода
+- Простая проверка кода
 
-### ✅ 本地化共享
+### ✅ Локализованный общий доступ
 
-- 公共库可以定义共享的本地化键
-- 所有使用该库的 Mod 自动获得翻译支持
+- В публичных библиотеках можно определять общие ключи локализации
+- Все моды, использующие библиотеку, автоматически поддерживаются для перевода
 
-## 7. 构建流程
+## 7. Постройте процесс
 
-SDK 会自动处理多项目依赖：
+SDK автоматически обрабатывает зависимости нескольких проектов：
 
 ```bash
-# 构建整个解决方案（推荐）
+# Соберите решение целиком (рекомендуется)
 dotnet build Docky.Sdk.Sample.slnx
 
-# 或单独构建主项目（会自动构建依赖的库项目）
+# или соберите основной проект отдельно (который автоматически соберет проект зависимой библиотеки)
 dotnet build Ducky.EntranceMod/
 ```
 
-**构建产物：**
+Создание продуктов：\*\*
 
-- 主 Mod 程序集 + 公共库程序集会一起打包
-- 资源文件从主项目的 `assets/` 目录获取
-- SDK 库不会重复包含（因为设置了 `<ExcludeSdkLib>true</ExcludeSdkLib>`）
+- Основная сборка мода + сборка публичной библиотеки упакованы вместе
+- Файл ресурсов получается из директории 'assets/' основного проекта
+- Библиотеки SDK не включаются повторно (потому что '<ExcludeSdkLib>истинный</ExcludeSdkLib>\`）
 
-## 8. 启用 Mod
+## 8. Включите моды
 
-构建成功后，Mod 会自动部署到游戏目录：
+После сборки моды автоматически развертываются в каталоге игр：
 
 ```
 <游戏目录>/Duckov_Data/StreamingAssets/Mods/Ducky.EntranceMod/
-├── Ducky.EntranceMod.dll
-├── Ducky.EntranceMod.Common.dll
-└── assets/
-    ├── info.ini
-    ├── lkeys.json
-    └── Locales/
+«Ducky.EntranceMod.dll
+«Ducky.EntranceMod.Common.dll
+└── активы/
+    «info.ini
+    «lkeys.json
+    └── Локали/</游戏目录>
 ```
 
-在游戏的 Mod 管理界面启用该 Mod 即可。
+Включите мод в интерфейсе управления модами игры.
 
-## 9. 扩展建议
+## 9. Рекомендации по расширению
 
-### 创建更多公共库
+### Создание большего количества публичных библиотек
 
-对于复杂项目，可以创建多个公共库：
+Для сложных проектов можно создать несколько общедоступных библиотек：
 
 ```
-Ducky.EntranceMod/              # 主 Mod
-Ducky.EntranceMod.Common/       # 通用代码
-Ducky.EntranceMod.Gameplay/     # 游戏玩法逻辑
-Ducky.EntranceMod.UI/           # UI 相关
+Ducky.EntranceMod/ # Мастер Мод
+Ducky.EntranceMod.Common/ # Универсальный код
+Ducky.EntranceMod.Геймплей/ # Логика геймплея
+Ducky.EntranceMod.UI/ # Связанные с пользовательским интерфейсом
 ```
 
-## 10. 常见问题
+## 10. Часто задаваемые вопросы
 
-### Q: 为什么要设置 `<ExcludeSdkLib>true</ExcludeSdkLib>`？
+### В: Зачем ставить '<ExcludeSdkLib>истинный</ExcludeSdkLib>\`？
 
-A: 避免将 Ducky.Sdk 的库文件重复打包到 Mod 输出目录。SDK 库已经存在于游戏中，不需要再次包含。
+О: Избегайте дублирования упаковки файлов библиотеки Ducky.Sdk в директорию вывода мода.Библиотека SDK уже существует в игре и не нуждается в повторном включении.
 
-### Q: `<AssetsDir>` 必须设置吗？
+### Q: \`<AssetsDir>Нужно ли его настраивать?
 
-A: 对于公共库项目，如果包含本地化键（LK.cs），则必须设置 `<AssetsDir>` 指向主项目的 assets 目录，这样 SDK 才能正确生成本地化元数据。
+О: Для проектов публичных библиотек, если вы включаете ключ локализации (LK.cs), вы должны установить '<AssetsDir>Указывает на каталог активов основного проекта, чтобы SDK мог правильно генерировать локализованные метаданные.
 
-### Q: 可以有多个主 Mod 项目共享同一个公共库吗？
+### В: Могут ли несколько основных проектов модов использовать одну и ту же публичную библиотеку?
 
-A: 可以！这正是多层架构的优势。多个 Mod 可以引用同一个公共库项目。
+О: Да!В этом и заключается преимущество многоуровневых архитектур.Несколько модов могут ссылаться на один и тот же проект публичной библиотеки.
 
-### Q: 公共库的本地化键会生成到哪里？
+### В: Где будет генерироваться ключ локализации для публичных библиотек?
 
-A: 会生成到 `<AssetsDir>` 指定的目录，即主项目的 `assets/` 目录下的 `lkeys.json` 文件中。
+О: Он будет генерировать '<AssetsDir>', т.е. файл 'lkeys.json' в директории 'assets/' основного проекта.
 
-## 11. 相关资源
+## 11. Связанные ресурсы
 
-- [Ducky.SingleProject](../Ducky.SingleProject/README.md) - 单项目模式参考
-- [Ducky.Localization](../Ducky.Localization/README.md) - 本地化系统详解
-- [环境准备文档](../docs/Prequirement.md)
+- [Ducky.SingleProject] (../Ducky.SingleProject/README.md) - Справочник по режиму одного элемента
+- [Ducky.Локализация] (../Ducky.Localization/README.md- Подробное объяснение системы локализации
+- [Документация по подготовке среды] (../docs/Prequirement.md)
 
-## 12. 总结
+## 12. Резюме
 
-多层架构模式适合：
+Подходит шаблон многоуровневой архитектуры：
 
-- ✅ 大型 Mod 项目
-- ✅ 需要代码复用的场景
-- ✅ 团队协作开发
-- ✅ 系列 Mod 开发
+- ✅ Большие мод проекты
+- ✅ Сценарии, в которых требуется повторное использование кода
+- ✅ Совместная разработка в команде
+- ✅ Серия Разработка модов
 
-如果你的 Mod 相对简单，建议先使用 [Ducky.SingleProject](../Ducky.SingleProject/README.md) 单项目模式。
+Если ваш мод относительно простой, рекомендуется начать с [Ducky.SingleProject](../Ducky.SingleProject/README.md) однопроектной модели.
