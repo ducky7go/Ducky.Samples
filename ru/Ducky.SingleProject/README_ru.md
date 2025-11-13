@@ -1,28 +1,28 @@
-# Ducky.SingleProject 示例 Mod
+# Ducky.SingleProject образец мода
 
-简要说明
+Краткое описание
 
-本示例展示如何使用 Ducky.Sdk 创建单工程 Mod，包含项目初始化、SDK 引入、Mod 生命周期与打包流程。
+В этом примере показано, как использовать Ducky.Sdk для создания мода для одного проекта, включая инициализацию проекта, внедрение SDK, жизненный цикл мода и процесс упаковки.
 
-开始之前，请确保前置环境要求已经准备完毕: [环境准备](../docs/Prequirement.md)
+Прежде чем начать, убедитесь, что требования к предварительной среде готовы: [Подготовка среды](../docs/Prequirement.md)
 
-1. 项目简介
+1. Введение в проект
 
-本目录（`Ducky.SingleProject/`）演示单工程 Mod 模式：所有代码与资源放在同一项目内，入口类继承 `ModBehaviourBase`，相关实现请参见 [`Ducky.SingleProject/ModBehaviour.cs`](Ducky.SingleProject/ModBehaviour.cs:1)。
+Этот каталог ('Ducky.SingleProject/') демонстрирует режим SingleProject Mod：Весь код и ресурсы размещаются в одном проекте, а входной класс наследует 'ModBehaviourBase', см. ['Ducky.SingleProject/ModBehaviour.cs'](Ducky.SingleProject/ModBehaviour.cs:1)。
 
-2. 初始化项目
+2. Инициализация проекта
 
-- 从模版或仓库开始：克隆样例仓库并打开 `Ducky.SingleProject/`。
-- 必要的项目设置（建议在 `.csproj` 中保证）：
+- Начните с шаблона или репозитория：Клонируйте репозиторий образцов и откройте 'Ducky.SingleProject/'.
+- Необходимая настройка проекта (рекомендуется гарантировать в '.csproj')：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>Нетстандарт2.1</TargetFramework>
+    <Nullable>давать возможность</Nullable>
+    <LangVersion>Предварительный просмотр</LangVersion>
+    <ImplicitUsings>истинный</ImplicitUsings>
     <!-- ModName 是必须项，建议与程序集名称一致（确保 .csproj 中的 <ModName> 与程序集/项目名相同） -->
     <ModName>Ducky.SingleProject</ModName>
     <!-- 本地游戏路径示例，这是必须的-->
@@ -33,11 +33,11 @@
 </Project>
 ```
 
-示例：请确保 ModName 与程序集/项目名保持一致。
+пример：Убедитесь, что ModName совпадает с именем сборки/проекта.
 
-1. 安装并配置 Ducky.Sdk
+1. Установка и настройка Ducky.Sdk
 
-推荐通过 NuGet 安装 Ducky.Sdk。可以使用 CLI 快速添加（示例 — 请替换为所需版本）：
+Рекомендуется установить Ducky.Sdk через NuGet.Вы можете использовать интерфейс командной строки для быстрого добавления (пример - пожалуйста, замените на нужную версию)：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -46,51 +46,51 @@ dotnet add package Ducky.Sdk
 ```xml
 <ItemGroup>
   <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-    <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>все</PrivateAssets>
+    <IncludeAssets>Среды выполнения; строить; родной; файлы содержимого; Анализаторы; buildtransitive</IncludeAssets>
   </PackageReference>
 </ItemGroup>
 ```
 
-4. 编写第一个 ModBehaviour
+4. Напишите первый ModBehaviour
 
-- 入口类需继承 `ModBehaviourBase`，并实现生命周期方法 `ModEnabled()` 与 `ModDisabled()`。
+- Входящий класс наследует базу ModBehaviourBase и реализует методы жизненного цикла ModEnabled() и ModDisabled().
 
-示例代码：
+Пример кода：
 
 ```csharp
-using Ducky.Sdk;
-using Ducky.Sdk.Logging;
+использование Ducky.Sdk;
+использование Ducky.Sdk.Logging;
 
-namespace Ducky.SingleProject;
+пространство имен Ducky.SingleProject;
 
-public class ModBehaviour : ModBehaviourBase
+публичный класс ModBehaviour : ModBehaviourBase
 {
-    protected override void ModEnabled()
+    защищенное переопределение void ModEnabled()
     {
-        // 初始化时记录信息
+        Запись информации при инициализации
         Log.Info("Ducky.SingleProject Mod Enabled");
     }
 
-    protected override void ModDisabled()
+    защищенное переопределение void ModDisabled()
     {
-        Log.Info("Ducky.SingleProject Mod Disabled");
+        Log.Info("Ducky.SingleProject Mod отключен");
     }
 }
 ```
 
-5. 运行与打包
+5. Запуск и упаковка
 
-常用构建命令：
+Общие команды сборки：
 
 ```bash
-# 构建整个解决方案（.slnx）
+# Сборка всего решения (.slnx)
 dotnet build Docky.Sdk.Sample.slnx
 
-# 仅构建单个示例项目
+# Соберите только один пример проекта
 dotnet build Ducky.SingleProject/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Включить мод (запустить игру)
 
-构建会自动将 mod 部署到游戏目录后，启动游戏即可在 Mod 管理界面或游戏内启用该 Mod。启用之后就可以在游戏日志中看到 Mod 的启用信息。
+Build автоматически развертывает моды в каталоге игр и запускает игру, чтобы включить мод в интерфейсе управления модами или в игре.После включения вы можете увидеть информацию об активации мода в журнале игры.
