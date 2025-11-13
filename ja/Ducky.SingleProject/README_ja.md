@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.SingleProject/README_en.md) | [Deutsch](../de/Ducky.SingleProject/README_de.md) | [Français](../fr/Ducky.SingleProject/README_fr.md) | [Español](../es-ES/Ducky.SingleProject/README_es.md) | [日本語](../ja/Ducky.SingleProject/README_ja.md) | [한국어](../ko/Ducky.SingleProject/README_ko.md) | [Português](../pt-PT/Ducky.SingleProject/README_pt.md) | [Русский](../ru/Ducky.SingleProject/README_ru.md) | [繁體中文](../zh-TW/Ducky.SingleProject/README_zh.md) |
+\| [中国語(簡体字)](README.md) | [日本語](../en/Ducky.SingleProject/README_en.md) | [ドイツ語](../de/Ducky.SingleProject/README_de.md) | [フランセ](../fr/Ducky.SingleProject/README_fr.md) | [スペイン語](../es-ES/Ducky.SingleProject/README_es.md) | [日本語](../ja/Ducky.SingleProject/README_ja.md) | [한국어](../ko/Ducky.SingleProject/README_ko.md) | [ポルトガル語](../pt-PT/Ducky.SingleProject/README_pt.md) | [Русский](../ru/Ducky.SingleProject/README_ru.md) | [繁体字中国語](../zh-TW/Ducky.SingleProject/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
