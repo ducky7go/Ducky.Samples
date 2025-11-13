@@ -1,222 +1,222 @@
-# Ducky SDK 示例项目集合
+# Ducky SDK 示例專案集合
 
-[![Build](https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
-[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
-[![NuGet](https://img.shields.io/nuget/v/Ducky.Sdk?logo=nuget&label=Ducky.Sdk)](https://www.nuget.org/packages/Ducky.Sdk)
-[![License](https://img.shields.io/github/license/newbe36524/Samples?label=License)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#)
-[![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-[![Target](https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
-[![Issues](https://img.shields.io/github/issues/newbe36524/Samples)](https://github.com/newbe36524/Samples/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/newbe36524/Samples)](https://github.com/newbe36524/Samples/pulls)
-[![Last Commit](https://img.shields.io/github/last-commit/newbe36524/Samples)](https://github.com/newbe36524/Samples/commits)
+[! [Build](https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
+[! [.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[! [NuGet](https://img.shields.io/nuget/v/Ducky.Sdk?logo=nuget&label=Ducky.Sdk)](https://www.nuget.org/packages/Ducky.Sdk)
+[! [License](https://img.shields.io/github/license/newbe36524/Samples?label=License)](LICENSE)
+[! [Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#)
+[! [Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[! [Target](https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
+[! [Issues](https://img.shields.io/github/issues/newbe36524/Samples)](https://github.com/newbe36524/Samples/issues)
+[! [Pull Requests](https://img.shields.io/github/issues-pr/newbe36524/Samples)](https://github.com/newbe36524/Samples/pulls)
+[! [Last Commit](https://img.shields.io/github/last-commit/newbe36524/Samples)](https://github.com/newbe36524/Samples/commits)
 
-本仓库包含多个用于演示 "Escape from Duckov" Mod 开发的示例项目，使用 [Ducky.Sdk](https://www.nuget.org/packages/Ducky.Sdk) 框架。
+本倉庫包含多個用於演示 「Escape from Duckov」 Mod 開發的範例專案，使用 [Ducky.Sdk]（https://www.nuget.org/packages/Ducky.Sdk） 框架。
 
-## 📋 前置准备
+## 📋 前置準備
 
-开始之前，请确保您的开发环境已准备就绪：
+開始之前，請確保您的開發環境已準備就緒：
 
-👉 **[查看环境准备文档](docs/Prequirement.md)**
+👉 **[查看環境準備文檔]（docs/Prequirement.md)**
 
 主要要求：
 
 - .NET SDK 10.x
-- 全局工具：`dotnet-script`、`dotnet-ilrepack`
-- 支持的操作系统：Windows / Linux / macOS
+- 全域工具：`dotnet-script`、`dotnet-ilrepack`
+- 支援的作業系統：Windows / Linux / macOS
 
-## 🎯 快速开始
+## 🎯 快速開始
 
 ```bash
-# 克隆仓库
+# 克隆倉庫
 git clone <repository-url>
 cd Samples
 
-# 构建所有示例
+# 構建所有範例
 dotnet build Docky.Sdk.Sample.slnx
 
-# 或构建单个示例
+# 或構建單個範例
 dotnet build Ducky.SingleProject/
 ```
 
-## 📚 示例项目导览
+## 📚 範例項目導覽
 
-本仓库按从易到难的顺序组织示例，建议按以下顺序学习：
+本倉庫按從易到難的順序組織示例，建議按以下順序學習：
 
-### 1️⃣ 入门级 - 基础概念
+### 1️⃣ 入門級 - 基礎概念
 
-#### [Ducky.SingleProject](Ducky.SingleProject/) - 最简单的 Mod
+#### [Ducky.SingleProject](Ducky.SingleProject/） - 最簡單的 Mod
 
-**难度：⭐**
+**難度：⭐**
 
-最基础的单项目 Mod 示例，适合完全新手。
+最基礎的單專案 Mod 示例，適合完全新手。
 
-- ✅ 单项目结构
-- ✅ Mod 生命周期（`ModEnabled` / `ModDisabled`）
-- ✅ 基础日志记录
-- ✅ 项目配置与构建
+- ✅ 單項目結構
+- ✅ Mod 生命週期（'ModEnabled' / 'ModDisabled'）
+- ✅ 基礎記錄
+- ✅ 專案配置與構建
 
-**学习要点：**
+**學習要點：**
 
-- 如何创建一个最小可运行的 Mod
-- [`ModBehaviour`](Ducky.SingleProject/ModBehaviour.cs) 入口类的实现
-- `.csproj` 文件的基本配置
+- 如何創建一個最小可運行的Mod
+- [`ModBehaviour`](Ducky.SingleProject/ModBehaviour.cs） 入口類的實現
+- '.csproj' 檔的基本配置
 
-**适合人群：** 刚接触 Ducky SDK 的开发者
+**適合人群：** 剛接觸 Ducky SDK 的開發者
 
-👉 [查看详细教程](Ducky.SingleProject/README.md)
-
----
-
-#### [Ducky.InstantKill](Ducky.InstantKill/) - 游戏事件处理
-
-**难度：⭐⭐**
-
-演示如何订阅游戏事件并实现简单的游戏逻辑修改。
-
-- ✅ 游戏事件订阅（`Health.OnHurt`）
-- ✅ 事件处理器实现
-- ✅ 生命周期内的资源管理
-
-**学习要点：**
-
-- 如何监听游戏内事件
-- 如何安全地订阅和取消订阅事件
-- [`DamageInfo`](Ducky.InstantKill/ModBehaviour.cs) 等游戏 API 的使用
-
-**适合人群：** 了解基础 Mod 结构，想要实现游戏逻辑的开发者
-
-👉 [查看详细教程](Ducky.InstantKill/README.md)
+👉 [查看詳細教程]（Ducky.SingleProject/README.md)
 
 ---
 
-### 2️⃣ 进阶级 - 核心功能
+#### [Ducky.InstantKill](Ducky.InstantKill/） - 遊戲事件處理
 
-#### [Ducky.Localization](Ducky.Localization/) - 多语言本地化
+**難度：⭐⭐**
 
-**难度：⭐⭐⭐**
+演示如何訂閱遊戲事件並實現簡單的遊戲邏輯修改。
 
-完整的本地化系统示例，包含多语言支持与文件型翻译。
+- ✅ 遊戲事件訂閱（'Health.OnHurt'）
+- ✅ 事件處理器實現
+- ✅ 生命週期內的資源管理
 
-- ✅ 本地化键定义（[`LK.cs`](Ducky.Localization/LK.cs)）
-- ✅ CSV 翻译文件
-- ✅ 文件型翻译（Markdown）
-- ✅ 多语言支持（简中、英文）
+**學習要點：**
 
-**学习要点：**
+- 如何監聽遊戲內事件
+- 如何安全地訂閱和取消訂閱事件
+- [`DamageInfo`](Ducky.InstantKill/ModBehaviour.cs） 等遊戲 API 的使用
 
-- 如何组织本地化键
-- `[LanguageSupport]` 和 `[TranslateFile]` 特性的使用
-- SDK 自动生成的 `lkeys.json` 和 `keys.hash.txt`
-- 运行时访问翻译字符串
+**適合人群：** 瞭解基礎 Mod 結構，想要實現遊戲邏輯的開發者
 
-**适合人群：** 需要开发多语言 Mod 的开发者
-
-👉 [查看详细教程](Ducky.Localization/README.md)
+👉 [查看詳細教程]（Ducky.InstantKill/README.md)
 
 ---
 
-#### [Ducky.BuffRegistration](Ducky.BuffRegistration/) - 自定义游戏实体
+### 2️⃣ 進階級 - 核心功能
 
-\*\*难度：⭐⭐⭐
+#### [Ducky.Localization](Ducky.Localization/） - 多語言當地語系化
 
-演示如何注册自定义 Buff（状态效果）并与游戏系统集成。
+**難度：⭐⭐⭐**
 
-- ✅ 使用 `Contract.Buffs.RegisterBuff` 注册 Buff
-- ✅ 场景事件处理（`SceneLoader.onAfterSceneInitialize`）
-- ✅ Buff 实例创建与添加
-- ✅ 本地化 Buff 名称和描述
+完整的當地語系化系統範例，包含多語言支援與文件型翻譯。
 
-**学习要点：**
+- ✅ 當地語系化鍵定義（['LK.cs']（Ducky.Localization/LK.cs)）
+- ✅ CSV 翻譯檔
+- ✅ 文件型翻譯（Markdown）
+- ✅ 多語言支援（簡中、英文）
 
-- 如何扩展游戏的核心系统
+**學習要點：**
+
+- 如何組織當地語系化鍵
+- '[LanguageSupport]' 和 '[TranslateFile]' 特性的使用
+- SDK 自動生成的 'lkeys.json' 和 'keys.hash.txt'
+- 運行時訪問翻譯字串
+
+**適合人群：** 需要開發多語言Mod的開發者
+
+👉 [查看詳細教程]（Ducky.Localization/README.md)
+
+---
+
+#### [Ducky.BuffRegistration](Ducky.BuffRegistration/） - 自定義遊戲實體
+
+\*\*難度：⭐⭐⭐
+
+演示如何註冊自定義 Buff（狀態效果）並與遊戲系統集成。
+
+- ✅ 使用 'Contract.Buffs.RegisterBuff' 註冊 Buff
+- ✅ 場景事件處理（'SceneLoader.onAfterSceneInitialize'）
+- ✅ Buff 實例創建與添加
+- ✅ 當地語系化 Buff 名稱和描述
+
+**學習要點：**
+
+- 如何擴展遊戲的核心系統
 - Contract API 的使用模式
-- 场景生命周期管理
-- 游戏实体的配置与注册
+- 場景生命週期管理
+- 遊戲實體的配置與註冊
 
-**适合人群：** 想要添加自定义游戏内容的开发者
+**適合人群：** 想要添加自定義遊戲內容的開發者
 
-👉 [查看详细教程](Ducky.BuffRegistration/README.md)
+👉 [查看詳細教程]（Ducky.BuffRegistration/README.md)
 
 ---
 
-#### [Ducky.PackageFromNuget](Ducky.PackageFromNuget/) - 第三方依赖管理
+#### [Ducky.PackageFromNuget](Ducky.PackageFromNuget/） - 第三方依賴管理
 
-**难度：⭐⭐⭐**
+**難度：⭐⭐⭐**
 
-演示如何在 Mod 中使用 NuGet 包（以 YamlDotNet 为例）。
+演示如何在Mod中使用 NuGet 包（以 YamlDotNet 為例）。
 
 - ✅ 引入第三方 NuGet 包
-- ✅ 读取和解析资源文件
-- ✅ 依赖打包与部署
+- ✅ 讀取和解析資源檔
+- ✅ 依賴打包與部署
 
-**学习要点：**
+**學習要點：**
 
-- 如何在 Mod 中使用外部库
-- 资源文件的访问路径
-- SDK 的依赖处理机制
+- 如何在Mod中使用外部庫
+- 資源檔案的訪問路徑
+- SDK 的依賴處理機制
 
-**适合人群：** 需要使用第三方库扩展功能的开发者
-
----
-
-### 3️⃣ 高级级 - 复杂模式
-
-#### [Ducky.EntranceMod](Ducky.EntranceMod/) + [Ducky.EntranceMod.Common](Ducky.EntranceMod.Common/) - 多层架构
-
-**难度：⭐⭐⭐⭐**
-
-演示如何将 Mod 拆分为多层架构，实现代码复用。
-
-- ✅ 主 Mod 项目与公共库分离
-- ✅ `<ExcludeSdkLib>` 和 `<IsModLib>` 配置
-- ✅ 跨项目共享本地化键
-- ✅ 项目引用管理
-
-**学习要点：**
-
-- 多项目解决方案的组织
-- 如何创建可复用的 Mod 库
-- 资源文件的跨项目共享
-- 适合大型 Mod 的架构设计
-
-**适合人群：** 开发大型或系列 Mod 的团队
+**適合人群：** 需要使用第三方庫擴展功能的開發者
 
 ---
 
-#### [Ducky.TryHarmony](Ducky.TryHarmony/) - 运行时代码注入
+### 3️⃣ 高級級 - 複雜模式
 
-**难度：⭐⭐⭐⭐⭐**
+#### [Ducky.EntranceMod](Ducky.EntranceMod/) + [Ducky.EntranceMod.Common](Ducky.EntranceMod.Common/） - 多層架構
 
-使用 HarmonyLib 在运行时修补游戏代码，实现最深层次的游戏修改。
+**難度：⭐⭐⭐⭐**
 
-- ✅ Harmony 补丁系统
-- ✅ 方法前缀/后缀/替换
-- ✅ 补丁注册与清理
-- ✅ 游戏内部 API 访问
+演示如何將Mod拆分為多層架構，實現代碼複用。
 
-**学习要点：**
+- ✅ 主Mod專案與公共庫分離
+- ✅ \`<ExcludeSdkLib>' 和 '<IsModLib>' 設定
+- ✅ 跨專案共用當地語系化鍵
+- ✅ 專案引用管理
+
+**學習要點：**
+
+- 多專案解決方案的組織
+- 如何創建可複用的Mod庫
+- 資源檔的跨項目共用
+- 適合大型Mod的架構設計
+
+**適合人群：** 開發大型或系列Mod的團隊
+
+---
+
+#### [Ducky.TryHarmony](Ducky.TryHarmony/） - 執行時代碼注入
+
+**難度：⭐⭐⭐⭐⭐**
+
+使用 HarmonyLib 在運行時修補遊戲代碼，實現最深層次的遊戲修改。
+
+- ✅ Harmony 補丁系統
+- ✅ 方法前綴/後綴/替換
+- ✅ 補丁註冊與清理
+- ✅ 遊戲內部 API 訪問
+
+**學習要點：**
 
 - HarmonyLib 的基本使用
-- 如何编写 Prefix/Postfix 补丁
-- 运行时代码修改的最佳实践
-- 补丁的生命周期管理
+- 如何編寫 Prefix/Postfix 補丁
+- 運行時代碼修改的最佳實踐
+- 補丁的生命週期管理
 
-**示例：** [`SaveFilePatch`](Ducky.TryHarmony/SaveFilePatch.cs) 演示如何拦截存档操作
+**示例：** [`SaveFilePatch`](Ducky.TryHarmony/SaveFilePatch.cs） 演示如何攔截存檔操作
 
-**适合人群：** 需要深度修改游戏逻辑的高级开发者
+**適合人群：** 需要深度修改遊戲邏輯的高級開發者
 
-⚠️ **注意：** Harmony 补丁功能强大但需谨慎使用，错误的补丁可能导致游戏崩溃
+⚠️ **注意：** Harmony 補丁功能強大但需謹慎使用，錯誤的補丁可能導致遊戲崩潰
 
-👉 [查看详细教程](Ducky.TryHarmony/README.md)
+👉 [查看詳細教程]（Ducky.TryHarmony/README.md)
 
 ---
 
-## 🏗️ 项目架构
+## 🏗️ 項目架構
 
-所有示例项目遵循以下核心约定：
+所有示例專案遵循以下核心約定：
 
-### 项目配置（必需）
+### 專案設定（必需）
 
 ```xml
 <PropertyGroup>
@@ -228,72 +228,72 @@ dotnet build Ducky.SingleProject/
 </PropertyGroup>
 ```
 
-### Mod 入口点
+### Mod 入口點
 
 ```csharp
 public class ModBehaviour : ModBehaviourBase
 {
     protected override void ModEnabled()
     {
-        // Mod 启用时的初始化逻辑
+        Mod 啟用時的初始化邏輯
     }
 
     protected override void ModDisabled()
     {
-        // Mod 禁用时的清理逻辑
+        Mod 禁用時的清理邏輯
     }
 }
 ```
 
-### 资源文件结构
+### 資源文件結構
 
 ```
 assets/
-├── info.ini              # Mod 元信息
-├── description.md        # 详细描述（可选）
-├── preview.png           # 预览图（可选）
-├── lkeys.json            # 本地化清单（自动生成）
-├── keys.hash.txt         # 校验哈希（自动生成）
+├── info.ini # Mod 元資訊
+├── description.md # 詳細描述（可選）
+├── preview.png # 預覽圖（可選）
+├── lkeys.json # 本地化清單（自動生成）
+├── keys.hash.txt # 校驗哈希（自動生成）
 └── Locales/
-    ├── zh.csv            # 简体中文翻译
-    ├── en.csv            # 英文翻译
-    └── zh/               # 文件型翻译
+    ├── zh.csv # 簡體中文翻譯
+    ├── en.csv # 英文翻譯
+    └── zh/ # 檔案型翻譯
         └── *.md
 ```
 
-## 📖 学习路径建议
+## 📖 學習路徑建議
 
-### 新手路径
+### 新手路徑
 
-1. [Ducky.SingleProject](Ducky.SingleProject/) - 理解基础结构
-2. [Ducky.InstantKill](Ducky.InstantKill/) - 学习事件处理
-3. [Ducky.Localization](Ducky.Localization/) - 掌握本地化
-4. [Ducky.BuffRegistration](Ducky.BuffRegistration/) - 扩展游戏内容
+1. [Ducky.SingleProject](Ducky.SingleProject/） - 理解基礎結構
+2. [Ducky.InstantKill](Ducky.InstantKill/） - 學習事件處理
+3. [Ducky.Localization](Ducky.Localization/） - 掌握當地語系化
+4. [Ducky.BuffRegistration](Ducky.BuffRegistration/） - 擴展遊戲內容
 
-### 进阶路径
+### 進階路徑
 
-1. [Ducky.PackageFromNuget](Ducky.PackageFromNuget/) - 使用第三方库
-2. [Ducky.EntranceMod](Ducky.EntranceMod/) - 多层架构设计
-3. [Ducky.TryHarmony](Ducky.TryHarmony/) - 运行时代码注入
+1. [Ducky.PackageFromNuget](Ducky.PackageFromNuget/） - 使用第三方庫
+2. [Ducky.EntranceMod](Ducky.EntranceMod/） - 多層架構設計
+3. [Ducky.TryHarmony](Ducky.TryHarmony/） - 執行時代碼注入
 
-## 🛠️ 构建与部署
+## 🛠️ 構建與部署
 
-### 构建命令
+### 構建命令
 
 ```bash
-# 构建所有项目
+# 構建所有專案
 dotnet build Docky.Sdk.Sample.slnx
 
-# 构建单个项目
+# 構建單個專案
 dotnet build Ducky.SingleProject/
 
-# 清理构建
+# 清理構建
 dotnet clean
 ```
 
-### 自动部署
+### 自動部署
 
-SDK 在构建时会自动将 Mod 部署到游戏目录（需配置 `Local.props` 或在 `.csproj` 中设置 `<SteamFolder>` / `<DuckovFolder>`）：
+SDK 在構建時會自動將 Mod 部署到遊戲目錄（需配置 'Local.props' 或在 '.csproj' 中設置 '<SteamFolder>`/`<DuckovFolder>\`）：
 
 ```xml
 <PropertyGroup>
@@ -301,26 +301,26 @@ SDK 在构建时会自动将 Mod 部署到游戏目录（需配置 `Local.props`
 </PropertyGroup>
 ```
 
-## 📝 项目规范
+## 📝 項目規範
 
-- **解决方案格式**：使用新的 `.slnx` XML 格式
-- **代码分析**：SDK 内置分析器会验证项目结构
-- **自动生成**：本地化元数据会在编译时自动生成
+- **解決方案格式**：使用新的 『.slnx』 XML 格式
+- **代碼分析**：SDK 內置分析器會驗證項目結構
+- **自動生成**：當地語系化元數據會在編譯時自動生成
 
-## 🔗 相关资源
+## 🔗 相關資源
 
 - [Ducky.Sdk NuGet 包](https://www.nuget.org/packages/Ducky.Sdk)
-- [游戏 Steam 页面](https://store.steampowered.com/app/XXXXX)（替换为实际链接）
-- [开发者文档](docs/)
+- [遊戲 Steam 頁面](https://store.steampowered.com/app/XXXXX）（替換為實際連結）
+- [開發者文檔](docs/)
 
-## 🤝 贡献指南
+## 🤝 貢獻指南
 
-欢迎提交 Issue 和 Pull Request 来改进示例项目！
+歡迎提交 Issue 和 Pull Request 來改進示例專案！
 
-## 📄 许可证
+## 📄 許可證
 
-本项目采用 [LICENSE](LICENSE) 中指定的许可证。
+本項目採用 [LICENSE]（LICENSE） 中指定的許可證。
 
 ---
 
-**祝您开发愉快！🎮**
+**祝您開發愉快！🎮**
