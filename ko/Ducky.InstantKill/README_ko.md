@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.InstantKill/README_en.md) | [Deutsch](../de/Ducky.InstantKill/README_de.md) | [Français](../fr/Ducky.InstantKill/README_fr.md) | [Español](../es-ES/Ducky.InstantKill/README_es.md) | [日本語](../ja/Ducky.InstantKill/README_ja.md) | [한국어](../ko/Ducky.InstantKill/README_ko.md) | [Português](../pt-PT/Ducky.InstantKill/README_pt.md) | [Русский](../ru/Ducky.InstantKill/README_ru.md) | [繁體中文](../zh-TW/Ducky.InstantKill/README_zh.md) |
+\| [중국어 간체자] (README.md) | [영어] (../en/Ducky.InstantKill/README_en.md) | [도이치] (../de/Ducky.InstantKill/README_de.md) | [프랑세] (../fr/Ducky.InstantKill/README_fr.md) | [스페인어] (../es-ES/Ducky.InstantKill/README_es.md) | [일본어] (../ja/Ducky.InstantKill/README_ja.md) | [한국어] (../ko/Ducky.InstantKill/README_ko.md) | [포르투갈어] (../pt-PT/Ducky.InstantKill/README_pt.md) | [Русский] (../ru/Ducky.InstantKill/README_ru.md) | [중국어 번체자] (../zh-TW/Ducky.InstantKill/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
