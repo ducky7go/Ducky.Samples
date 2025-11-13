@@ -1,37 +1,37 @@
-# Ducky.BuffRegistration 示例 Mod
+# Ducky.Buff登録サンプルMOD
 
-简要说明
+簡単な説明
 
-本示例展示如何使用 Ducky.Sdk 注册自定义 Buff（状态效果），包括本地化键与资产布局。入口与实现见 [`Ducky.BuffRegistration/ModBehaviour.cs`](Ducky.BuffRegistration/ModBehaviour.cs:1)。
+この例では、Ducky.Sdk を使用して、ローカライズされたキーやアセット レイアウトなどのカスタム バフを登録する方法を示します。エントリと実装は ['Ducky.BuffRegistration/ModBehaviour.cs'](Ducky.BuffRegistration/ModBehaviour.cs:1)。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+開始する前に、実稼働前の環境要件が準備されていることを確認してください: [環境の準備](../docs/Prequirement.md)
 
-1. 项目简介
+1. プロジェクト紹介
 
-本目录（[`Ducky.BuffRegistration/`](Ducky.BuffRegistration/README.md:1)）演示单工程 Mod 中通过 Contract.Buffs 注册 Buff 的模式。本项目同时包含本地化键，详见 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。
+このディレクトリ (['Ducky.BuffRegistration/'](Ducky.BuffRegistration/README.md:1単一プロジェクトの MOD で Contract.Buffs を介して Buffs を登録するパターンを示します。このプロジェクトにはローカライズキーも含まれています ( ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。
 
-2. 初始化项目
+2. プロジェクトを初期化する
 
-- 克隆仓库并打开 `Ducky.BuffRegistration/`。
-- 建议在 `.csproj` 中至少包含：
+- リポジトリを複製し、「Ducky.BuffRegistration/」を開きます。
+- 少なくとも .csproj を含めることをお勧めします：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>ネットスタンダード2.1</TargetFramework>
+    <Nullable>エネーブル</Nullable>
+    <LangVersion>プレビュー</LangVersion>
+    <ImplicitUsings>真</ImplicitUsings>
     <!-- ModName 必须项，建议与项目名一致 -->
-    <ModName>Ducky.BuffRegistration</ModName>
+    <ModName>Ducky.Buff登録</ModName>
   </PropertyGroup>
 </Project>
 ```
 
-3. 安装并配置 Ducky.Sdk
+3. Ducky.Sdk をインストールして構成する
 
-推荐通过 NuGet 添加 SDK：
+NuGet を使用して SDK を追加することをお勧めします：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -40,36 +40,36 @@ dotnet add package Ducky.Sdk
 ```xml
 <ItemGroup>
   <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-    <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>すべての</PrivateAssets>
+    <IncludeAssets>実行中; 建てる; ネイティブ; contentファイル; アナライザー; ビルド推移的</IncludeAssets>
   </PackageReference>
 </ItemGroup>
 ```
 
-4. 注册自定义 Buff（示例）
+4. カスタムバフの登録(例)
 
-使用 Contract.Buffs.RegisterBuff 注册 Buff，并在回调中设置显示名、描述、图标与生命时长等属性。示例：
+Contract.Buffs.RegisterBuff を使用してバフを登録し、コールバックの表示名、説明、アイコン、および有効期間を設定します。例：
 
 ```csharp
-using Ducky.Sdk;
+Ducky.Sdk を使用します。
 
-public class ModBehaviour : ModBehaviourBase
+パブリッククラス ModBehaviour : ModBehaviourBase
 {
-    private int _buffId;
+    プライベート int _buffId;
 
     protected override void ModEnabled()
     {
-        _buffId = Contract.Buffs.RegisterBuff<DoNothingBuff>(buff =>
+        _buffId = Contract.Buffs.RegisterBuff<DoNothingBuff>(バフ=>
         {
-            buff.SetDisplayName(LK.UI.DoNothingBuffName)
-                .SetDescription(LK.UI.DoNothingBuffDescription)
-                .SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
-                .SetLimitedLifeTime(true)
-                .SetTotalLifeTime(60)
-                .SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
+            バフ。 SetDisplayName(LK. UI です。 DoNothingBuffName)
+                . SetDescription(LK. UI です。 DoNothingBuffDescription)
+                . SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
+                . SetLimitedLifeTime(true)
+                . TotalLifeTimeの設定(60)
+                . SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
         });
 
-        // 监听场景初始化：进入基地时自动给予主角该 Buff（实现见 ModBehaviour）
+        シーンの初期化を聞く：基地に入ると主人公にこのバフを自動的に付与します(実装についてはModBehaviourを参照)。
         SceneLoader.onAfterSceneInitialize += SceneLoader_onAfterSceneInitialize;
     }
 
@@ -83,39 +83,39 @@ public class ModBehaviour : ModBehaviourBase
         if (obj.sceneName == GameplayDataSettings.SceneManagement.BaseScene.Name)
         {
             var main = LevelManager.Instance.MainCharacter;
-            if (main != null)
+            if (メイン != null)
             {
-                // 在进入基地场景时创建并添加已注册的 Buff 实例
-                main.AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
+                ベースシーンに入るときに登録したBuffインスタンスを作成して追加します
+                メイン。 AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
             }
         }
     }
 }
 ```
 
-5. 本地化
+5. ローカライゼーション
 
-本示例将字符串键定义在 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。翻译文件通常位于 `assets/Locales/`（源码目录中可查看），但请注意：翻译 CSV、翻译元数据（`assets/lkeys.json`）以及校验文件（`assets/keys.hash.txt`）会在编译时由 SDK 的 MSBuild 分析器/生成器自动收集并写入到 `assets/` 目录。因此推荐的工作流是：
+この例では、文字列キーを ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。翻訳ファイルは通常 'assets/locales/' (ソースディレクトリで表示可能) にありますが、注意してください：翻訳 CSV、翻訳メタデータ ('assets/lkeys.json')、検証ファイル ('assets/keys.hash.txt') は、コンパイル時に SDK の MSBuild アナライザー/ジェネレーターによって自動的に収集され、'assets/' ディレクトリに書き込まれます。したがって、推奨されるワークフローは次のとおりです。：
 
-- 在代码中定义或修改键（推荐）：编辑 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1) 并编译，SDK 会生成/更新对应的翻译元数据。
-- 或者在本地直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
-- 若使用文件型翻译（例如将长文本写入 Markdown 文件），可在 `LK.cs` 使用 `[TranslateFile("md")]` 标注；SDK 会在编译时把对应文件放入 `assets/Locales/{lang}/` 并在 CSV 中以文件名引用。
+- コード内のキーを定義または変更する (推奨)：['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)を呼び出してコンパイルすると、SDKは対応する翻訳メタデータを生成/更新します。
+- または、ローカルで「assets/locales/」をローカルに直接編集します{lang}.csv」を呼び出し、SDK が変更を統合できるように再コンパイルします。
+- ファイルベースの翻訳を使用する場合 (たとえば、Markdown ファイルに長いテキストを書き込む場合)、'LK.cs' で '[TranslateFile("md")]' を使用できます。 SDKは、対応するファイルを「assets/locales/{lang}/' で参照し、ファイル名で CSV で参照します。
 
-示例键：
+キーの例：
 
-- `LK.UI.DoNothingBuffName`
-- `LK.UI.DoNothingBuffDescription`
+- 「LK。 UI です。 DoNothingBuffName」
+- 「LK。 UI です。 DoNothingBuffDescription'
 
-备注：`assets/lkeys.json` 与 `assets/keys.hash.txt` 用于运行时定位与打包校验，不建议手动修改；如需强制刷新，请清理并重新编译项目。
+所見：'assets/lkeys.json' と 'assets/keys.hash.txt' は、ランタイムの位置決めとパッケージの検証に使用され、手動で変更することは推奨されません。 強制的に更新するには、プロジェクトをクリーンアップして再コンパイルします。
 
-6. 构建与打包
+6. ビルドとパッケージ化
 
-常用构建命令：
+一般的なビルドコマンド：
 
 ```bash
-dotnet build Ducky.BuffRegistration/
+dotnet ビルド Ducky.BuffRegistration/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Modを有効にする(ゲームを実行する)
 
-构建会自动将 mod 部署到游戏目录后，在游戏 Mod 管理界面启用该 mod，启动游戏后可进入基地场景查看主角是否获得了自定义 Buff。
+ビルドは自動的に MOD をゲーム カタログに展開し、ゲームの MOD 管理インターフェイスで MOD を有効にし、ゲームを起動してベース シーンに入り、主人公がカスタム バフを受け取ったかどうかを確認します。
