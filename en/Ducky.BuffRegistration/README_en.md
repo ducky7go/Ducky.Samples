@@ -1,19 +1,19 @@
-# Ducky.BuffRegistration 示例 Mod
+# Ducky.BuffRegistration sample mod
 
-简要说明
+Brief description
 
-本示例展示如何使用 Ducky.Sdk 注册自定义 Buff（状态效果），包括本地化键与资产布局。入口与实现见 [`Ducky.BuffRegistration/ModBehaviour.cs`](Ducky.BuffRegistration/ModBehaviour.cs:1)。
+This example shows how to use Ducky.Sdk to register a custom buff, including localized keys and asset layouts.Entry and implementation see ['Ducky.BuffRegistration/ModBehaviour.cs'](Ducky.BuffRegistration/ModBehaviour.cs:1)。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Before you begin, make sure that the pre-production environment requirements are prepared: [Environment Preparation](../docs/Prequirement.md)
 
-1. 项目简介
+1. Project Introduction
 
-本目录（[`Ducky.BuffRegistration/`](Ducky.BuffRegistration/README.md:1)）演示单工程 Mod 中通过 Contract.Buffs 注册 Buff 的模式。本项目同时包含本地化键，详见 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。
+This directory (['Ducky.BuffRegistration/'](Ducky.BuffRegistration/README.md:1Demonstrates the pattern of registering Buffs via Contract.Buffs in a single-project mod.This project also contains localization keys, see ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。
 
-2. 初始化项目
+2. Initialize the project
 
-- 克隆仓库并打开 `Ducky.BuffRegistration/`。
-- 建议在 `.csproj` 中至少包含：
+- Clone the repository and open 'Ducky.BuffRegistration/'.
+- It is recommended to include at least .csproj：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -29,9 +29,9 @@
 </Project>
 ```
 
-3. 安装并配置 Ducky.Sdk
+3. Install and configure Ducky.Sdk
 
-推荐通过 NuGet 添加 SDK：
+We recommend adding an SDK via NuGet：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -46,9 +46,9 @@ dotnet add package Ducky.Sdk
 </ItemGroup>
 ```
 
-4. 注册自定义 Buff（示例）
+4. Register a custom buff (example)
 
-使用 Contract.Buffs.RegisterBuff 注册 Buff，并在回调中设置显示名、描述、图标与生命时长等属性。示例：
+Use Contract.Buffs.RegisterBuff to register the Buff and set the display name, description, icon, and lifetime in the callback.example：
 
 ```csharp
 using Ducky.Sdk;
@@ -61,15 +61,15 @@ public class ModBehaviour : ModBehaviourBase
     {
         _buffId = Contract.Buffs.RegisterBuff<DoNothingBuff>(buff =>
         {
-            buff.SetDisplayName(LK.UI.DoNothingBuffName)
-                .SetDescription(LK.UI.DoNothingBuffDescription)
-                .SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
-                .SetLimitedLifeTime(true)
-                .SetTotalLifeTime(60)
-                .SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
+            buff. SetDisplayName(LK. UI. DoNothingBuffName)
+                . SetDescription(LK. UI. DoNothingBuffDescription)
+                . SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
+                . SetLimitedLifeTime(true)
+                . SetTotalLifeTime(60)
+                . SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
         });
 
-        // 监听场景初始化：进入基地时自动给予主角该 Buff（实现见 ModBehaviour）
+        Listen to the scene initialization：Automatically grants this buff to the protagonist when entering the base (see ModBehaviour for implementation)
         SceneLoader.onAfterSceneInitialize += SceneLoader_onAfterSceneInitialize;
     }
 
@@ -85,37 +85,37 @@ public class ModBehaviour : ModBehaviourBase
             var main = LevelManager.Instance.MainCharacter;
             if (main != null)
             {
-                // 在进入基地场景时创建并添加已注册的 Buff 实例
-                main.AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
+                Create and add a registered Buff instance when you enter the base scene
+                main. AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
             }
         }
     }
 }
 ```
 
-5. 本地化
+5. localization
 
-本示例将字符串键定义在 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。翻译文件通常位于 `assets/Locales/`（源码目录中可查看），但请注意：翻译 CSV、翻译元数据（`assets/lkeys.json`）以及校验文件（`assets/keys.hash.txt`）会在编译时由 SDK 的 MSBuild 分析器/生成器自动收集并写入到 `assets/` 目录。因此推荐的工作流是：
+This example defines a string key at ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。The translation file is usually located at 'assets/locales/' (viewable in the source directory), but be careful：Translation CSVs, translation metadata ('assets/lkeys.json'), and validation files ('assets/keys.hash.txt') are automatically collected and written to the 'assets/' directory by the SDK's MSBuild analyzer/generator at compile time.Therefore, the recommended workflow is:：
 
-- 在代码中定义或修改键（推荐）：编辑 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1) 并编译，SDK 会生成/更新对应的翻译元数据。
-- 或者在本地直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
-- 若使用文件型翻译（例如将长文本写入 Markdown 文件），可在 `LK.cs` 使用 `[TranslateFile("md")]` 标注；SDK 会在编译时把对应文件放入 `assets/Locales/{lang}/` 并在 CSV 中以文件名引用。
+- Define or modify keys in code (recommended)：Edit ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1) and compile, and the SDK generates/updates the corresponding translation metadata.
+- Or edit 'assets/locales/ directly locally' locally{lang}.csv' and recompile to allow the SDK to integrate the changes.
+- If you use file-based translation (e.g. writing long text to a Markdown file), you can use '[TranslateFile("md")]' in 'LK.cs'; The SDK will put the corresponding file into 'assets/locales/{lang}/' and reference it in CSV with the file name.
 
-示例键：
+Example key：
 
-- `LK.UI.DoNothingBuffName`
-- `LK.UI.DoNothingBuffDescription`
+- `LK. UI. DoNothingBuffName`
+- `LK. UI. DoNothingBuffDescription`
 
-备注：`assets/lkeys.json` 与 `assets/keys.hash.txt` 用于运行时定位与打包校验，不建议手动修改；如需强制刷新，请清理并重新编译项目。
+remark：'assets/lkeys.json' and 'assets/keys.hash.txt' are used for runtime positioning and packaging verification, and manual modification is not recommended. To force a refresh, clean up and recompile the project.
 
-6. 构建与打包
+6. Build and package
 
-常用构建命令：
+Common build commands：
 
 ```bash
 dotnet build Ducky.BuffRegistration/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Enable Mod (Run the Game)
 
-构建会自动将 mod 部署到游戏目录后，在游戏 Mod 管理界面启用该 mod，启动游戏后可进入基地场景查看主角是否获得了自定义 Buff。
+The build will automatically deploy the mod to the game catalog, enable the mod in the game's mod management interface, and launch the game to enter the base scene to see if the protagonist has received a custom buff.
