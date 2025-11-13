@@ -1,0 +1,236 @@
+<!-- LANG_HEADER_START -->
+
+\| [中国語(簡体字)](../../Ducky.PackageFromNuget/README.md) | [日本語](../../en/Ducky.PackageFromNuget/README_en.md) | [ドイツ語](../../de/Ducky.PackageFromNuget/README_de.md) | [フランセ](../../fr/Ducky.PackageFromNuget/README_fr.md) | [スペイン語](../../es-ES/Ducky.PackageFromNuget/README_es.md) | [日本語](README_ja.md) | [한국어](../../ko/Ducky.PackageFromNuget/README_ko.md) | [ポルトガル語](../../pt-PT/Ducky.PackageFromNuget/README_pt.md) | [Русский](../../ru/Ducky.PackageFromNuget/README_ru.md) | [繁体字中国語](../../zh-TW/Ducky.PackageFromNuget/README_zh.md) |
+
+<!-- LANG_HEADER_END -->
+
+# Ducky.PackageFromNuget サンプル MOD
+
+簡単な説明
+
+この例では、依存関係管理、リソース ファイル アクセス、依存関係パッケージのデプロイなど、YamlDotNet を例として使用して、mod でサード パーティの NuGet パッケージを使用する方法を示します。
+
+開始する前に、実稼働前の環境要件が準備されていることを確認してください: [環境の準備](../docs/Prequirement.md)
+
+## 1. プロジェクト紹介
+
+このディレクトリ (['Ducky.PackageFromNuget/'](Ducky.PackageFromNuget/)) は、MOD の機能を拡張する方法を示しています。：
+
+- ✅ サード パーティの NuGet パッケージの紹介
+- ✅ 外部ライブラリを使用したデータの解析 (YAML)
+- ✅ Mod リソース ファイルにアクセスする
+- ✅ 依存関係パッケージを自動的に処理する
+
+シナリオ例：\*\* YamlDotNetライブラリを使用して、Mod Resourcesフォルダ内のYAML設定ファイルを読み取って解析します。
+
+## 2. プロジェクト構造
+
+```
+Ducky.PackageFromNuget/
+├── Ducky.PackageFromNuget.csproj # プロジェクト構成
+├── ModBehaviour.cs #モードエントリークラス
+├── README.md
+└── アセット/
+    ├── info.ini #モードメタ情報
+    ├── preview.png #プレビュー画像
+    └── nice.yml # サンプルYAMLファイル
+```
+
+## 3. プロジェクト構造
+
+['Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj'](Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj:1):
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>ネットスタンダード2.1</TargetFramework>
+    <Nullable>エネーブル</Nullable>
+    <LangVersion>プレビュー</LangVersion>
+    <ImplicitUsings>真</ImplicitUsings>
+    <ModName>Ducky.PackageFromNuget</ModName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Ducky SDK 引用 -->
+    <PackageReference Include="Ducky.Sdk" Version="x.y.z">
+      <PrivateAssets>すべての</PrivateAssets>
+      <IncludeAssets>ランニング; 建てる; ネイティブ; contentファイル; アナライザー; トランジショナルのビルド</IncludeAssets>
+    </PackageReference>
+    
+    <!-- 第三方 NuGet 包：YamlDotNet -->
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+</Project>
+```
+
+キーポイント：\*\*
+
+- SDK は 'PrivateAssets' を使用して、出力へのパッケージ化を回避します
+- サードパーティライブラリ(YamlDotNet)は、mod出力ディレクトリに自動的にパッケージ化されます
+
+## 4. NuGet パッケージを追加する
+
+### 方法1：CLI を使用する (推奨)
+
+```bash
+cd Ducky.PackageFromNuget
+dotnet add package YamlDotNet
+```
+
+### 方法2：.csproj を手動で編集する
+
+で '<ItemGroup>'が追加された。：
+
+```xml
+<PackageReference Include="YamlDotNet" Version="16.3.0" />
+```
+
+### 方法3：Visual Studio を使用する
+
+1. プロジェクトを右クリック→NuGet パッケージを管理する
+2. 「YamlDotNet」を検索
+3. 「インストール」をクリックします
+
+## 5)実装例
+
+### リソースファイル
+
+['アセット/nice.yml'](Ducky.PackageFromNuget/assets/nice.yml):
+
+```yaml
+niceHeader です。
+  title: "素敵なYAML構成"
+  description: "これは、MOD の assets フォルダーから YAML をロードするデモンストレーションです"
+```
+
+### モードエントリークラス
+
+['Ducky.PackageFromNuget/ModBehaviour.cs'](Ducky.PackageFromNuget/ModBehaviour.cs:1):
+
+```csharp
+ducky.Sdk.Logging を使用します。
+Ducky.Sdk.ModBehavioursです。
+YamlDotNet.Serialization です。
+YamlDotNet.Serialization.NamingConventions を使用します。
+
+名前空間 Ducky.PackageFromNuget;
+
+パブリッククラス ModBehaviour : ModBehaviourBase
+{
+    protected override void ModEnabled()
+    {
+        mod アセンブリが配置されているディレクトリを取得する
+        var dir = Path.GetDirectoryName(typeof(ModBehaviour) です。 Assembly.Location)!;
+        var ymlPath = Path.Combine(ディレクトリ, "nice.yml");
+
+        if (File.Exists(ymlPath))
+        {
+            Log.Info("見つかったnice.yml:");
+            
+            YamlDotNet を使用して YAML ファイルを逆シリアル化する
+            var deserializer = 新しい DeserializerBuilder()
+                . 命名規則 (キャメルケースの命名規則。
+                . ビルド();
+
+            var ymlContent = File.ReadAllText(ymlPath);
+            var niceData = デシリアライザー。 逆シリアル化<NiceData>(ymlコンテンツ);
+            
+            Log.Info($"タイトル: {niceData.NiceHeader.Title}");
+            Log.Info($" 説明: {niceData.NiceHeader.Description}");
+        }
+        そうでなければ
+        {
+            Log.Warn("nice.yml見つかりません!");
+        }
+    }
+
+    protected override void ModDisabled()
+    {
+        リソースをクリーンアップする (必要な場合)
+    }
+}
+
+データモデルクラス
+public クラス NiceData
+{
+    public NiceDateHeader NiceHeader { get; セット; } = 新規();
+
+    パブリック・クラス NiceDateHeader
+    {
+        public string Title { get; セット; } = 文字列。 空;
+        public string explained { get; } セット; } = 文字列。 空;
+    }
+}
+```
+
+## 6. リソースファイルへのアクセス
+
+### MODカタログを入手する
+
+```csharp
+方法1：組立場所別(推奨)
+var modDir = Path.GetDirectoryName(typeof(ModBehaviour) です。 Assembly.Location)!;
+```
+
+### リソースファイルにアクセスする
+
+```csharp
+assets/ ディレクトリは、Mod 出力ディレクトリのルートディレクトリにコピーされます
+var configPath = Path.Combine(modDir, "nice.yml");
+var content = File.ReadAllText(configPath);
+```
+
+**SDK自動：**
+
+- ✅ サード パーティの NuGet パッケージの DLL をコピーする
+- ✅ リソース・ファイルを出力ディレクトリーにコピーします
+- ✅ ゲーム mods ディレクトリにデプロイする
+
+## 7. MOD を有効にする
+
+ビルドが成功したら、ゲームの MOD 管理インターフェイスで MOD を有効にします：
+
+1. ゲームを起動する
+2. MOD管理インターフェースに移動します
+3. "Ducky.PackageFromNuget" を検索します。
+4. [有効化] をクリックします
+5. ゲームログを確認すると、解析されたYAMLの内容が表示されます
+
+## 8) ベストプラクティス
+
+### ✅ 適切なライブラリを選択する
+
+- .NET Standard 2.0/2.1 と互換性のあるライブラリに優先順位を付ける
+- プラットフォーム固有のライブラリの使用を避ける
+- ライブラリの依存関係ツリーが複雑かどうかを確認する
+
+### ✅ 依存バージョン管理
+
+```xml
+<!-- 使用 Directory.Build.props 统一管理版本 -->
+<ItemGroup>
+  <PackageReference Update="YamlDotNet" Version="16.3.0" />
+</ItemGroup>
+```
+
+## 9. 関連事例
+
+- [ダッキー・シングルプロジェクト](../Ducky.SingleProject/README.md) - 基本的なプロジェクト構造
+- [ダッキー・エントランス・モッド](.. /Ducky.EntranceMod/README.md - 多層アーキテクチャ (サードパーティ ライブラリを共有する必要がある場合)
+- [環境準備ドキュメント](../docs/Prequirement.md)
+
+## 10. プロット
+
+サード パーティの NuGet パッケージを使用する場合、：
+
+- ✅ MOD機能をすばやく拡張
+- ✅ 車輪の再発明を避ける
+- ✅ 実績のある安定したソリューションを使用する
+- ✅ コミュニティリソースの活用
+
+**手記：**
+
+- ⚠️ ライブラリが .NET Standard 2.1 と互換性があることを確認する
+- ⚠️ 依存関係のサイズとパフォーマンスへの影響に注意する
+- ⚠️ バージョンの競合を適切に処理する
+- ⚠️ サードパーティのライブラリライセンスに準拠する
