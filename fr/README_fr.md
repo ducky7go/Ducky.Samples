@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](en/README_en.md) | [Deutsch](de/README_de.md) | [Français](fr/README_fr.md) | [Español](es-ES/README_es.md) | [日本語](ja/README_ja.md) | [한국어](ko/README_ko.md) | [Português](pt-PT/README_pt.md) | [Русский](ru/README_ru.md) | [繁體中文](zh-TW/README_zh.md) |
+\| [Chinois simplifié] (README.md) | [Traduction] (en/README_en.md) | [Deutsch] (de/README_de.md) | [English] (fr/README_fr.md) | [Español] (es-ES/README_es.md) | [Japonais] (ja/README_ja.md) | [한국어] (ko/README_ko.md) | [Português] (pt-PT/README_pt.md) | [Русский] (ru/README_ru.md) | [Chinois traditionnel] (zh-TW/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
