@@ -1,52 +1,52 @@
-# Ducky.TryHarmony 示例 Mod
+# Ducky.TryHarmonyサンプルMOD
 
-简要说明
+簡単な説明
 
-本示例演示使用 HarmonyLib 在运行时修补游戏代码的 Mod。示例包含一个简单的 Harmony 补丁（保存补丁），其效果是使存档操作始终失败（SaveFilePatch）。入口与补丁注册在 [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1) 中实现。
+この例では、HarmonyLib を使用して実行時にゲーム コードにパッチを適用する MOD を示します。この例には、保存操作を一貫して失敗させる効果を持つ単純な Harmony パッチ (save patch) が含まれています (SaveFilePatch)。['Ducky.TryHarmony/ModBehaviour.cs'](Ducky.TryHarmony/ModBehaviour.cs:1)が実現します。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+開始する前に、実稼働前の環境要件が準備されていることを確認してください: [環境の準備](../docs/Prequirement.md)
 
-1. 项目简介
+1. プロジェクト紹介
 
-本目录（`Ducky.TryHarmony/`）演示 Harmony 补丁模式：通过在 ModEnabled 中调用 Harmony 的 PatchAll 来注册补丁，并在 ModDisabled 中取消补丁。关键实现见：
+このディレクトリ ('Ducky.TryHarmony/') は、Harmony パッチモードを示しています：ModEnabledでHarmonyのPatchAllを呼び出してパッチを登録し、ModDisabledでパッチをキャンセルします。重要な実現でお会いしましょう：
 
-- [`Ducky.TryHarmony/ModBehaviour.cs`](Ducky.TryHarmony/ModBehaviour.cs:1)
-- [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)
-- 项目文件：[`Ducky.TryHarmony/Ducky.TryHarmony.csproj`](Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
+- ['ダッキー・トライハーモニー/ModBehaviour.cs'](Ducky.TryHarmony/ModBehaviour.cs:1)
+- ['ダッキー・トライハーモニー/SaveFilePatch.cs'](Ducky.TryHarmony/SaveFilePatch.cs:1)
+- プロジェクトドキュメント：['Ducky.TryHarmony/Ducky.TryHarmony.csproj'](Ducky.TryHarmony/Ducky.TryHarmony.csproj:1)
 
-2. 在 csproj 中启用 Harmony
+2. csproj で Harmony を有効にする
 
-要使用 Harmony 补丁，请在 `Ducky.TryHarmony.csproj` 中启用 IncludeHarmony 属性。例如：
+Harmony パッチを使用するには、'Ducky.TryHarmony.csproj' で IncludeHarmony プロパティを有効にします。例えば：
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
-    <ModName>Ducky.TryHarmony</ModName>
-    <IncludeHarmony>true</IncludeHarmony>
+    <TargetFramework>ネットスタンダード2.1</TargetFramework>
+    <Nullable>エネーブル</Nullable>
+    <LangVersion>プレビュー</LangVersion>
+    <ImplicitUsings>真</ImplicitUsings>
+    <ModName>ダッキー・トライハーモニー</ModName>
+    <IncludeHarmony>真</IncludeHarmony>
   </PropertyGroup>
 </Project>
 ```
 
-3. SaveFilePatch 的行为说明
+3. ファイルパッチの保存
 
-`SaveFilePatch` 的主要功能是让存档（保存游戏）操作始终失败，便于演示补丁生效及错误处理流程。该补丁示例会拦截保存相关方法并返回失败（详见 [`Ducky.TryHarmony/SaveFilePatch.cs`](Ducky.TryHarmony/SaveFilePatch.cs:1)）。
+「SaveFilePatch」の主な機能は、保存操作を一貫して失敗させ、パッチ効果とエラー処理プロセスを実証しやすくすることです。このパッチの例は、保存関連メソッドをインターセプトし、失敗を返します ( ['Ducky.TryHarmony/SaveFilePatch.cs'](Ducky.TryHarmony/SaveFilePatch.cs:1)）。
 
-4. 运行与测试
+4. 操作とテスト
 
-- 构建项目：
+- プロジェクトをビルドする：
 
 ```bash
 dotnet build Ducky.TryHarmony/
 ```
 
-- 启用 Mod（将构建产物部署到游戏 Mod 目录并在游戏内启用）
-- 在游戏内尝试保存存档，预期结果是“存档失败”，表明补丁生效。
+- Mod を有効にする (ビルドをゲームの MOD カタログにデプロイし、ゲーム内で有効にする)
+- ゲーム内でセーブを保存しようとすると、「セーブに失敗しました」と表示され、パッチが有効であることを示します。
 
-5. 常见注意事项
+5. 一般的な考慮事項
 
-- 确认 `IncludeHarmony` 已设置为 `true`，否则 Harmony 相关代码无法正常工作。
-- 调试补丁时可在 `ModBehaviour` 中添加日志（使用 `Ducky.Sdk.Logging.Log`）以验证 `PatchAll()`/`UnpatchAll()` 是否被调用。
+- 'IncludeHarmony'が'true'に設定されていないことを確認すると、Harmony関連のコードが機能しません。
+- パッチをデバッグするときに、ログを (Ducky.Sdk.Logging.Log を使用して) 'ModBehaviour' に追加して、'PatchAll()'/'UnpatchAll()' が呼び出されたことを確認できます。
