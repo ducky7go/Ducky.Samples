@@ -1,28 +1,28 @@
-# Ducky.SingleProject 示例 Mod
+# Ducky.SingleProject 샘플 모드
 
-简要说明
+간략한 설명
 
-本示例展示如何使用 Ducky.Sdk 创建单工程 Mod，包含项目初始化、SDK 引入、Mod 生命周期与打包流程。
+이 예제는 Ducky.Sdk 를 사용하여 프로젝트 초기화, SDK 도입, 모드 수명 주기 및 패키징 프로세스를 포함한 단일 프로젝트 모드를 만드는 방법을 보여줍니다.
 
-开始之前，请确保前置环境要求已经准备完毕: [环境准备](../docs/Prequirement.md)
+시작하기 전에 사전 환경 요구 사항이 준비되었는지 확인합니다. [환경 준비](../docs/Prequirement.md)
 
-1. 项目简介
+1. 프로젝트 소개
 
-本目录（`Ducky.SingleProject/`）演示单工程 Mod 模式：所有代码与资源放在同一项目内，入口类继承 `ModBehaviourBase`，相关实现请参见 [`Ducky.SingleProject/ModBehaviour.cs`](Ducky.SingleProject/ModBehaviour.cs:1)。
+이 디렉토리('Ducky.SingleProject/')는 SingleProject 모드 모드를 보여줍니다.：모든 코드와 리소스는 동일한 프로젝트에 배치되며 엔트리 클래스는 'ModBehaviourBase'를 상속합니다( ['Ducky.SingleProject/ModBehaviour.cs'](Ducky.SingleProject/ModBehaviour.cs:1)。
 
-2. 初始化项目
+2. 프로젝트 초기화
 
-- 从模版或仓库开始：克隆样例仓库并打开 `Ducky.SingleProject/`。
-- 必要的项目设置（建议在 `.csproj` 中保证）：
+- 템플릿 또는 리포지토리로 시작：샘플 리포지토리를 복제하고 'Ducky.SingleProject/'를 엽니다.
+- 필요한 프로젝트 설정('.csproj'에서 보장되는 것이 좋습니다)：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>넷스탠다드2.1</TargetFramework>
+    <Nullable>사용</Nullable>
+    <LangVersion>미리 보기</LangVersion>
+    <ImplicitUsings>참</ImplicitUsings>
     <!-- ModName 是必须项，建议与程序集名称一致（确保 .csproj 中的 <ModName> 与程序集/项目名相同） -->
     <ModName>Ducky.SingleProject</ModName>
     <!-- 本地游戏路径示例，这是必须的-->
@@ -33,64 +33,64 @@
 </Project>
 ```
 
-示例：请确保 ModName 与程序集/项目名保持一致。
+본보기：ModName이 어셈블리/프로젝트 이름과 일치하는지 확인합니다.
 
-1. 安装并配置 Ducky.Sdk
+1. Ducky.Sdk 설치 및 구성
 
-推荐通过 NuGet 安装 Ducky.Sdk。可以使用 CLI 快速添加（示例 — 请替换为所需版本）：
+NuGet을 통해 Ducky.Sdk를 설치하는 것이 좋습니다.CLI를 사용하여 빠르게 추가할 수 있습니다(예 - 원하는 버전으로 교체하십시오).：
 
 ```bash
-dotnet add package Ducky.Sdk
+dotnet 패키지 추가 Ducky.Sdk
 ```
 
 ```xml
 <ItemGroup>
   <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-    <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>모두</PrivateAssets>
+    <IncludeAssets>런타임; 체격; 원주민; content파일; 분석기; 빌드전이적</IncludeAssets>
   </PackageReference>
 </ItemGroup>
 ```
 
-4. 编写第一个 ModBehaviour
+4. 첫 번째 ModBehaviour 작성
 
-- 入口类需继承 `ModBehaviourBase`，并实现生命周期方法 `ModEnabled()` 与 `ModDisabled()`。
+- 수신 클래스는 ModBehaviourBase를 상속하고 수명 주기 메서드 ModEnabled() 및 ModDisabled()를 구현합니다.
 
-示例代码：
+샘플 코드：
 
 ```csharp
-using Ducky.Sdk;
-using Ducky.Sdk.Logging;
+Ducky.Sdk 사용;
+Ducky.Sdk.Logging 사용;
 
-namespace Ducky.SingleProject;
+네임스페이스 Ducky.SingleProject;
 
-public class ModBehaviour : ModBehaviourBase
+공개 클래스 ModBehaviour : ModBehaviourBase
 {
-    protected override void ModEnabled()
+    protected 재정의 void ModEnabled()
     {
-        // 初始化时记录信息
-        Log.Info("Ducky.SingleProject Mod Enabled");
+        초기화 시 정보 기록
+        Log.Info("Ducky.SingleProject 모드 활성화됨");
     }
 
-    protected override void ModDisabled()
+    protected 재정의 void ModDisabled()
     {
-        Log.Info("Ducky.SingleProject Mod Disabled");
+        Log.Info("Ducky.SingleProject 모드 비활성화됨");
     }
 }
 ```
 
-5. 运行与打包
+5. 실행 및 패키징
 
-常用构建命令：
+일반적인 빌드 명령：
 
 ```bash
-# 构建整个解决方案（.slnx）
+# 전체 솔루션 빌드(.slnx)
 dotnet build Docky.Sdk.Sample.slnx
 
-# 仅构建单个示例项目
-dotnet build Ducky.SingleProject/
+# 단일 샘플 프로젝트만 빌드
+dotnet 빌드 Ducky.SingleProject/
 ```
 
-6. 启用 Mod（运行游戏）
+6. 모드 활성화(게임 실행)
 
-构建会自动将 mod 部署到游戏目录后，启动游戏即可在 Mod 管理界面或游戏内启用该 Mod。启用之后就可以在游戏日志中看到 Mod 的启用信息。
+빌드는 모드를 게임 카탈로그에 자동으로 배포하고 게임을 실행하여 모드 관리 인터페이스 또는 게임 내에서 모드를 활성화합니다.활성화되면 게임 로그에서 모드의 활성화 정보를 볼 수 있습니다.
