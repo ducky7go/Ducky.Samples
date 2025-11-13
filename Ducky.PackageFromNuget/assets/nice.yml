@@ -1,0 +1,3 @@
+niceHeader:
+  title: "Ducky.PackageFromNuget"
+  description: "Easily add NuGet packages to your Ducky projects."
