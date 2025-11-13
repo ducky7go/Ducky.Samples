@@ -1,38 +1,38 @@
-# Ducky.PackageFromNuget 示例 Mod
+# Ducky.PackageFromNuget sample mod
 
-简要说明
+Brief description
 
-本示例展示如何在 Mod 中使用第三方 NuGet 包（以 YamlDotNet 为例），包括依赖管理、资源文件访问和依赖打包部署。
+This example shows how to use third-party NuGet packages in mods, using YamlDotNet as an example, including dependency management, resource file access, and dependency package deployment.
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Before you begin, make sure that the pre-production environment requirements are prepared: [Environment Preparation](../docs/Prequirement.md)
 
-## 1. 项目简介
+## 1. Project introduction
 
-本目录（[`Ducky.PackageFromNuget/`](Ducky.PackageFromNuget/)）演示如何扩展 Mod 的功能：
+This directory (['Ducky.PackageFromNuget/'](Ducky.PackageFromNuget/)) demonstrates how to extend the functionality of mods：
 
-- ✅ 引入第三方 NuGet 包
-- ✅ 使用外部库解析数据（YAML）
-- ✅ 访问 Mod 资源文件
-- ✅ 自动处理依赖打包
+- ✅ Introducing third-party NuGet packages
+- ✅ Parsing Data Using External Libraries (YAML)
+- ✅ Access the Mod resource file
+- ✅ Automatically handle dependency packaging
 
-**示例场景：** 使用 YamlDotNet 库读取并解析 Mod 资源文件夹中的 YAML 配置文件。
+**Example scenario：** Use the YamlDotNet library to read and parse the YAML configuration file in the Mod Resources folder.
 
-## 2. 项目结构
+## 2. Project structure
 
 ```
 Ducky.PackageFromNuget/
-├── Ducky.PackageFromNuget.csproj    # 项目配置
-├── ModBehaviour.cs                   # Mod 入口类
+├── Ducky.PackageFromNuget.csproj # Project configuration
+├── ModBehaviour.cs # Mod entry class
 ├── README.md
 └── assets/
-    ├── info.ini                      # Mod 元信息
-    ├── preview.png                   # 预览图
-    └── nice.yml                      # 示例 YAML 文件
+    ├── info.ini # Mod meta information
+    ├── preview.png # Preview image
+    └── nice.yml # Sample YAML file
 ```
 
-## 3. 项目配置
+## 3. Project configuration
 
-[`Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj`](Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj:1):
+[`Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj`] (Ducky.PackageFromNuget/Ducky.PackageFromNuget.csproj:1):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -57,39 +57,39 @@ Ducky.PackageFromNuget/
 </Project>
 ```
 
-**关键点：**
+Key Points：\*\*
 
-- SDK 使用 `PrivateAssets` 避免打包到输出
-- 第三方库（YamlDotNet）会自动打包到 Mod 输出目录
+- The SDK uses 'PrivateAssets' to avoid packaging to output
+- Third-party libraries (YamlDotNet) are automatically packaged into the mod output directory
 
-## 4. 添加 NuGet 包
+## 4. Add the NuGet package
 
-### 方法一：使用 CLI（推荐）
+### Method 1：Use CLI (recommended)
 
 ```bash
 cd Ducky.PackageFromNuget
 dotnet add package YamlDotNet
 ```
 
-### 方法二：手动编辑 .csproj
+### Method 2：Manually edit .csproj
 
-在 `<ItemGroup>` 中添加：
+In '<ItemGroup>' added：
 
 ```xml
 <PackageReference Include="YamlDotNet" Version="16.3.0" />
 ```
 
-### 方法三：使用 Visual Studio
+### Method 3：Use Visual Studio
 
-1. 右键项目 → 管理 NuGet 程序包
-2. 搜索 "YamlDotNet"
-3. 点击"安装"
+1. Right-click on the project → manage NuGet packages
+2. Search for "YamlDotNet"
+3. Click "Install"
 
-## 5) 实现示例
+## 5) Implementation examples
 
-### 资源文件
+### Resource file
 
-[`assets/nice.yml`](Ducky.PackageFromNuget/assets/nice.yml):
+[`assets/nice.yml`] (Ducky.PackageFromNuget/assets/nice.yml):
 
 ```yaml
 niceHeader:
@@ -97,9 +97,9 @@ niceHeader:
   description: "This is a demonstration of loading YAML from a mod's assets folder"
 ```
 
-### Mod 入口类
+### Mod entry class
 
-[`Ducky.PackageFromNuget/ModBehaviour.cs`](Ducky.PackageFromNuget/ModBehaviour.cs:1):
+[`Ducky.PackageFromNuget/ModBehaviour.cs`] (Ducky.PackageFromNuget/ModBehaviour.cs:1):
 
 ```csharp
 using Ducky.Sdk.Logging;
@@ -113,21 +113,21 @@ public class ModBehaviour : ModBehaviourBase
 {
     protected override void ModEnabled()
     {
-        // 获取 Mod 程序集所在目录
-        var dir = Path.GetDirectoryName(typeof(ModBehaviour).Assembly.Location)!;
+        Get the directory where the Mod Assembly is located
+        var dir = Path.GetDirectoryName(typeof(ModBehaviour). Assembly.Location)!;
         var ymlPath = Path.Combine(dir, "nice.yml");
 
         if (File.Exists(ymlPath))
         {
             Log.Info("Found nice.yml:");
             
-            // 使用 YamlDotNet 反序列化 YAML 文件
+            Use YamlDotNet to deserialize YAML files
             var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
+                . WithNamingConvention(CamelCaseNamingConvention.Instance)
+                . Build();
 
             var ymlContent = File.ReadAllText(ymlPath);
-            var niceData = deserializer.Deserialize<NiceData>(ymlContent);
+            var niceData = deserializer. Deserialize<NiceData>(ymlContent);
             
             Log.Info($"Title: {niceData.NiceHeader.Title}");
             Log.Info($"Description: {niceData.NiceHeader.Description}");
@@ -140,65 +140,65 @@ public class ModBehaviour : ModBehaviourBase
 
     protected override void ModDisabled()
     {
-        // 清理资源（如果需要）
+        Clean up resources (if needed)
     }
 }
 
-// 数据模型类
+Data model class
 public class NiceData
 {
     public NiceDateHeader NiceHeader { get; set; } = new();
 
     public class NiceDateHeader
     {
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Title { get; set; } = string. Empty;
+        public string Description { get; set; } = string. Empty;
     }
 }
 ```
 
-## 6. 资源文件访问
+## 6. Resource file access
 
-### 获取 Mod 目录
+### Get the mod catalog
 
 ```csharp
-// 方法一：通过程序集位置（推荐）
-var modDir = Path.GetDirectoryName(typeof(ModBehaviour).Assembly.Location)!;
+Method 1：By assembly location (recommended)
+var modDir = Path.GetDirectoryName(typeof(ModBehaviour). Assembly.Location)!;
 ```
 
-### 访问资源文件
+### Access the resource file
 
 ```csharp
-// assets/ 目录下的文件会被复制到 Mod 输出目录的根目录
+assets/ directory will be copied to the root directory of the Mod output directory
 var configPath = Path.Combine(modDir, "nice.yml");
 var content = File.ReadAllText(configPath);
 ```
 
-**SDK 自动处理：**
+**SDK automatically：**
 
-- ✅ 复制第三方 NuGet 包的 DLL
-- ✅ 复制资源文件到输出目录
-- ✅ 部署到游戏 Mods 目录
+- ✅ Copy the DLL of a third-party NuGet package
+- ✅ Copy the resource file to the output directory
+- ✅ Deploy to the game mods directory
 
-## 7. 启用 Mod
+## 7. Enable mods
 
-构建成功后，在游戏的 Mod 管理界面启用该 Mod：
+Once the build is successful, enable the mod in the game's mod management interface：
 
-1. 启动游戏
-2. 进入 Mod 管理界面
-3. 找到 "Ducky.PackageFromNuget"
-4. 点击启用
-5. 查看游戏日志，应该能看到解析的 YAML 内容
+1. Launch the game
+2. Go to the Mod Management Interface
+3. Find "Ducky.PackageFromNuget"
+4. Click Enable
+5. Check the game logs and you should see the parsed YAML contents
 
-## 8) 最佳实践
+## 8) Best practices
 
-### ✅ 选择合适的库
+### ✅ Choose the right library
 
-- 优先选择 .NET Standard 2.0/2.1 兼容的库
-- 避免使用平台特定的库
-- 检查库的依赖树是否复杂
+- Prefer libraries that are compatible with .NET Standard 2.0/2.1
+- Avoid using platform-specific libraries
+- Check if the library's dependency tree is complex
 
-### ✅ 管理依赖版本
+### ✅ Manage dependent versions
 
 ```xml
 <!-- 使用 Directory.Build.props 统一管理版本 -->
@@ -207,24 +207,24 @@ var content = File.ReadAllText(configPath);
 </ItemGroup>
 ```
 
-## 9. 相关示例
+## 9. Relevant examples
 
-- [Ducky.SingleProject](../Ducky.SingleProject/README.md) - 基础项目结构
-- [Ducky.EntranceMod](../Ducky.EntranceMod/README.md) - 多层架构（如需共享第三方库）
-- [环境准备文档](../docs/Prequirement.md)
+- [Ducky.SingleProject] (../Ducky.SingleProject/README.md) - Basic project structure
+- [Ducky.EntranceMod] (../Ducky.EntranceMod/README.md- Multi-tier architecture (if you need to share third-party libraries)
+- [Environment Preparation Documentation] (../docs/Prequirement.md)
 
-## 10. 总结
+## 10. Summary
 
-使用第三方 NuGet 包可以：
+Using a third-party NuGet package can：
 
-- ✅ 快速扩展 Mod 功能
-- ✅ 避免重复造轮子
-- ✅ 使用成熟稳定的解决方案
-- ✅ 利用社区资源
+- ✅ Quickly expand mod features
+- ✅ Avoid reinventing the wheel
+- ✅ Use a proven and stable solution
+- ✅ Leverage community resources
 
-**注意事项：**
+**Notes：**
 
-- ⚠️ 确保库与 .NET Standard 2.1 兼容
-- ⚠️ 注意依赖大小和性能影响
-- ⚠️ 处理好版本冲突问题
-- ⚠️ 遵守第三方库的许可证
+- ⚠️ Make sure the library is compatible with .NET Standard 2.1
+- ⚠️ Be aware of dependency size and performance impact
+- ⚠️ Handle version conflicts well
+- ⚠️ Comply with the license of the third-party library
