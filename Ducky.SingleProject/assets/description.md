@@ -1,0 +1,1 @@
+# Ducky.SingleProject

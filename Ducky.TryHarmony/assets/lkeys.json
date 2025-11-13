@@ -1,0 +1,15 @@
+
+{
+  "namespace": "Ducky.TryHarmony",
+  "hash": "310d6c7327842779080aad8fe4f1d52e2bebb76de5b4e25ccda287ad76752b2b",
+  "keyCount": 2,
+  "supportedLanguages": [
+    "zh",
+    "en",
+    "zh-hant"
+  ],
+  "keys": [
+    "ducky_doNothing_buff_description",
+    "ducky_doNothing_buff_name"
+  ]
+}

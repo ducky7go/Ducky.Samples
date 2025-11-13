@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Folder Name="/.etc/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/MultilayerProjectMod/">
+    <Project Path="Ducky.EntranceMod.Common\Ducky.EntranceMod.Common.csproj" />
+    <Project Path="Ducky.EntranceMod\Ducky.EntranceMod.csproj" />
+  </Folder>
+  <Folder Name="/SingleProjectMod/">
+    <Project Path="Ducky.SingleProject\Ducky.SingleProject.csproj" />
+  </Folder>
+  <Folder Name="/TryHarmony/">
+    <Project Path="Ducky.TryHarmony/Ducky.TryHarmony.csproj" />
+  </Folder>
+</Solution>
