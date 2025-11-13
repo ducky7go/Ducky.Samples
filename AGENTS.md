@@ -1,7 +1,7 @@
 # Ducky SDK Sample Projects
 
 ## Project Overview
-This is a sample repository demonstrating mod development for "Escape from Duckov" using the Ducky.Sdk framework (v0.0.1). Contains three example patterns: single-project mods, multi-layer mods, and Harmony-based runtime patching.
+This is a sample repository demonstrating mod development for "Escape from Duckov" using the Ducky.Sdk framework（建议使用最新稳定版或通过集中管理的版本属性，不建议在文档中硬编码具体小版本号）。Contains three example patterns: single-project mods, multi-layer mods, and Harmony-based runtime patching.
 
 ## Architecture Patterns
 
@@ -38,13 +38,36 @@ All projects require:
 ```
 
 ### Ducky.Sdk Package Reference Pattern
-Always use this exact configuration:
+不要在主文档中硬编码具体小版本号；推荐使用“最新稳定版”或通过集中管理的 MSBuild 属性来维护包版本，从而便于统一升级与回滚。下面给出两种示例用法（示例仅供参考）：
+
+- 直接引用具体版本（示例，不建议在主分支中长期写死）：
 ```xml
-<PackageReference Include="Ducky.Sdk" Version="0.0.1">
+<!-- 示例：直接引用具体版本（仅作示例） -->
+<PackageReference Include="Ducky.Sdk" Version="x.y.z">
   <PrivateAssets>all</PrivateAssets>
   <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 </PackageReference>
 ```
+
+- 推荐：通过 MSBuild 属性集中管理版本（可在 Directory.Build.props 或 Local.props 中设置）：
+```xml
+<!-- 在 Directory.Build.props 或 Local.props 中定义版本号 -->
+<Project>
+  <PropertyGroup>
+    <DuckySdkVersion>0.1.4</DuckySdkVersion> <!-- 将此处替换为需要的版本号，或在 CI 中注入 -->
+  </PropertyGroup>
+</Project>
+
+<!-- 在各 .csproj 中引用 -->
+<ItemGroup>
+  <PackageReference Include="Ducky.Sdk" Version="$(DuckySdkVersion)">
+    <PrivateAssets>all</PrivateAssets>
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
+</ItemGroup>
+```
+
+简短说明：若确实需要为回归测试或发布固定某个版本，可在 CI 配置或特定维护分支中将版本写死；但在主文档与日常开发中应尽量使用集中管理或引用最新稳定版以便统一升级与修复。
 
 ### Local.props for Game Path
 Create `Local.props` at solution root (gitignored) to configure game installation path:

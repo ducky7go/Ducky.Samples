@@ -1,6 +1,6 @@
 using Ducky.Sdk.Attributes;
 
-namespace Ducky.SingleProject;
+namespace Ducky.Localization;
 
 public static class LK
 {
