@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](../../docs/Prequirement.md) | [English](../../en/docs/Prequirement_en.md) | [Deutsch](../../de/docs/Prequirement_de.md) | [Français](../../fr/docs/Prequirement_fr.md) | [Español](../../es-ES/docs/Prequirement_es.md) | [日本語](../../ja/docs/Prequirement_ja.md) | [한국어](Prequirement_ko.md) | [Português](../../pt-PT/docs/Prequirement_pt.md) | [Русский](../../ru/docs/Prequirement_ru.md) | [繁體中文](../../zh-TW/docs/Prequirement_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # 개발 환경 준비(.NET / Ducky.Sdk 프로젝트)
 
 이 문서에서는 이 리포지토리에 대한 .NET 개발 환경을 설정하는 데 필요한 최소 요구 사항 및 권장 구성에 대해 설명합니다.

@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](../../Ducky.PackageFromNuget/README.md) | [English](../../en/Ducky.PackageFromNuget/README_en.md) | [Deutsch](../../de/Ducky.PackageFromNuget/README_de.md) | [Français](../../fr/Ducky.PackageFromNuget/README_fr.md) | [Español](../../es-ES/Ducky.PackageFromNuget/README_es.md) | [日本語](../../ja/Ducky.PackageFromNuget/README_ja.md) | [한국어](../../ko/Ducky.PackageFromNuget/README_ko.md) | [Português](../../pt-PT/Ducky.PackageFromNuget/README_pt.md) | [Русский](README_ru.md) | [繁體中文](../../zh-TW/Ducky.PackageFromNuget/README_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # Ducky.PackageFromNuget образец мода
 
 Краткое описание

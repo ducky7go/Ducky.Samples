@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](README.md) | [English](en/README_en.md) | [Deutsch](de/README_de.md) | [Français](fr/README_fr.md) | [Español](es-ES/README_es.md) | [日本語](ja/README_ja.md) | [한국어](ko/README_ko.md) | [Português](pt-PT/README_pt.md) | [Русский](ru/README_ru.md) | [繁體中文](zh-TW/README_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # Ducky SDK 示例项目集合
 
 [![Build](https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
@@ -20,7 +24,7 @@
 👉 **[查看环境准备文档](docs/Prequirement.md)**
 
 主要要求：
-- .NET SDK 10.x
+- .NET SDK 10.xmarkdown
 - 全局工具：`dotnet-script`、`dotnet-ilrepack`
 - 支持的操作系统：Windows / Linux / macOS
 

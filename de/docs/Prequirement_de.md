@@ -1,3 +1,7 @@
+<!-- LANG_HEADER_START -->
+| [简体中文](../../docs/Prequirement.md) | [English](../../en/docs/Prequirement_en.md) | [Deutsch](Prequirement_de.md) | [Français](../../fr/docs/Prequirement_fr.md) | [Español](../../es-ES/docs/Prequirement_es.md) | [日本語](../../ja/docs/Prequirement_ja.md) | [한국어](../../ko/docs/Prequirement_ko.md) | [Português](../../pt-PT/docs/Prequirement_pt.md) | [Русский](../../ru/docs/Prequirement_ru.md) | [繁體中文](../../zh-TW/docs/Prequirement_zh.md) | 
+<!-- LANG_HEADER_END -->
+
 # Vorbereitung der Entwicklungsumgebung (.NET / Ducky.Sdk-Projekt)
 
 In diesem Dokument werden die Mindestanforderungen und empfohlenen Konfigurationen beschrieben, die zum Einrichten einer .NET-Entwicklungsumgebung für dieses Repository erforderlich sind.
