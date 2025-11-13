@@ -1,6 +1,6 @@
 <!-- LANG_HEADER_START -->
 
-\| [简体中文](README.md) | [English](../en/Ducky.TryHarmony/README_en.md) | [Deutsch](../de/Ducky.TryHarmony/README_de.md) | [Français](../fr/Ducky.TryHarmony/README_fr.md) | [Español](../es-ES/Ducky.TryHarmony/README_es.md) | [日本語](../ja/Ducky.TryHarmony/README_ja.md) | [한국어](../ko/Ducky.TryHarmony/README_ko.md) | [Português](../pt-PT/Ducky.TryHarmony/README_pt.md) | [Русский](../ru/Ducky.TryHarmony/README_ru.md) | [繁體中文](../zh-TW/Ducky.TryHarmony/README_zh.md) |
+\| [Chinese Simplified] (README.md) | [English] (../en/Ducky.TryHarmony/README_en.md) | [Deutsch] (../de/Ducky.TryHarmony/README_de.md) | [Français] (../fr/Ducky.TryHarmony/README_fr.md) | [Español] (../es-ES/Ducky.TryHarmony/README_es.md) | [Japanese] (../ja/Ducky.TryHarmony/README_ja.md) | [한국어] (../ko/Ducky.TryHarmony/README_ko.md) | [Português] (../pt-PT/Ducky.TryHarmony/README_pt.md) | [Русский] (../ru/Ducky.TryHarmony/README_ru.md) | [Traditional Chinese] (../zh-TW/Ducky.TryHarmony/README_zh.md) |
 
 <!-- LANG_HEADER_END -->
 
