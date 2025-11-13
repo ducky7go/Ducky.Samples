@@ -1,0 +1,72 @@
+<!-- LANG_HEADER_START -->
+
+\| [Chinois simplifié] (../../docs/Prequirement.md) | [Traduction] (../../en/docs/Prequirement_en.md) | [Deutsch] (../../de/docs/Prequirement_de.md) | [English] (../../fr/docs/Prequirement_fr.md) | [Español] (../../es-ES/docs/Prequirement_es.md) | [Japonais] (../../ja/docs/Prequirement_ja.md) | [한국어] (../../ko/docs/Prequirement_ko.md) | [Português] (../../pt-PT/docs/Prequirement_pt.md) | [Русский] (../../ru/docs/Prequirement_ru.md) | [Chinois traditionnel] (Prequirement_zh.md) |
+
+<!-- LANG_HEADER_END -->
+
+# Préparation de l’environnement de développement (projet .NET / Ducky.Sdk)
+
+Ce document décrit la configuration minimale requise et les configurations recommandées requises pour configurer un environnement de développement .NET pour ce référentiel.
+
+## Aperçu
+
+- Kit de développement logiciel (SDK) .NET cible：.NET 10(SDK 10.x)
+- Outils globaux requis：
+  - Utilisé pour exécuter dynamiquement des documents C#：'dotnet-script'
+  - Utilisé pour les collections de programmes et/ou l’emballage：'dotnet-ilrepack'
+
+## Configuration requise
+
+- Systèmes d’exploitation pris en charge：Linux / macOS / Windows (veuillez utiliser la gestion des paquets de distribution ou le script d’installation officiel pour installer le SDK .NET)
+- Espace disque et mémoire recommandés：Au moins 2 Go de disque libre et 4 Go de mémoire
+
+## Installer le SDK .NET 10
+
+Installez le SDK .NET 10 à l’aide de la méthode d’installation officielle ou du gestionnaire de packages, par exemple：
+
+```bash
+# Linux (à l’aide de scripts Microsoft)
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --canal 10.0
+```
+
+```bash
+# macOS (exemple Homebrew)
+brew install --cask dotnet-sdk # Vérifiez ensuite les versions disponibles via brew info ou utilisez le script dotnet-install
+```
+
+```bash
+# Windows (PowerShell)
+iwr https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
+.\dotnet-install.ps1 -Canal 10.0
+```
+
+Après l’installation, ajoutez le chemin d’accès du SDK au PATH ou exécutez-le avec le chemin d’accès complet dans le terminal.Vérifiez l’installation：
+
+```bash
+dotnet --info
+```
+
+La sortie doit inclure une version du SDK qui commence par « 10. », par exemple 10.0.x.
+
+## Outils globaux (obligatoire)
+
+- Exécuter dynamiquement des scripts C# (REPL/Documented Build/Widgets)
+
+```bash
+dotnet tool install -g dotnet-script
+```
+
+- Collection de programmes et/ou packages (utilisés pour générer un assembly unique ou fusionner des dépendances tierces)
+
+```bash
+dotnet tool install -g dotnet-ilrepack
+```
+
+Une fois l’installation terminée, vérifiez que l’outil est disponible：
+
+```bash
+dotnet-script --version
+ilrepack / ?
+```
