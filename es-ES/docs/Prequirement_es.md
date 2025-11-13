@@ -1,64 +1,64 @@
-# 开发环境准备（.NET / Ducky.Sdk 项目）
+# Preparación del entorno de desarrollo (proyecto .NET / Ducky.Sdk)
 
-本文档说明为本仓库搭建 .NET 开发环境所需的最小要求与推荐配置。
+En este documento se describen los requisitos mínimos y las configuraciones recomendadas necesarias para configurar un entorno de desarrollo de .NET para este repositorio.
 
-## 概览
+## Visión general
 
-- 目标 .NET SDK：.NET 10（SDK 10.x）
-- 必要全局工具：
-  - 用于动态执行 C# 脚本：`dotnet-script`
-  - 用于程序集合并/打包：`dotnet-ilrepack`
+- SDK de .NET de destino：.NET 10(SDK 10.x)
+- Herramientas globales necesarias：
+  - Se usa para ejecutar dinámicamente scripts de C#：'dotnet-script'
+  - Se utiliza para colecciones de programas y/o empaquetado：'dotnet-ilrepack'
 
-## 系统要求
+## Requisitos del sistema:
 
-- 支持的操作系统：Linux / macOS / Windows（请使用发行版包管理或官方安装脚本安装 .NET SDK）
-- 推荐磁盘空间与内存：至少 2 GB 可用磁盘和 4 GB 内存
+- Sistemas operativos compatibles：Linux / macOS / Windows (instale el SDK de .NET mediante la administración de paquetes de distribución o el script de instalación oficial)
+- Se recomienda espacio en disco y memoria：Al menos 2 GB de disco libre y 4 GB de memoria
 
-## 安装 .NET SDK 10
+## Instalación del SDK de .NET 10
 
-使用官方安装方式或包管理器安装 .NET 10 SDK，示例：
+Instalación del SDK de .NET 10 mediante el método de instalación oficial o el administrador de paquetes, ejemplo：
 
 ```bash
-# Linux (使用 Microsoft 脚本)
+# Linux (usando scripts de Microsoft)
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 chmod +x dotnet-install.sh
-./dotnet-install.sh --channel 10.0
+./dotnet-install.sh --canal 10.0
 ```
 
 ```bash
-# macOS (Homebrew 示例)
-brew install --cask dotnet-sdk    # 然后通过 brew info 查看可用版本或使用 dotnet-install 脚本
+# macOS (ejemplo de Homebrew)
+brew install --cask dotnet-sdk # A continuación, compruebe las versiones disponibles a través de brew info o use el script dotnet-install
 ```
 
 ```bash
 # Windows (PowerShell)
 iwr https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
-.\dotnet-install.ps1 -Channel 10.0
+.\dotnet-install.ps1 -Canal 10.0
 ```
 
-安装后将 SDK 的路径加入 PATH，或在终端使用完整路径运行。验证安装：
+Después de la instalación, agregue la ruta del SDK a la ruta de acceso o ejecútelo con la ruta de acceso completa en el terminal.Verifique la instalación：
 
 ```bash
 dotnet --info
 ```
 
-输出应包含 SDK 版本以 "10." 开头，例如 10.0.x。
+La salida debe contener la versión del SDK que comienza con "10." , por ejemplo, 10.0.x.
 
-## 全局工具（必须）
+## Herramientas globales (obligatorio)
 
-- 动态执行 C# 脚本（REPL/脚本化构建/小工具）
+- Ejecutar dinámicamente scripts de C# (REPL/compilaciones con scripts/widgets)
 
 ```bash
 dotnet tool install -g dotnet-script
 ```
 
-- 程序集合并 / 打包（用于生成单一程序集或合并第三方依赖）
+- Colecciones de programas y/paquetes (para generar un único ensamblado o combinar dependencias de terceros)
 
 ```bash
 dotnet tool install -g dotnet-ilrepack
 ```
 
-安装完成后，确认工具可用：
+Una vez completada la instalación, confirme que la herramienta está disponible：
 
 ```bash
 dotnet-script --version
