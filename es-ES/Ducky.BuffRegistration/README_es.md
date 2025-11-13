@@ -1,37 +1,37 @@
-# Ducky.BuffRegistration 示例 Mod
+# Mod de muestra Ducky.BuffRegistration
 
-简要说明
+Breve descripción
 
-本示例展示如何使用 Ducky.Sdk 注册自定义 Buff（状态效果），包括本地化键与资产布局。入口与实现见 [`Ducky.BuffRegistration/ModBehaviour.cs`](Ducky.BuffRegistration/ModBehaviour.cs:1)。
+En este ejemplo se muestra cómo usar Ducky.Sdk para registrar una mejora personalizada, incluidas las claves localizadas y los diseños de recursos.Entrada e implementación véase ['Ducky.BuffRegistration/ModBehaviour.cs'](Ducky.BuffRegistration/ModBehaviour.cs:1)。
 
-开始之前，请确保前置环境要求已准备: [环境准备](../docs/Prequirement.md)
+Antes de comenzar, asegúrese de que los requisitos del entorno de preproducción estén preparados: [Preparación del entorno](../docs/Prequirement.md)
 
-1. 项目简介
+1. Introducción al proyecto
 
-本目录（[`Ducky.BuffRegistration/`](Ducky.BuffRegistration/README.md:1)）演示单工程 Mod 中通过 Contract.Buffs 注册 Buff 的模式。本项目同时包含本地化键，详见 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。
+Este directorio (['Ducky.BuffRegistration/'](Ducky.BuffRegistration/README.md:1Demuestra el patrón de registro de Buffs a través de Contract.Buffs en un mod de un solo proyecto.Este proyecto también contiene claves de localización, consulte ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。
 
-2. 初始化项目
+2. Inicializar el proyecto
 
-- 克隆仓库并打开 `Ducky.BuffRegistration/`。
-- 建议在 `.csproj` 中至少包含：
+- Clone el repositorio y abra 'Ducky.BuffRegistration/'.
+- Se recomienda incluir al menos .csproj：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>true</ImplicitUsings>
+    <TargetFramework>estándar de red2.1</TargetFramework>
+    <Nullable>habilitar</Nullable>
+    <LangVersion>Vista previa</LangVersion>
+    <ImplicitUsings>verdadero</ImplicitUsings>
     <!-- ModName 必须项，建议与项目名一致 -->
-    <ModName>Ducky.BuffRegistration</ModName>
+    <ModName>Ducky.BuffRegistro</ModName>
   </PropertyGroup>
 </Project>
 ```
 
-3. 安装并配置 Ducky.Sdk
+3. Instalación y configuración de Ducky.Sdk
 
-推荐通过 NuGet 添加 SDK：
+Se recomienda agregar un SDK a través de NuGet：
 
 ```bash
 dotnet add package Ducky.Sdk
@@ -40,40 +40,40 @@ dotnet add package Ducky.Sdk
 ```xml
 <ItemGroup>
   <PackageReference Include="Ducky.Sdk" Version="x.y.z">
-    <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>todo</PrivateAssets>
+    <IncludeAssets>Ejecución; construir; nativo; archivos de contenido; Analizadores; buildtransitive</IncludeAssets>
   </PackageReference>
 </ItemGroup>
 ```
 
-4. 注册自定义 Buff（示例）
+4. Registrar un beneficio personalizado (ejemplo)
 
-使用 Contract.Buffs.RegisterBuff 注册 Buff，并在回调中设置显示名、描述、图标与生命时长等属性。示例：
+Use Contract.Buffs.RegisterBuff para registrar el Buff y establecer el nombre para mostrar, la descripción, el icono y la duración de la devolución de llamada.ejemplo：
 
 ```csharp
-using Ducky.Sdk;
+usando Ducky.Sdk;
 
-public class ModBehaviour : ModBehaviourBase
+ModBehaviour de clase pública : ModBehaviourBase
 {
-    private int _buffId;
+    int _buffId privado;
 
-    protected override void ModEnabled()
+    anulación protegida void ModEnabled()
     {
-        _buffId = Contract.Buffs.RegisterBuff<DoNothingBuff>(buff =>
+        _buffId = Contrato.Buffs.RegistroBuff<DoNothingBuff>(buff =>
         {
-            buff.SetDisplayName(LK.UI.DoNothingBuffName)
-                .SetDescription(LK.UI.DoNothingBuffDescription)
-                .SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
-                .SetLimitedLifeTime(true)
-                .SetTotalLifeTime(60)
-                .SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
+            aficionado. SetDisplayName(LK. UI. DoNothingBuffName)
+                . SetDescription(LK. UI. DoNothingBuffDescription)
+                . SetIcon(GameplayDataSettings.Buffs.BaseBuff.Icon)
+                . SetLimitedLifeTime(true)
+                . SetTotalLifeTime(60)
+                . SetExclusiveTag(Buff.BuffExclusiveTags.NotExclusive);
         });
 
-        // 监听场景初始化：进入基地时自动给予主角该 Buff（实现见 ModBehaviour）
+        Escucha la inicialización de la escena：Otorga automáticamente este beneficio al protagonista al ingresar a la base (consulte ModBehaviour para la implementación)
         SceneLoader.onAfterSceneInitialize += SceneLoader_onAfterSceneInitialize;
     }
 
-    protected override void ModDisabled()
+    anulación protegida void ModDisabled()
     {
         SceneLoader.onAfterSceneInitialize -= SceneLoader_onAfterSceneInitialize;
     }
@@ -85,37 +85,37 @@ public class ModBehaviour : ModBehaviourBase
             var main = LevelManager.Instance.MainCharacter;
             if (main != null)
             {
-                // 在进入基地场景时创建并添加已注册的 Buff 实例
-                main.AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
+                Crea y agrega una instancia de Buff registrada cuando ingresas a la escena base
+                principal. AddBuff(Contract.Buffs.CreateBuffInstance(_buffId));
             }
         }
     }
 }
 ```
 
-5. 本地化
+5. localización
 
-本示例将字符串键定义在 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1)。翻译文件通常位于 `assets/Locales/`（源码目录中可查看），但请注意：翻译 CSV、翻译元数据（`assets/lkeys.json`）以及校验文件（`assets/keys.hash.txt`）会在编译时由 SDK 的 MSBuild 分析器/生成器自动收集并写入到 `assets/` 目录。因此推荐的工作流是：
+En este ejemplo se define una clave de cadena en ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1)。El archivo de traducción generalmente se encuentra en 'assets/localiz/' (visible en el directorio de origen), pero tenga cuidado：Los CSV de traducción, los metadatos de traducción ("assets/lkeys.json") y los archivos de validación ("assets/keys.hash.txt") se recopilan automáticamente y se escriben en el directorio "assets/" mediante el analizador o generador de MSBuild del SDK en tiempo de compilación.Por lo tanto, el flujo de trabajo recomendado es:：
 
-- 在代码中定义或修改键（推荐）：编辑 [`Ducky.BuffRegistration/LK.cs`](Ducky.BuffRegistration/LK.cs:1) 并编译，SDK 会生成/更新对应的翻译元数据。
-- 或者在本地直接编辑 `assets/Locales/{lang}.csv` 并重新编译以让 SDK 整合变更。
-- 若使用文件型翻译（例如将长文本写入 Markdown 文件），可在 `LK.cs` 使用 `[TranslateFile("md")]` 标注；SDK 会在编译时把对应文件放入 `assets/Locales/{lang}/` 并在 CSV 中以文件名引用。
+- Definir o modificar claves en el código (recomendado)：Editar ['Ducky.BuffRegistration/LK.cs'](Ducky.BuffRegistration/LK.cs:1) y compilar, y el SDK genera o actualiza los metadatos de traducción correspondientes.
+- O edite 'assets/localmente/ directamente localmente' localmente{lang}.csv' y vuelva a compilar para permitir que el SDK integre los cambios.
+- Si utiliza la traducción basada en archivos (por ejemplo, escribir texto largo en un archivo Markdown), puede usar '[TranslateFile("md")]' en 'LK.cs'; El SDK colocará el archivo correspondiente en 'assets/locales/{lang}/' y haga referencia a él en CSV con el nombre del archivo.
 
-示例键：
+Clave de ejemplo：
 
-- `LK.UI.DoNothingBuffName`
-- `LK.UI.DoNothingBuffDescription`
+- 'LK. UI. DoNothingBuffName'
+- 'LK. UI. DoNothingBuffDescription'
 
-备注：`assets/lkeys.json` 与 `assets/keys.hash.txt` 用于运行时定位与打包校验，不建议手动修改；如需强制刷新，请清理并重新编译项目。
+comentario：'assets/lkeys.json' y 'assets/keys.hash.txt' se utilizan para el posicionamiento en tiempo de ejecución y la verificación del embalaje, y no se recomienda la modificación manual. Para forzar una actualización, limpie y vuelva a compilar el proyecto.
 
-6. 构建与打包
+6. Construir y empaquetar
 
-常用构建命令：
+Comandos de compilación comunes：
 
 ```bash
 dotnet build Ducky.BuffRegistration/
 ```
 
-6. 启用 Mod（运行游戏）
+6. Habilitar mod (ejecutar el juego)
 
-构建会自动将 mod 部署到游戏目录后，在游戏 Mod 管理界面启用该 mod，启动游戏后可进入基地场景查看主角是否获得了自定义 Buff。
+La compilación implementará automáticamente el mod en el catálogo de juegos, habilitará el mod en la interfaz de administración de mods del juego e iniciará el juego para ingresar a la escena base para ver si el protagonista ha recibido un beneficio personalizado.
