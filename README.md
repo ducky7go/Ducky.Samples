@@ -12,7 +12,7 @@
 [![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Target](https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
 [![Issues](https://img.shields.io/github/issues/ducky7go/Ducky.Samples)](https://github.com/ducky7go/Ducky.Samples/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/ducky7go/Ducky.amples)](https://github.com/ducky7go/Ducky.Samples/pulls)
+[![Pull Requests](https://img.shields.io/github/issues-pr/ducky7go/Ducky.Samples)](https://github.com/ducky7go/Ducky.Samples/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/ducky7go/Ducky.Samples)](https://github.com/ducky7go/Ducky.Samples/commits)
 
 本仓库包含多个用于演示 "Escape from Duckov" Mod 开发的示例项目，使用 [Ducky.Sdk](https://www.nuget.org/packages/Ducky.Sdk) 框架。
