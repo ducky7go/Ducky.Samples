@@ -4,16 +4,16 @@
 
 # Ducky SDK 示例项目集合
 
-[![Build](https://github.com/newbe36524/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/newbe36524/Samples/actions/workflows/build.yml)
+[![Build](https://github.com/ducky7go/Ducky.Samples/actions/workflows/build.yml/badge.svg)](https://github.com/ducky7go/Ducky.Samples/actions/workflows/build.yml)
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![NuGet](https://img.shields.io/nuget/v/Ducky.Sdk?logo=nuget&label=Ducky.Sdk)](https://www.nuget.org/packages/Ducky.Sdk)
-[![License](https://img.shields.io/github/license/newbe36524/Samples?label=License)](LICENSE)
+[![License](https://img.shields.io/github/license/ducky7go/Ducky.Samples?label=License)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#)
 [![Language](https://img.shields.io/badge/Language-C%23-239120?logo=csharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Target](https://img.shields.io/badge/Target-.NET%20Standard%202.1-green)](#)
-[![Issues](https://img.shields.io/github/issues/newbe36524/Samples)](https://github.com/newbe36524/Samples/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/newbe36524/Samples)](https://github.com/newbe36524/Samples/pulls)
-[![Last Commit](https://img.shields.io/github/last-commit/newbe36524/Samples)](https://github.com/newbe36524/Samples/commits)
+[![Issues](https://img.shields.io/github/issues/ducky7go/Ducky.Samples)](https://github.com/ducky7go/Ducky.Samples/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/ducky7go/Ducky.amples)](https://github.com/ducky7go/Ducky.Samples/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/ducky7go/Ducky.Samples)](https://github.com/ducky7go/Ducky.Samples/commits)
 
 本仓库包含多个用于演示 "Escape from Duckov" Mod 开发的示例项目，使用 [Ducky.Sdk](https://www.nuget.org/packages/Ducky.Sdk) 框架。
 
