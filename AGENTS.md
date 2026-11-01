@@ -131,7 +131,5 @@ SceneLoader.onAfterSceneInitialize += SceneLoader_onAfterSceneInitialize;
 - Localization keys in `Ducky.Localization/LK.cs` still use the `ducky.singleproject.ui.*` prefix (copied from an earlier sample).
 
 ## Notes
-- Solution uses `.slnx` format (new XML-based solution file)
 - All projects output to `bin/Debug/netstandard2.1/`
 - SDK includes analyzers that validate project structure and generate localization artifacts
-- The SDK build system handles mod packaging and deployment automatically when `Local.props` is configured
