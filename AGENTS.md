@@ -1,9 +1,9 @@
 # Ducky SDK Sample Projects
 
 ## Project Overview
-This is a sample repository demonstrating mod development for "Escape from Duckov" using the Ducky.Sdk framework（建议使用最新稳定版或通过集中管理的版本属性，不建议在文档中硬编码具体小版本号）。Contains three core example patterns (single-project mods, multi-layer mods, Harmony-based runtime patching) plus focused samples: `Ducky.BuffRegistration` (custom buff via `Contract.Buffs.RegisterBuff`, scene events), `Ducky.InstantKill` (game event handling), `Ducky.Localization` (LK/L localization with file-based translations) and `Ducky.PackageFromNuget` (a mod that also references a third-party NuGet package, YamlDotNet). All 7 mod projects plus the `Ducky.EntranceMod.Common` library are listed in `Docky.Sdk.Sample.slnx` (note the `Docky` spelling); each mod folder has its own `README.md` (Chinese).
+This is a sample repository demonstrating mod development for "Escape from Duckov" using the Ducky.Sdk framework（建议使用最新稳定版或通过集中管理的版本属性，不建议在文档中硬编码具体小版本号）. It contains three core example patterns (single-project mods, multi-layer mods, Harmony-based runtime patching) plus focused samples: `Ducky.BuffRegistration` (custom buff via `Contract.Buffs.RegisterBuff`, scene events), `Ducky.InstantKill` (game event handling), `Ducky.Localization` (LK/L localization with file-based translations) and `Ducky.PackageFromNuget` (a mod that also references a third-party NuGet package, YamlDotNet). All 7 mod projects plus the `Ducky.EntranceMod.Common` library are listed in `Docky.Sdk.Sample.slnx` (note the `Docky` spelling).
 
-The SDK itself lives in the sibling repo `Ducky.Sdk`; this repo only consumes the published `Ducky.Sdk` NuGet package (each csproj has `<PackageReference Include="Ducky.Sdk" Version="...">` with `PrivateAssets=all`; the version is currently `0.1.6` in every csproj and is bumped by Renovate PRs such as "chore(deps): update dependency ducky.sdk to 0.1.6 (#9)"; `renovate.json` extends `github>ducky7go/renovate-config`). Keep the version identical across all csproj files when bumping.
+The SDK itself lives in the sibling repo `Ducky.Sdk`; this repo only consumes the published `Ducky.Sdk` NuGet package. Each csproj has `<PackageReference Include="Ducky.Sdk" Version="...">` with `PrivateAssets=all`. The version is currently `0.1.6` in all 8 csproj files. Renovate PRs bump it (for example "chore(deps): update dependency ducky.sdk to 0.1.6 (#9)"); `renovate.json` extends `github>ducky7go/renovate-config`. Keep the version identical across all csproj files when bumping.
 
 ## Architecture Patterns
 
@@ -11,7 +11,8 @@ The SDK itself lives in the sibling repo `Ducky.Sdk`; this repo only consumes th
 Simplest pattern - all code and assets in one project.
 - Entry point: `ModBehaviour : ModBehaviourBase`
 - Set `<ModName>` in `.csproj` to define mod identity
-- Assets in `assets/` folder (info.ini, localization CSVs, description.md)
+- Assets in `assets/` folder (`info.ini`, `preview.png`). Localization for this mod is in `Ducky.Localization`.
+- It is the only sample mod with its own `README.md` (Chinese).
 
 ### 2. Multi-Layer Mod (`Ducky.EntranceMod/` + `Ducky.EntranceMod.Common/`)
 Separates shared code into reusable library layer.
@@ -23,9 +24,9 @@ Separates shared code into reusable library layer.
 ### 3. Harmony Patching Mod (`Ducky.TryHarmony/`)
 Runtime game code modification using HarmonyLib.
 - Enable with `<IncludeHarmony>true</IncludeHarmony>` in `.csproj`
-- Initialize Harmony in `ModEnabled()`: `new HarmonyLib.Harmony(Helper.GetModId()).PatchAll()` (`Helper` is in `Ducky.Sdk.Utils`); patches live in classes such as `SaveFilePatch.cs` (`[HarmonyPatch(typeof(SavesSystem), "SaveFile")]`)
+- Initialize Harmony in `ModEnabled()`: `new HarmonyLib.Harmony(HarmonyId).PatchAll()`, where `HarmonyId` is `Helper.GetModId()` (`Helper` is in `Ducky.Sdk.Utils`). Patches live in classes such as `SaveFilePatch.cs` (`[HarmonyPatch(typeof(SavesSystem), "SaveFile")]`).
 - Always unpatch in `ModDisabled()`: `_harmony.UnpatchAll(HarmonyId)`
-- Game APIs (`Contract.*`, `GameplayDataSettings.*`, `LevelManager`, `SceneLoader`) and custom buff registration are demonstrated in `Ducky.BuffRegistration`, not in `Ducky.TryHarmony`
+- Game APIs (`Contract.*`, `GameplayDataSettings.*`, `SceneLoader`) and custom buff registration are demonstrated in `Ducky.BuffRegistration`, not in `Ducky.TryHarmony`
 
 ## Critical Conventions
 
@@ -44,7 +45,7 @@ All projects require:
 - Static class with nested categories (UI, Messages, etc.)
 - String constants map to lowercase dot-separated keys: `"ducky.singleproject.ui.title"`
 - Use `[LanguageSupport("zh", "en", "zh-hant")]` attribute to declare supported languages
-- Use `[TranslateFile("md")]` attribute for file-based translations (creates `Locales/{lang}/filename.md`)
+- Use `[TranslateFile("md")]` attribute for file-based translations
 
 ### Translation Files
 - `assets/Locales/{lang}.csv` - CSV files with Key,Value columns
@@ -89,9 +90,14 @@ dotnet build Ducky.SingleProject/       # Build single project
 Each mod needs in `assets/` folder:
 - `info.ini` - name, displayName, description
 - `description.md` - Detailed mod description (optional)
-- `lkeys.json` - Localization manifest (auto-generated by SDK)
-- `keys.hash.txt` - Hash for verification (auto-generated)
+- `lkeys.json` - Localization manifest (auto-generated by SDK; committed for `Ducky.BuffRegistration`, `Ducky.EntranceMod` and `Ducky.Localization`)
+- `keys.hash.txt` - Hash for verification (auto-generated; same mods)
 - `Locales/{lang}.csv` - Translation files for each supported language
+
+### Prerequisites (from `README.md` and `docs/Prequirement.md`)
+- .NET SDK 10.x. The docs list global tools `dotnet-script` and `dotnet-ilrepack`, which the older pinned Ducky.Sdk `0.1.6` build pipeline needs. The current Ducky.Sdk bundles its runner and needs neither.
+- The SDK deploys the mod into the game folder on build. Provide the game location through a git-ignored `Local.props` at the repo root (each csproj imports `..\Local.props` if it exists) or `<SteamFolder>` / `<DuckovFolder>` properties.
+- There are no test projects and no `.github/` directory in this checkout.
 
 ## Common Patterns
 
@@ -119,17 +125,13 @@ SceneLoader.onAfterSceneInitialize += SceneLoader_onAfterSceneInitialize;
 // Always unsubscribe in ModDisabled()
 ```
 
-### Prerequisites (from `README.md` and `docs/Prequirement.md`)
-- .NET SDK 10.x; global tools `dotnet-script` and `dotnet-ilrepack` (used by the Ducky.Sdk build pipeline). There is no `global.json` in this repo.
-- The SDK deploys the mod into the game folder on build. Provide the game location through a git-ignored `Local.props` at the repo root (each csproj imports `..\Local.props` if it exists) or `<SteamFolder>` / `<DuckovFolder>` properties.
-- There are no test projects and no `.github/` directory in this checkout.
-
 ## Repository conventions
-- Docs are Chinese-first: `README.md` is the source, translations use the same-directory `README_<lang>.md` pattern (`crowdin.yml` maps `README.md` to `%file_name%_%two_letters_code%.md`). `append_lang_header.sh` inserts the `<!-- LANG_HEADER_START -->` language-switch block into docs and skips every `AGENTS*` file.
-- `.editorconfig`: UTF-8, LF line endings, trim trailing whitespace, final newline.
-- `lkeys.json` and `keys.hash.txt` are committed for `Ducky.BuffRegistration`, `Ducky.EntranceMod` and `Ducky.Localization`; they are regenerated by the SDK build, so rebuild instead of hand-editing.
+- Docs are Chinese-first. `README.md` is the source; translations follow the same-directory `README_<lang>.md` pattern, but this checkout has no translated README yet. `crowdin.yml` maps `README.md` to `%file_name%_%two_letters_code%.md` in the same folder.
+- `append_lang_header.sh` inserts the `<!-- LANG_HEADER_START -->` language-switch block into docs and skips every `AGENTS*` file.
+- `.editorconfig`: UTF-8, LF line endings, trim trailing whitespace, final newline, 4-space indent.
+- `lkeys.json` and `keys.hash.txt` are regenerated by the SDK build, so rebuild instead of hand-editing.
 - Localization keys in `Ducky.Localization/LK.cs` still use the `ducky.singleproject.ui.*` prefix (copied from an earlier sample).
 
 ## Notes
-- All projects output to `bin/Debug/netstandard2.1/`
-- SDK includes analyzers that validate project structure and generate localization artifacts
+- All projects output to `bin/Debug/netstandard2.1/` (default output).
+- SDK includes analyzers that validate project structure and generate localization artifacts.
